@@ -1,16 +1,9 @@
 import React from 'react'
 import { StyleSheet, Text, View, Button, Alert } from 'react-native';
-import StoryConcept from './StoryConcept'
+import {styles} from '../styles'
 
 export default class Home extends React.Component {
-  // static navigationOptions = {
-  //   title: 'Home'
-  // }
 
-  // onPressOnePlayer () {
-  //     Alert.alert('You tapped the one-player button!')
-  //  this.props.navigation.navigate('StoryConcept')
-  // }
   onPressMultiPlayer () {
     Alert.alert('You tapped the multi-player button!')
   }
@@ -20,11 +13,11 @@ export default class Home extends React.Component {
 
   render() {
     return (
-      <View>
-        <View>
-      <Text>  Game Title</Text> 
+      <View style = {styles.container}>
+        <View style = {styles.titleContainer}>
+      <Text style = {styles.largeText}>  Game Title</Text> 
       </View>
-      <View >
+      <View>
       <Button title="Start one-player game" onPress={ () => this.props.navigation.navigate('StoryConcept')}/>
       <Button title="Start multi-player game" onPress={this.onPressMultiPlayer}/>
       <Button title="Login or sign up" onPress={this.onPressLoginSignup}/>
@@ -33,16 +26,16 @@ export default class Home extends React.Component {
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-    titleText: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    alignItems: 'center'
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+//     titleText: {
+//     fontSize: 30,
+//     fontWeight: 'bold',
+//     alignItems: 'center'
+//   },
+// });
