@@ -7,10 +7,10 @@ export default class Home extends React.Component {
   //   title: 'Home'
   // }
 
-  onPressOnePlayer () {
-      Alert.alert('You tapped the one-player button!')
+  // onPressOnePlayer () {
+  //     Alert.alert('You tapped the one-player button!')
   //  this.props.navigation.navigate('StoryConcept')
-  }
+  // }
   onPressMultiPlayer () {
     Alert.alert('You tapped the multi-player button!')
   }
@@ -21,11 +21,11 @@ export default class Home extends React.Component {
   render() {
     return (
       <View>
-        <View style = {styles.title}>
-      <Text style = {styles.titleText}>  Game Title</Text> 
+        <View>
+      <Text>  Game Title</Text> 
       </View>
-      <View style = {styles.container}>
-      <Button title="Start one-player game" onPress={this.onPressOnePlayer}/>
+      <View >
+      <Button title="Start one-player game" onPress={ () => this.props.navigation.navigate('StoryConcept')}/>
       <Button title="Start multi-player game" onPress={this.onPressMultiPlayer}/>
       <Button title="Login or sign up" onPress={this.onPressLoginSignup}/>
       </View>
@@ -33,32 +33,16 @@ export default class Home extends React.Component {
     );
   }
 }
-
 const styles = StyleSheet.create({
-  title: {
-    flex: 2,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  titleText: {
+    titleText: {
     fontSize: 30,
     fontWeight: 'bold',
     alignItems: 'center'
   },
 });
-
-// export default StackNavigator({
-//   Home: {
-//     screen: Home
-//   },
-  // StoryConcept: {
-  //   screen: StoryConcept
-  // }
-// })

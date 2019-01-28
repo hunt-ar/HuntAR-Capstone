@@ -1,22 +1,15 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Home from './Screens/Home'
+import StoryConcept from './Screens/StoryConcept'
+import {createStackNavigator, createAppContainer} from 'react-navigation'
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style ={styles.container}>
-        <Home />
-      </View>
-    );
-  }
-}
+//when I load the app with this, whatever is first shows up
+const RootStack = createStackNavigator({
+  Home: Home,
+  StoryConcept: StoryConcept,
+})
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const App = createAppContainer(RootStack)
+export default App
+
