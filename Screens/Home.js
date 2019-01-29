@@ -18,7 +18,7 @@ export default class Home extends React.Component {
       <Text style = {styles.largeText}>  Game Title</Text> 
       </View>
       <View>
-      <Button title="Start one-player game" onPress={ () => this.props.navigation.navigate('StoryConcept')}/>
+      <Button title="Start one-player game" onPress={this.props.setCoords} />
       <Button title="Start multi-player game" onPress={this.onPressMultiPlayer}/>
       <Button title="Login or sign up" onPress={this.onPressLoginSignup}/>
       </View>
