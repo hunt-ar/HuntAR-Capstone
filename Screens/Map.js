@@ -7,17 +7,32 @@ export default class App extends React.Component {
     super();
     this.state = {
       region: {
-        latitude: 35.33485,
-        longitude: -120.74324,
-        latitudeDelta: 0.000922,
-        longitudeDelta: 0.000421
+        latitude: null,
+        longitude: null,
+        latitudeDelta: 0,
+        longitudeDelta: 0,
+        error: null
       }
     };
     this.onRegionChange = this.onRegionChange.bind(this);
     this.getInitialState = this.getInitialState.bind(this);
   }
 
-  componentDidMount() {}
+  async componentDidMount() {
+      await navigator.geolocation.getCurrentPosition((position) => {
+        this.setState({
+          region: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitudeDelta: 0.000922,
+            longitudeDelta: 0.000421,
+            error: null,
+          }
+        });
+      },
+        (error) => this.setState({ error: error }),
+        { enableHighAccuracy: true, timeout: 1000, maximumAge: 0 })
+  }
 
   getInitialState() {
     return {
@@ -35,8 +50,11 @@ export default class App extends React.Component {
   }
 
   render() {
+    console.log('latitude', this.state.region.latitude)
+    console.log('longitude', this.state.region.longitude)
     return (
       <View style={styles.container}>
+        {this.state.region.latitude ? (
         <MapView
           style={styles.map}
           region={this.state.region}
@@ -51,6 +69,11 @@ export default class App extends React.Component {
             />
           ))} */}
         </MapView>
+        ) : (
+          <Text>
+            Loading...
+          </Text>
+        )}
       </View>
     );
   }

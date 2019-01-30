@@ -1,6 +1,4 @@
-import Home from './Screens/Home';
-import StoryConcept from './Screens/StoryConcept';
-import Map from './Screens/Map';
+import {Home, StoryConcept, Map} from './Screens';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 //when I load the app with this, whatever is first shows up
