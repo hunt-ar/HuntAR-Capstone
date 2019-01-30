@@ -18,7 +18,21 @@ export default class Map extends React.Component {
       markers: [
         {
           latitude: 35.334835915305,
-          longitude: -120.74445785104
+          longitude: -120.74475785104,
+          id: 1,
+          title: 'Clue 1'
+        },
+        {
+          latitude: 35.334235915305,
+          longitude: -120.74445785104,
+          id: 2,
+          title: 'Clue 2'
+        },
+        {
+          latitude: 35.334535915305,
+          longitude: -120.74445785104,
+          id: 3,
+          title: 'Clue 3'
         }
       ]
     };
@@ -44,8 +58,8 @@ export default class Map extends React.Component {
           region: {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
-            latitudeDelta: 0.00001,
-            longitudeDelta: 0.00001,
+            latitudeDelta: 0.001,
+            longitudeDelta: 0.001,
             error: null
           }
         });
@@ -67,7 +81,7 @@ export default class Map extends React.Component {
           showsUserLocation
         >
           {this.state.markers.map(marker => (
-            <Marker key={1} coordinate={marker} />
+            <Marker title={marker.title} key={marker.id} coordinate={marker} />
           ))}
         </MapView>
         <View flexDirection="row" padding={15} alignItems="center">
