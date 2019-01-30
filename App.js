@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import AppNavigator from './AppNavigator'
 import geolib from 'geolib'
 import { Home, StoryConcept, Win } from './Client/Screens';
+import { Provider } from 'react-redux'
+// import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/firestore' // <- needed if using firestore
+// import xyw from 'react-redux-firebase'
+import { store, rrfProps } from './Client/store'
 
 const initialState = {
   count: 0,
@@ -29,9 +35,16 @@ class App extends React.Component {
     super();
     this.state = initialState;
   }
+
+  // Setup react-redux so that connect HOC can be used
   render() {
+    // console.log('RRFP in app', xyw)
     return (
-      <AppNavigator />
+      <Provider store={store}>
+        {/* <ReactReduxFirebaseProvider {...rrfProps}> */}
+          <AppNavigator />
+        {/* </ReactReduxFirebaseProvider> */}
+      </Provider>
     )
   }
   handleNewGamePress = () => {

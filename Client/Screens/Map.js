@@ -1,13 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Modal } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import { Inventory } from './index';
 import MapStyle from '../../assets/mapStyle';
 
-export default class App extends React.Component {
+export default class Map extends React.Component {
   constructor() {
     super();
     this.state = {
+      BackPackVisible: false,
       region: {
         latitude: 0,
         longitude: 0,
@@ -16,10 +18,37 @@ export default class App extends React.Component {
       markers: [
         {
           latitude: 35.334835915305,
-          longitude: -120.74445785104
+          longitude: -120.74475785104,
+          id: 1,
+          title: 'Clue 1'
+        },
+        {
+          latitude: 35.334235915305,
+          longitude: -120.74445785104,
+          id: 2,
+          title: 'Clue 2'
+        },
+        {
+          latitude: 35.334535915305,
+          longitude: -120.74445785104,
+          id: 3,
+          title: 'Clue 3'
         }
       ]
     };
+    this.onBackPackPress = this.onBackPackPress.bind(this);
+    this.onBackPackClose = this.onBackPackClose.bind(this);
+  }
+
+  onBackPackPress() {
+    this.setState({
+      BackPackVisible: true
+    });
+  }
+  onBackPackClose() {
+    this.setState({
+      BackPackVisible: false
+    });
   }
 
   componentDidMount() {
@@ -29,8 +58,8 @@ export default class App extends React.Component {
           region: {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
-            latitudeDelta: 0.00001,
-            longitudeDelta: 0.00001,
+            latitudeDelta: 0.001,
+            longitudeDelta: 0.001,
             error: null
           }
         });
@@ -52,7 +81,7 @@ export default class App extends React.Component {
           showsUserLocation
         >
           {this.state.markers.map(marker => (
-            <Marker key={1} coordinate={marker} />
+            <Marker title={marker.title} key={marker.id} coordinate={marker} />
           ))}
         </MapView>
         <View flexDirection="row" padding={15} alignItems="center">
@@ -71,16 +100,19 @@ export default class App extends React.Component {
           <View style={styles.solveButtonContainer}>
             <AwesomeButton
               style={styles.solveButton}
-              onPress={() => this.props.navigation.navigate('Home')}
+              onPress={this.onBackPackPress}
               backgroundColor="#459b57"
               backgroundActive="#595757"
               springRelease={true}
               width={150}
             >
-              Solve
+              BackPack
             </AwesomeButton>
           </View>
         </View>
+        <Modal visible={this.state.BackPackVisible} animationType="slide">
+          <Inventory onBackPackClose={this.onBackPackClose} />
+        </Modal>
       </View>
     ) : (
       <View style={styles.container}>
