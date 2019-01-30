@@ -6,7 +6,6 @@ import { Provider } from 'react-redux'
 // import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore' // <- needed if using firestore
-// import xyw from 'react-redux-firebase'
 import { store, rrfProps } from './Client/store'
 
 const initialState = {
@@ -38,12 +37,9 @@ class App extends React.Component {
 
   // Setup react-redux so that connect HOC can be used
   render() {
-    // console.log('RRFP in app', xyw)
     return (
       <Provider store={store}>
-        {/* <ReactReduxFirebaseProvider {...rrfProps}> */}
           <AppNavigator />
-        {/* </ReactReduxFirebaseProvider> */}
       </Provider>
     )
   }
