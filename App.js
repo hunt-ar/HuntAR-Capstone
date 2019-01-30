@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AppNavigator from './AppNavigator'
 import geolib from 'geolib'
-import { Home, StoryConcept, Win } from './Screens';
+import { Home, StoryConcept, Win } from './Client/Screens';
 
 const initialState = {
   count: 0,
