@@ -17,10 +17,10 @@ const Win = (props) => {
           />
           <View style={styles.greenButtonContainer}>
             <Button
+              title="New Game"
               color="black"
               style={styles.startButton}
-              title="New Game"
-              onPress={props.onPress} />
+              onPress={() => { props.navigation.navigate('Home') }} />
           </View>
         </View>
       </View>

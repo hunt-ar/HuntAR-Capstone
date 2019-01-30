@@ -89,5 +89,31 @@ export const styles = StyleSheet.create({
   startButton: {
     color: 'black'
   },
+  mapContainer: {
+    ...StyleSheet.absoluteFillObject,
+    height: '100%',
+    width: '100%',
+    justifyContent: 'flex-end'
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject
+  },
+  container: {
+    flex: 1,
+    fontSize: 200
+  },
+  quitButton: {
+    bottom: 0,
+    left: 0
+  },
+  solveButton: {
+    bottom: 0,
+    right: 0
+  },
+  solveButtonContainer: {
+    right: 0
+  },
+  quitButtonContainer: {
+    left: 0
+  }
 });
-

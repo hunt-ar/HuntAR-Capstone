@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, Modal } from 'react-native';
+import { Text, View, Modal } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Inventory } from './index';
 import MapStyle from '../../assets/mapStyle';
+import { styles } from '../../assets/styles';
 
 export default class Map extends React.Component {
   constructor() {
@@ -122,32 +123,3 @@ export default class Map extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  mapContainer: {
-    ...StyleSheet.absoluteFillObject,
-    height: '100%',
-    width: '100%',
-    justifyContent: 'flex-end'
-  },
-  map: {
-    ...StyleSheet.absoluteFillObject
-  },
-  container: {
-    flex: 1,
-    fontSize: 200
-  },
-  quitButton: {
-    bottom: 0,
-    left: 0
-  },
-  solveButton: {
-    bottom: 0,
-    right: 0
-  },
-  solveButtonContainer: {
-    right: 0
-  },
-  quitButtonContainer: {
-    left: 0
-  }
-});

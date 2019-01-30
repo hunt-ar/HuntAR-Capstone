@@ -18,9 +18,10 @@ const Clue = (props) => {
           <View style={styles.greenButtonContainer}>
             <Button
               title="Continue"
-              onPress={() => { props.navigation.navigate('Map') }}
               color="black"
-              style={styles.startButton} />
+              style={styles.startButton}
+              onPress={() => { props.navigation.navigate('Map') 
+              }} />
           </View>
         </View>
       </View>
