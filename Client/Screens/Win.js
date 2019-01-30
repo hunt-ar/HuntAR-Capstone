@@ -11,7 +11,7 @@ const Win = (props) => {
 
         <View nativeID="bodyContainer" style={styles.bodyContainer}>
           <Image
-            source={require('../assets/win.png')}
+            source={require('../../assets/win.png')}
             style={styles.winImage}
           />
           <View style={styles.startButtonContainer}>
