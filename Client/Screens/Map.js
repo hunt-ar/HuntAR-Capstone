@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
-import MapStyle from '../assets/mapStyle';
+import MapStyle from '../../assets/mapStyle';
 
 export default class App extends React.Component {
   constructor() {
