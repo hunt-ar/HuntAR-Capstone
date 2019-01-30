@@ -1,89 +1,121 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import MapView from 'react-native-maps';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import AwesomeButton from 'react-native-really-awesome-button';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapStyle from '../assets/mapStyle';
 
 export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
       region: {
-        latitude: null,
-        longitude: null,
-        latitudeDelta: 0,
-        longitudeDelta: 0,
+        latitude: 0,
+        longitude: 0,
         error: null
-      }
+      },
+      markers: [
+        {
+          latitude: 35.334835915305,
+          longitude: -120.74445785104
+        }
+      ]
     };
-    this.onRegionChange = this.onRegionChange.bind(this);
-    this.getInitialState = this.getInitialState.bind(this);
   }
 
-  async componentDidMount() {
-      await navigator.geolocation.getCurrentPosition((position) => {
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      position => {
         this.setState({
           region: {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
-            latitudeDelta: 0.000922,
-            longitudeDelta: 0.000421,
-            error: null,
+            latitudeDelta: 0.00001,
+            longitudeDelta: 0.00001,
+            error: null
           }
         });
       },
-        (error) => this.setState({ error: error }),
-        { enableHighAccuracy: true, timeout: 1000, maximumAge: 0 })
-  }
-
-  getInitialState() {
-    return {
-      region: {
-        latitude: 37.78825,
-        longitude: -122.4324,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421
-      }
-    };
-  }
-
-  onRegionChange(region) {
-    this.setState({ region });
+      error => this.setState({ error: error.message }),
+      { enableHighAccuracy: true, timeout: 2000, maximumAge: 2000 }
+    );
   }
 
   render() {
-    console.log('latitude', this.state.region.latitude)
-    console.log('longitude', this.state.region.longitude)
-    return (
-      <View style={styles.container}>
-        {this.state.region.latitude ? (
+    return this.state.region.latitude ? (
+      <View style={styles.mapContainer}>
         <MapView
           style={styles.map}
+          provider={PROVIDER_GOOGLE}
+          customMapStyle={MapStyle}
           region={this.state.region}
           onRegionChange={this.onRegionChange}
           showsUserLocation
         >
-          {/* {this.state.markers.map(marker => (
-            <Marker
-              coordinate={marker.latlng}
-              // title={marker.title}
-              // description={marker.description}
-            />
-          ))} */}
+          {this.state.markers.map(marker => (
+            <Marker key={1} coordinate={marker} />
+          ))}
         </MapView>
-        ) : (
-          <Text>
-            Loading...
-          </Text>
-        )}
+        <View flexDirection="row" padding={15} alignItems="center">
+          <View style={styles.quitButtonContainer}>
+            <AwesomeButton
+              style={styles.quitButton}
+              onPress={() => this.props.navigation.navigate('Home')}
+              backgroundColor="#c64747"
+              backgroundActive="#595757"
+              springRelease={true}
+              width={150}
+            >
+              Quit
+            </AwesomeButton>
+          </View>
+          <View style={styles.solveButtonContainer}>
+            <AwesomeButton
+              style={styles.solveButton}
+              onPress={() => this.props.navigation.navigate('Home')}
+              backgroundColor="#459b57"
+              backgroundActive="#595757"
+              springRelease={true}
+              width={150}
+            >
+              Solve
+            </AwesomeButton>
+          </View>
+        </View>
+      </View>
+    ) : (
+      <View style={styles.container}>
+        <Text>Loading...</Text>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1
+  mapContainer: {
+    ...StyleSheet.absoluteFillObject,
+    height: '100%',
+    width: '100%',
+    justifyContent: 'flex-end'
   },
   map: {
     ...StyleSheet.absoluteFillObject
+  },
+  container: {
+    flex: 1,
+    fontSize: 200
+  },
+  quitButton: {
+    bottom: 0,
+    left: 0
+  },
+  solveButton: {
+    bottom: 0,
+    right: 0
+  },
+  solveButtonContainer: {
+    right: 0
+  },
+  quitButtonContainer: {
+    left: 0
   }
 });
