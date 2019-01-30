@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AppNavigator from './AppNavigator'
+import AppNavigator from '../AppNavigator'
 import geolib from 'geolib'
 import { Home, StoryConcept, Win } from './Screens';
 
