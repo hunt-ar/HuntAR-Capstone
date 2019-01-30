@@ -37,17 +37,6 @@ class App extends React.Component {
   handleNewGamePress = () => {
     this.setState(initialState)
   }
-  handleStartPress = async () => {
-    await navigator.geolocation.getCurrentPosition((position) => {
-      this.setState({
-        currentLat: position.coords.latitude,
-        currentLon: position.coords.longitude,
-        error: null,
-      });
-    },
-      (error) => this.setState({ error: error }),
-      { enableHighAccuracy: true, timeout: 1000, maximumAge: 0 })
-  }
 }
 
 export default App
