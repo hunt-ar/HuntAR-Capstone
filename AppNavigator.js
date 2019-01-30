@@ -1,4 +1,4 @@
-import {Home, StoryConcept, Map, Clue, Win} from './Screens';
+import {Home, StoryConcept, Map, Clue, Win} from './Client/Screens';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 //when I load the app with this, whatever is first shows up

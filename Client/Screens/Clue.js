@@ -11,7 +11,7 @@ const Clue = (props) => {
 
         <View nativeID="bodyContainer" style={styles.bodyContainer}>
           <Image
-            source={require('../assets/1234.jpg')}
+            source={require('../../assets/1234.jpg')}
             style={styles.winImage}
           />
           <View style={styles.startButtonContainer}>
