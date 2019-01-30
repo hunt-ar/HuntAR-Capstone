@@ -5,6 +5,7 @@ import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Inventory } from './index';
 import MapStyle from '../../assets/mapStyle';
 import { styles } from '../../assets/styles';
+import { MaterialCommunityIcons as Icon } from 'react-native-vector-icons';
 
 export default class Map extends React.Component {
   constructor() {
@@ -85,7 +86,7 @@ export default class Map extends React.Component {
             <Marker title={marker.title} key={marker.id} coordinate={marker} />
           ))}
         </MapView>
-        <View flexDirection="row" padding={15} alignItems="center">
+        <View flexDirection="row" padding={15}>
           <View style={styles.quitButtonContainer}>
             <AwesomeButton
               style={styles.quitButton}
@@ -98,17 +99,14 @@ export default class Map extends React.Component {
               Quit
             </AwesomeButton>
           </View>
-          <View style={styles.solveButtonContainer}>
-            <AwesomeButton
-              style={styles.solveButton}
+          <View style={styles.backPackContainer}>
+            <Icon.Button
+              name="briefcase"
+              style={styles.backPackButton}
               onPress={this.onBackPackPress}
-              backgroundColor="#459b57"
-              backgroundActive="#595757"
-              springRelease={true}
-              width={150}
-            >
-              BackPack
-            </AwesomeButton>
+              backgroundColor="transparent"
+              size={50}
+            />
           </View>
         </View>
         <Modal visible={this.state.BackPackVisible} animationType="slide">

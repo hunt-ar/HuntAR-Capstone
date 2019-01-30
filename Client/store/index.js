@@ -3,7 +3,7 @@ import 'firebase/auth'
 import 'firebase/firestore' // <- needed if using firestore
 import { createStore, combineReducers, compose } from 'redux'
 import { firebaseReducer } from 'react-redux-firebase'
-import { createFirestoreInstance, firestoreReducer } from 'redux-firestore' // <- needed if using firestore
+import { createFirestoreInstance, firestoreReducer, reduxFirestore } from 'redux-firestore' // <- needed if using firestore
 
 const firebaseConfig = {
   apiKey: "AIzaSyArz84t73XMnkCfl74vMapBFDGftHBHudw",
@@ -22,9 +22,13 @@ const rrfConfig = {
 
 // Initialize firebase instance
 firebase.initializeApp(firebaseConfig)
+// Initialize Cloud Firestore through Firebase
+firebase.firestore()
 
-// Initialize other services on firebase instance
-firebase.firestore() // <- needed if using firestore
+// Add reduxFirestore store enhancer to store creator
+const createStoreWithFirebase = compose(
+  reduxFirestore(firebase, rrfConfig),
+)(createStore)
 
 // Add firebase to reducers
 const rootReducer = combineReducers({
@@ -33,7 +37,7 @@ const rootReducer = combineReducers({
 })
 
 const initialState = {}
-export const store = createStore(rootReducer, initialState)
+export const store = createStoreWithFirebase(rootReducer, initialState)
 
 export const rrfProps = {
     firebase,
