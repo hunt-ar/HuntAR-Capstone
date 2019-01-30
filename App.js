@@ -3,10 +3,10 @@ import AppNavigator from './AppNavigator'
 import geolib from 'geolib'
 import { Home, StoryConcept, Win } from './Client/Screens';
 import { Provider } from 'react-redux'
-import firebase from 'firebase/app'
+// import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore' // <- needed if using firestore
-import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
+import xyw from 'react-redux-firebase'
 import { store, rrfProps } from './Client/store'
 
 const initialState = {
@@ -38,10 +38,11 @@ class App extends React.Component {
 
   // Setup react-redux so that connect HOC can be used
   render() {
+    console.log('RRFP in app', xyw)
     return (
       <Provider store={store}>
         <ReactReduxFirebaseProvider {...rrfProps}>
-          <AppNavigator />
+          {/* <AppNavigator /> */}
         </ReactReduxFirebaseProvider>
       </Provider>
     )

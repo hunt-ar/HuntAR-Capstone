@@ -5,7 +5,14 @@ import { createStore, combineReducers, compose } from 'redux'
 import { firebaseReducer } from 'react-redux-firebase'
 import { createFirestoreInstance, firestoreReducer } from 'redux-firestore' // <- needed if using firestore
 
-const firebaseConfig = {}
+const firebaseConfig = {
+  apiKey: "AIzaSyArz84t73XMnkCfl74vMapBFDGftHBHudw",
+  authDomain: "defuse-ar.firebaseapp.com",
+  databaseURL: "https://defuse-ar.firebaseio.com",
+  projectId: "defuse-ar",
+  storageBucket: "defuse-ar.appspot.com",
+  messagingSenderId: "1083640267235"
+}
 
 // react-redux-firebase config
 const rrfConfig = {
@@ -25,18 +32,13 @@ const rootReducer = combineReducers({
   firestore: firestoreReducer // <- needed if using firestore
 })
 
-// Create store with reducers and initial state
 const initialState = {}
-const store = createStore(rootReducer, initialState)
+export const store = createStore(rootReducer, initialState)
 
-const rrfProps = {
+export const rrfProps = {
     firebase,
     config: rrfConfig,
     dispatch: store.dispatch,
     createFirestoreInstance // <- needed if using firestore
   }
 
-export default {
-    store,
-    rrfProps
-}
