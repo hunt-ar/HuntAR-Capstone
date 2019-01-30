@@ -1,13 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Modal } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import { Inventory } from './index';
 import MapStyle from '../../assets/mapStyle';
 
-export default class App extends React.Component {
+export default class Map extends React.Component {
   constructor() {
     super();
     this.state = {
+      BackPackVisible: false,
       region: {
         latitude: 0,
         longitude: 0,
@@ -20,6 +22,19 @@ export default class App extends React.Component {
         }
       ]
     };
+    this.onBackPackPress = this.onBackPackPress.bind(this);
+    this.onBackPackClose = this.onBackPackClose.bind(this);
+  }
+
+  onBackPackPress() {
+    this.setState({
+      BackPackVisible: true
+    });
+  }
+  onBackPackClose() {
+    this.setState({
+      BackPackVisible: false
+    });
   }
 
   componentDidMount() {
@@ -71,16 +86,19 @@ export default class App extends React.Component {
           <View style={styles.solveButtonContainer}>
             <AwesomeButton
               style={styles.solveButton}
-              onPress={() => this.props.navigation.navigate('Home')}
+              onPress={this.onBackPackPress}
               backgroundColor="#459b57"
               backgroundActive="#595757"
               springRelease={true}
               width={150}
             >
-              Solve
+              BackPack
             </AwesomeButton>
           </View>
         </View>
+        <Modal visible={this.state.BackPackVisible} animationType="slide">
+          <Inventory onBackPackClose={this.onBackPackClose} />
+        </Modal>
       </View>
     ) : (
       <View style={styles.container}>
