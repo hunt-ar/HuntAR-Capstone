@@ -8,12 +8,15 @@
   },
   "dependencies": {
     "expo": "^32.0.0",
+    "firebase": "^5.5.5",
     "geolib": "^2.0.24",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-maps": "^0.23.0",
     "react-navigation": "^3.0.9",
+    "react-redux": "^6.0.0",
     "react-redux-firebase": "^2.2.6",
+    "redux": "^4.0.1",
     "redux-firestore": "^0.6.3"
   },
   "devDependencies": {
