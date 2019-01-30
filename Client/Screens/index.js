@@ -2,4 +2,5 @@ import Home from './Home';
 import StoryConcept from './StoryConcept';
 import Win from './Win';
 import Map from './Map';
-export { Map, Win, StoryConcept, Home };
+import Inventory from './Inventory';
+export { Map, Win, StoryConcept, Home, Inventory };
