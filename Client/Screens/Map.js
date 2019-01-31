@@ -87,7 +87,9 @@ export default class Map extends React.Component {
               title={marker.title}
               key={marker.id}
               coordinate={marker}
-              onPress={() => this.props.navigation.navigate('ARClue1')}
+              onPress={() =>
+                this.props.navigation.navigate(`ARClue${marker.id}`)
+              }
             />
           ))}
         </MapView>

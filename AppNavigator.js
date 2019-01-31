@@ -7,7 +7,9 @@ import {
   Inventory,
   Login,
   SignUp,
-  ARClue1
+  ARClue1,
+  ARClue2,
+  ARClue3
 } from './Client/Screens';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
@@ -22,7 +24,9 @@ const RootStack = createStackNavigator(
     Win: Win,
     Login: Login,
     SignUp: SignUp,
-    ARClue1: ARClue1
+    ARClue1: ARClue1,
+    ARClue2: ARClue2,
+    ARClue3: ARClue3
   },
   { headerMode: 'none' }
 );

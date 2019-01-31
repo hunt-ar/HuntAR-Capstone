@@ -11,13 +11,13 @@ import ExpoTHREE, { AR as ThreeAR, THREE } from 'expo-three';
 import { View as GraphicsView } from 'expo-graphics';
 import { addItem } from '../store/inventory';
 
-class ARClue1 extends React.Component {
+class ARClue2 extends React.Component {
   constructor() {
     super();
     this.state = {
       key: {
-        name: 'Old Key',
-        description: 'Rusty old Skeleton Key found deep in the catacombs'
+        name: 'Wooden Chest',
+        description: 'Dirty old wooden chest, looks like it requires a key'
       }
     };
     this.onButtonPress = this.onButtonPress.bind(this);
@@ -93,7 +93,7 @@ class ARClue1 extends React.Component {
     const geometry = new THREE.BoxGeometry(0.1, 0.1, 0.1);
     // Simple color material
     const material = new THREE.MeshPhongMaterial({
-      color: 0xff00ff
+      color: 0x00ffff
     });
 
     // Combine our geometry and material
@@ -133,4 +133,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   null,
   mapDispatchToProps
-)(ARClue1);
+)(ARClue2);
