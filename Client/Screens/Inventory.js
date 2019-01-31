@@ -16,12 +16,14 @@ class Inventory extends Component {
       <View style={styles.parentContainer}>
         <Text style={styles.headerText}>INVENTORY</Text>
         <View flex={3}>
-          <FlatList
-            data={this.props.inventory}
-            renderItem={({ item }) => (
-              <Text style={styles.itemText}>{item.name}</Text>
-            )}
-          />
+          {this.props.inventory.map((item, index) => {
+            return (
+              <View key={index}>
+                <Text style={styles.medText}>{item.name}</Text>
+                <Text>{item.description}</Text>
+              </View>
+            );
+          })}
         </View>
         <View flex={1}>
           <AwesomeButton
