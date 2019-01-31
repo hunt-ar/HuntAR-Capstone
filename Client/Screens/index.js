@@ -4,4 +4,5 @@ import Win from './Win';
 import Map from './Map';
 import Inventory from './Inventory';
 import Clue from './Clue';
-export { Clue, Map, Win, StoryConcept, Home, Inventory };
+import ARClue1 from './ARClue1';
+export { Clue, Map, Win, StoryConcept, Home, Inventory, ARClue1 };

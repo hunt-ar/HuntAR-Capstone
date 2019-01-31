@@ -3,28 +3,25 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
-    largeText: {
+  largeText: {
     fontSize: 30,
     fontWeight: 'bold',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   medText: {
     fontSize: 20,
     fontWeight: 'bold',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
-    titleContainer: {
+  titleContainer: {
     flex: 2,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
-  },
-
+    justifyContent: 'center'
+  }
 });
-
