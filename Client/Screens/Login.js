@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Alert,
+  Button,
   View,
   Image,
   Keyboard,
@@ -33,14 +33,14 @@ export class Login extends React.Component {
     />
   );
 
+  //need to add login functionality
   onLoginButtonPressed = () => {
-    Alert.alert('You tapped the login/signup button!');
-    // this.props.navigation.goBack();
+    this.props.navigation.goBack();
   };
 
+  //goes to sign up component
   onSignUpButtonPressed = () => {
-    Alert.alert('You tapped the login/signup button!');
-    // this.props.navigation.navigate('SignUp');
+    this.props.navigation.navigate('SignUp');
   };
 
   render = () => (
@@ -57,12 +57,18 @@ export class Login extends React.Component {
         <View>
           <RkTextInput rkType='rounded' placeholder='Username' />
           <RkTextInput rkType='rounded' placeholder='Password' secureTextEntry />
+          <Button
+            title="LOGIN"
+            onPress={this.onLoginButtonPressed}
+            style={styles.save}
+          />
+          {/* This button does not display 'LOGIN' text but functions otherwise:
           <GradientButton
             style={styles.save}
             rkType='large'
             text='LOGIN'
             onPress={this.onLoginButtonPressed}
-          />
+          /> */}
         </View>
         <View style={styles.buttons}>
           <RkButton style={styles.button} rkType='social'>

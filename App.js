@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AppNavigator from './AppNavigator'
 import geolib from 'geolib'
+import {Font} from 'expo'
 import { Home, StoryConcept, Win } from './Client/Screens';
 import { Provider } from 'react-redux'
 // import firebase from 'firebase/app'
@@ -27,6 +28,7 @@ const initialState = {
   started: false,
   error: null,
   hotter: false,
+  isLoaded: false
 }
 
 class App extends React.Component {
@@ -34,6 +36,17 @@ class App extends React.Component {
     super();
     this.state = initialState;
   }
+
+  componentDidMount() {
+    this.loadAssets();
+  }
+
+  loadAssets = async () => {
+    await Font.loadAsync({
+      fontawesome: require('./assets/fontawesome.ttf'),
+    });
+    this.setState({ isLoaded: true });
+  };
 
   // Setup react-redux so that connect HOC can be used
   render() {

@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Alert,
   View,
   Image,
   Keyboard,
@@ -32,14 +31,14 @@ export class SignUp extends React.Component {
     />
   );
 
+  //need to add sign up functionality
   onSignUpButtonPressed = () => {
-    Alert.alert('You tapped the login/signup button!');
-    // this.props.navigation.goBack();
+    this.props.navigation.goBack();
   };
 
+  //need to add sign in functionality
   onSignInButtonPressed = () => {
-    Alert.alert('You tapped the login/signup button!');
-    // this.props.navigation.navigate('Login1');
+    this.props.navigation.navigate('Login');
   };
 
   render = () => (
