@@ -1,7 +1,6 @@
 import React from 'react';
 import { AR } from 'expo';
 import { View, Button } from 'react-native';
-import { styles } from '../styles';
 //import AwesomeButton from 'react-native-really-awesome-button';
 // Let's alias ExpoTHREE.AR as ThreeAR so it doesn't collide with Expo.AR.
 import ExpoTHREE, { AR as ThreeAR, THREE } from 'expo-three';
@@ -31,7 +30,7 @@ export default class ARClue1 extends React.Component {
           onRender={this.onRender}
           onResize={this.onResize}
           isArEnabled
-          isArRunningStateEnabled
+          //isArRunningStateEnabled
           isArCameraStateEnabled
           arTrackingConfiguration={AR.TrackingConfiguration.World}
         />
