@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Alert } from 'react-native';
-import { styles } from '../styles';
+import { Text, View, Button, Alert } from 'react-native';
+import { styles } from '../../assets/styles';
 
 export default class Home extends React.Component {
   onPressMultiPlayer() {
@@ -30,7 +30,7 @@ export default class Home extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.parentContainer}>
         <View style={styles.titleContainer}>
           <Text style={styles.largeText}> Game Title</Text>
         </View>
@@ -45,22 +45,12 @@ export default class Home extends React.Component {
             title="Start multi-player game"
             onPress={() => this.props.navigation.navigate('Clue')}
           />
-          <Button title="Login or sign up" onPress={this.onPressLoginSignup} />
+          <Button
+          title="Login or sign up"
+          onPress={() => { this.props.navigation.navigate('Win') }} />
         </View>
       </View>
     );
   }
 }
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//     titleText: {
-//     fontSize: 30,
-//     fontWeight: 'bold',
-//     alignItems: 'center'
-//   },
-// });
+

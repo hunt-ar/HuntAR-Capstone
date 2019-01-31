@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, Modal } from 'react-native';
+import { Text, View, Modal } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Inventory } from './index';
 import MapStyle from '../../assets/mapStyle';
+import { styles } from '../../assets/styles';
 import { MaterialCommunityIcons as Icon } from 'react-native-vector-icons';
 
 export default class Map extends React.Component {
@@ -120,30 +121,3 @@ export default class Map extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  mapContainer: {
-    ...StyleSheet.absoluteFillObject,
-    height: '100%',
-    width: '100%',
-    justifyContent: 'flex-end'
-  },
-  map: {
-    ...StyleSheet.absoluteFillObject
-  },
-  container: {
-    flex: 1,
-    fontSize: 200
-  },
-  quitButton: {
-    left: 0
-  },
-  backPackButton: {
-    right: 0
-  },
-  backPackContainer: {
-    right: 0
-  },
-  quitButtonContainer: {
-    left: 0
-  }
-});

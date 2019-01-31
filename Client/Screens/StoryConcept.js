@@ -1,17 +1,17 @@
 import React from 'react';
 import { Text, View, Button, Alert } from 'react-native';
-import { styles } from '../styles';
+import { styles } from '../../assets/styles';
 
 export default class StoryConcept extends React.Component {
   static navigationOptions = {
     title: 'StoryConcept'
   };
 
-  onPressMap() {}
+  onPressMap() { }
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.parentContainer}>
         <View style={styles.titleContainer}>
           <Text style={styles.largeText}>We need your help!</Text>
           <Text>
@@ -34,9 +34,12 @@ export default class StoryConcept extends React.Component {
         <View>
           <Button
             title="Yes! I am ready to be a hero."
-            onPress={() => this.props.navigation.navigate('Map')}
-          />
-          <Button title="No, not today..." onPress={this.onPressMap} />
+            onPress={() => this.props.navigation.navigate('Map')} />
+        </View>
+        <View>
+          <Button
+            title="No, not today..."
+            onPress={this.onPressMap} />
         </View>
       </View>
     );

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Modal } from 'react-native';
+import { Text, View } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
-import { styles } from '../styles';
+import { styles } from '../../assets/styles';
 
 export default class Inventory extends Component {
   constructor() {
@@ -11,7 +11,7 @@ export default class Inventory extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.parentContainer}>
         <Text style={styles.largeText}>INVENTORY</Text>
         <AwesomeButton
           style={styles.quitButton}
