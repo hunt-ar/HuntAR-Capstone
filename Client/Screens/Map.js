@@ -120,7 +120,7 @@ export default class Map extends React.Component {
       </View>
     ) : (
       <View style={styles.parentContainer}>
-        <Text style={styles.largeText}>Loading...</Text>
+        <Text style={styles.headerText}>Loading...</Text>
       </View>
     );
   }
