@@ -1,29 +1,47 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, FlatList } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import { styles } from '../../assets/styles';
+import { connect } from 'react-redux';
 
-export default class Inventory extends Component {
+class Inventory extends Component {
   constructor() {
     super();
     this.state = {};
   }
 
   render() {
+    console.log(this.props.inventory);
     return (
       <View style={styles.parentContainer}>
-        <Text style={styles.largeText}>INVENTORY</Text>
-        <AwesomeButton
-          style={styles.quitButton}
-          onPress={this.props.onBackPackClose}
-          backgroundColor="#c64747"
-          backgroundActive="#595757"
-          springRelease={true}
-          width={150}
-        >
-          Back
-        </AwesomeButton>
+        <Text style={styles.headerText}>INVENTORY</Text>
+        <View flex={3}>
+          <FlatList
+            data={this.props.inventory}
+            renderItem={({ item }) => (
+              <Text style={styles.itemText}>{item.name}</Text>
+            )}
+          />
+        </View>
+        <View flex={1}>
+          <AwesomeButton
+            style={styles.quitButton}
+            onPress={this.props.onBackPackClose}
+            backgroundColor="#c64747"
+            backgroundActive="#595757"
+            springRelease={true}
+            width={150}
+          >
+            Back
+          </AwesomeButton>
+        </View>
       </View>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  inventory: state.inventory.inventory
+});
+
+export default connect(mapStateToProps)(Inventory);

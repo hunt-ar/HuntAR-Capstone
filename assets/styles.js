@@ -3,32 +3,22 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   parentContainer: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    height: '100%',
-    width: '100%',
-    padding: 20,
+    padding: 10
   },
   largeText: {
     fontSize: 30,
-    fontWeight: 'bold',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 10,
+    fontWeight: 'bold'
   },
   medText: {
     fontSize: 20,
-    fontWeight: 'bold',
-    alignItems: 'center',
-    justifyContent: 'center',
+    fontWeight: 'bold'
   },
   titleContainer: {
     flex: 2,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   clueContainer: {
     display: 'flex',
@@ -36,19 +26,19 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
     height: '100%',
     width: '100%',
-    padding: 50,
+    padding: 50
   },
   headerContainer: {
     backgroundColor: 'yellow',
     width: '100%',
     borderRadius: 5,
-    padding: 20,
+    padding: 20
   },
   header: {
     fontSize: 30,
     color: 'black',
     textAlignVertical: 'center',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   winImage: {
     marginBottom: 30,
@@ -60,7 +50,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
     height: '100%',
     width: '100%',
-    padding: 50,
+    padding: 50
   },
   bodyContainer: {
     display: 'flex',
@@ -68,7 +58,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 30,
+    padding: 30
   },
   start: {
     flex: 1,
@@ -79,12 +69,12 @@ export const styles = StyleSheet.create({
   greenButtonContainer: {
     backgroundColor: 'green',
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 5
   },
   redButtonContainer: {
     backgroundColor: 'red',
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 5
   },
   startButton: {
     color: 'black'
@@ -103,7 +93,6 @@ export const styles = StyleSheet.create({
     fontSize: 200
   },
   quitButton: {
-    bottom: 0,
     left: 0
   },
   solveButton: {
@@ -115,5 +104,13 @@ export const styles = StyleSheet.create({
   },
   quitButtonContainer: {
     left: 0
+  },
+  headerText: {
+    marginTop: 15,
+    fontSize: 30,
+    fontWeight: 'bold'
+  },
+  itemText: {
+    fontSize: 20
   }
 });

@@ -1,6 +1,7 @@
 import React from 'react';
 import { AR } from 'expo';
 import { View, Button } from 'react-native';
+import { connect } from 'react-redux';
 //import AwesomeButton from 'react-native-really-awesome-button';
 // Let's alias ExpoTHREE.AR as ThreeAR so it doesn't collide with Expo.AR.
 import ExpoTHREE, { AR as ThreeAR, THREE } from 'expo-three';
@@ -8,12 +9,29 @@ import ExpoTHREE, { AR as ThreeAR, THREE } from 'expo-three';
 // expo-graphics manages the setup/teardown of the gl context/ar session, creates a frame-loop, and observes size/orientation changes.
 // it also provides debug information with `isArCameraStateEnabled`
 import { View as GraphicsView } from 'expo-graphics';
+import { addItem } from '../store/inventory';
 
-export default class ARClue1 extends React.Component {
+class ARClue1 extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      key: {
+        name: 'Old Key',
+        description: 'Rusty old Skeleton Key found deep in the catacombs',
+        imgPath: '../assets/items/key/key.svg',
+      }
+    };
+    this.onButtonPress = this.onButtonPress.bind(this);
+  }
+
   componentDidMount() {
-    // Turn off extra warnings
     THREE.suppressExpoWarnings(true);
     ThreeAR.suppressWarnings();
+  }
+
+  onButtonPress() {
+    this.props.addItem(this.state.key);
+    this.props.navigation.navigate('Map');
   }
 
   render() {
@@ -43,7 +61,7 @@ export default class ARClue1 extends React.Component {
           }}
         >
           <Button
-            onPress={() => this.props.navigation.navigate('Map')}
+            onPress={this.onButtonPress}
             backgroundColor="transparent"
             title="Continue"
           />
@@ -108,3 +126,12 @@ export default class ARClue1 extends React.Component {
     this.renderer.render(this.scene, this.camera);
   };
 }
+
+const mapDispatchToProps = dispatch => ({
+  addItem: item => dispatch(addItem(item))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(ARClue1);
