@@ -4,7 +4,9 @@ import {
   Map,
   Clue,
   Win,
-  Inventory
+  Inventory,
+  Login,
+  SignUp
 } from './Client/Screens';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
@@ -16,7 +18,9 @@ const RootStack = createStackNavigator(
     Map: Map,
     Inventory: Inventory,
     Clue: Clue,
-    Win: Win
+    Win: Win,
+    Login: Login,
+    SignUp: SignUp
   },
   { headerMode: 'none' }
 );

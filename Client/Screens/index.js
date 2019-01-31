@@ -4,4 +4,6 @@ import Win from './Win';
 import Map from './Map';
 import Inventory from './Inventory';
 import Clue from './Clue';
-export { Clue, Map, Win, StoryConcept, Home, Inventory };
+import {Login} from './Login'
+import {SignUp} from './SignUp'
+export { Clue, Map, Win, StoryConcept, Home, Inventory, Login, SignUp };
