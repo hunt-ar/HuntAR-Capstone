@@ -7,10 +7,11 @@ import {
   Inventory,
   Login,
   SignUp,
+  ForgotPW,
   ARClue1
 } from './Client/Screens';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-
+console.log('Our component:', ForgotPW)
 //when I load the app with this, whatever is first shows up
 const RootStack = createStackNavigator(
   {
@@ -22,7 +23,8 @@ const RootStack = createStackNavigator(
     Win: Win,
     Login: Login,
     SignUp: SignUp,
-    ARClue1: ARClue1
+    ForgotPW: ForgotPW,
+    ARClue1: ARClue1,
   },
   { headerMode: 'none' }
 );

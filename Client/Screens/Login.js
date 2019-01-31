@@ -4,6 +4,7 @@ import {
   View,
   Image,
   Keyboard,
+  Alert
 } from 'react-native';
 import {
   RkButton,
@@ -42,6 +43,11 @@ export class Login extends React.Component {
   onSignUpButtonPressed = () => {
     this.props.navigation.navigate('SignUp');
   };
+
+    //goes to forgot password component
+    onForgotButtonPressed = () => {
+      this.props.navigation.navigate('ForgotPW');
+    };
 
   render = () => (
     <RkAvoidKeyboard
@@ -86,6 +92,11 @@ export class Login extends React.Component {
             <RkText rkType='primary3'>Don’t have an account?</RkText>
             <RkButton rkType='clear' onPress={this.onSignUpButtonPressed}>
               <RkText rkType='header6'>Sign up now</RkText>
+            </RkButton>
+          </View>
+          <View style={styles.textRow}>
+            <RkButton rkType='clear' onPress={this.onForgotButtonPressed}>
+              <RkText rkType='header6'>Forgot Password?</RkText>
             </RkButton>
           </View>
         </View>
