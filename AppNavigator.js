@@ -4,7 +4,8 @@ import {
   Map,
   Clue,
   Win,
-  Inventory
+  Inventory,
+  ARClue1
 } from './Client/Screens';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
@@ -16,7 +17,8 @@ const RootStack = createStackNavigator(
     Map: Map,
     Inventory: Inventory,
     Clue: Clue,
-    Win: Win
+    Win: Win,
+    ARClue1: ARClue1
   },
   { headerMode: 'none' }
 );

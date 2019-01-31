@@ -8,6 +8,8 @@
   },
   "dependencies": {
     "expo": "^32.0.0",
+    "expo-graphics": "^1.0.2",
+    "expo-three": "^3.0.0-alpha.6",
     "firebase": "^5.5.5",
     "geolib": "^2.0.24",
     "react": "16.5.0",

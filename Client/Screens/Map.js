@@ -83,7 +83,12 @@ export default class Map extends React.Component {
           showsUserLocation
         >
           {this.state.markers.map(marker => (
-            <Marker title={marker.title} key={marker.id} coordinate={marker} />
+            <Marker
+              title={marker.title}
+              key={marker.id}
+              coordinate={marker}
+              onPress={() => this.props.navigation.navigate('ARClue1')}
+            />
           ))}
         </MapView>
         <View flexDirection="row" padding={15}>
