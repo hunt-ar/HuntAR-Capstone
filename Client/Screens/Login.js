@@ -7,7 +7,8 @@ import {
   Alert,
   StyleSheet,
   Text, 
-  TextInput
+  TextInput,
+  ActivityIndicator
 } from 'react-native';
 import {
   RkButton,
@@ -19,11 +20,12 @@ import {
 import { FontAwesome } from '../../assets/icons';
 import { GradientButton } from '../Components';
 import { scaleVertical } from '../utils/scale';
+import firebase from 'firebase'
 import NavigationType from '../../config/navigation/propTypes';
 
 export class Login extends React.Component {
 
-  state = { email: '', password: '', errorMessage: null }
+  state = { email: '', password: '', error: '', loading: false }
 
   handleLogin= (event) => {
     // TODO: Firebase stuff ...
@@ -54,8 +56,17 @@ export class Login extends React.Component {
 
   //need to add login functionality
   handleLogin = () => {
-    this.props.navigation.navigate('Loading');
-    //this.onSubmit
+    console.log('FIREBASE', firebase)
+    this.setState({ loading: true });
+
+    const { email, password } = this.state;
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then( () => { this.setState({ error: '', loading: false}); })
+      .then( () => {this.props.navigation.navigate('StoryConcept'); })
+      .catch( () => {
+        //Login was not successful.
+        this.setState({ error: "Authenication failed. Please try again or select the 'Forgot Password' button below.", loading: false })
+      })
   };
 
   //goes to sign up component
@@ -68,7 +79,8 @@ export class Login extends React.Component {
       this.props.navigation.navigate('ForgotPW');
     };
 
-  render = () => (
+  render() {
+    return this.state.loading === false ? (
     <RkAvoidKeyboard
       style={styles.screen}
       onStartShouldSetResponder={() => true}
@@ -122,7 +134,12 @@ export class Login extends React.Component {
         </View>
       </View>
     </RkAvoidKeyboard>
-  );
+  ) : (
+    <View style={styles.loadingContainer}>
+      <Text>Loading</Text>
+      <ActivityIndicator size="large" />
+    </View>
+  )}
 }
 
 const styles = RkStyleSheet.create(theme => ({
@@ -177,5 +194,10 @@ const styles = RkStyleSheet.create(theme => ({
     color: 'black',
     textAlignVertical: 'center',
     textAlign: 'center'
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 }));
