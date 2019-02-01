@@ -6,9 +6,12 @@ import Inventory from './Inventory';
 import Clue from './Clue';
 import { Login } from './Login';
 import { SignUp } from './SignUp';
+import ForgotPW from './ForgotPW';
 import ARClue1 from './ARClue1';
 import ARClue2 from './ARClue2';
 import ARClue3 from './ARClue3';
+import Loading from './Loading';
+import Welcome from './Welcome';
 export {
   Clue,
   Map,
@@ -17,7 +20,10 @@ export {
   Home,
   Inventory,
   Login,
+  Loading,
+  Welcome,
   SignUp,
+  ForgotPW,
   ARClue1,
   ARClue2,
   ARClue3
