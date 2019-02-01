@@ -1,0 +1,61 @@
+{
+  "name": "assets/8j8-b-RqJ76",
+  "displayName": "Briefcase",
+  "authorName": "Poly by Google",
+  "description": "#suitcase #carry #accessory #bag",
+  "createTime": "2017-10-19T22:47:59.773578Z",
+  "updateTime": "2019-01-29T10:41:36.825176Z",
+  "formats": [
+    {
+      "root": {
+        "relativePath": "Briefcase_01.obj",
+        "url": "https://poly.googleapis.com/downloads/8j8-b-RqJ76/9VF6x1dJc0T/Briefcase_01.obj",
+        "contentType": "text/plain"
+      },
+      "resources": [
+        {
+          "relativePath": "Briefcase_01.mtl",
+          "url": "https://poly.googleapis.com/downloads/8j8-b-RqJ76/9VF6x1dJc0T/Briefcase_01.mtl",
+          "contentType": "text/plain"
+        }
+      ],
+      "formatComplexity": {
+        "triangleCount": "604"
+      },
+      "formatType": "OBJ"
+    },
+    {
+      "root": {
+        "relativePath": "Briefcase_01.gltf",
+        "url": "https://poly.googleapis.com/downloads/8j8-b-RqJ76/6UF2UfLBtUu/Briefcase_01.gltf",
+        "contentType": "model/gltf+json"
+      },
+      "resources": [
+        {
+          "relativePath": "Briefcase_01.bin",
+          "url": "https://poly.googleapis.com/downloads/8j8-b-RqJ76/6UF2UfLBtUu/Briefcase_01.bin",
+          "contentType": "application/octet-stream"
+        }
+      ],
+      "formatComplexity": {
+        "triangleCount": "604"
+      },
+      "formatType": "GLTF2"
+    }
+  ],
+  "thumbnail": {
+    "relativePath": "8j8-b-RqJ76.png",
+    "url": "https://lh3.googleusercontent.com/lUfQY6O3KCs7FL7bBTW8JWpQqwHXcLujkYFB7EzcS5e2rW-NCRcqG1b9-YorwFhZ",
+    "contentType": "image/png"
+  },
+  "license": "CREATIVE_COMMONS_BY",
+  "visibility": "PUBLIC",
+  "isCurated": true,
+  "presentationParams": {
+    "orientingRotation": {
+      "w": 1
+    },
+    "colorSpace": "LINEAR",
+    "backgroundColor": "#90caf9"
+  }
+}

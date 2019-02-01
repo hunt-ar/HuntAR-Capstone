@@ -1,0 +1,73 @@
+{
+  "name": "assets/a9-g0Ylwft7",
+  "displayName": "Shovel",
+  "authorName": "Poly by Google",
+  "description": "#tool #equipment #dig #ground",
+  "createTime": "2017-10-11T04:54:01.084153Z",
+  "updateTime": "2019-01-28T10:45:17.919862Z",
+  "formats": [
+    {
+      "root": {
+        "relativePath": "CHAHIN_SHOVEL.obj",
+        "url": "https://poly.googleapis.com/downloads/a9-g0Ylwft7/dkqRAOqlowN/CHAHIN_SHOVEL.obj",
+        "contentType": "text/plain"
+      },
+      "resources": [
+        {
+          "relativePath": "CHAHIN_SHOVEL.mtl",
+          "url": "https://poly.googleapis.com/downloads/a9-g0Ylwft7/dkqRAOqlowN/CHAHIN_SHOVEL.mtl",
+          "contentType": "text/plain"
+        },
+        {
+          "relativePath": "CHAHIN_SHOVEL_TEXTURE.jpg",
+          "url": "https://poly.googleapis.com/downloads/a9-g0Ylwft7/dkqRAOqlowN/CHAHIN_SHOVEL_TEXTURE.jpg",
+          "contentType": "image/jpeg"
+        }
+      ],
+      "formatComplexity": {
+        "triangleCount": "144"
+      },
+      "formatType": "OBJ"
+    },
+    {
+      "root": {
+        "relativePath": "CHAHIN_SHOVEL.gltf",
+        "url": "https://poly.googleapis.com/downloads/a9-g0Ylwft7/0sJYLg4HDJS/CHAHIN_SHOVEL.gltf",
+        "contentType": "model/gltf+json"
+      },
+      "resources": [
+        {
+          "relativePath": "CHAHIN_SHOVEL.bin",
+          "url": "https://poly.googleapis.com/downloads/a9-g0Ylwft7/0sJYLg4HDJS/CHAHIN_SHOVEL.bin",
+          "contentType": "application/octet-stream"
+        },
+        {
+          "relativePath": "CHAHIN_SHOVEL_TEXTURE.jpg",
+          "url": "https://poly.googleapis.com/downloads/a9-g0Ylwft7/0sJYLg4HDJS/CHAHIN_SHOVEL_TEXTURE.jpg",
+          "contentType": "image/jpeg"
+        }
+      ],
+      "formatComplexity": {
+        "triangleCount": "144"
+      },
+      "formatType": "GLTF2"
+    }
+  ],
+  "thumbnail": {
+    "relativePath": "thumbnail.png",
+    "url": "https://lh3.googleusercontent.com/nXy6mM9kV0wXt2DGOdl_pwEYXmB-ARFRjfsZhPFT5uG63cSsAnLiLRCbSzcyt5UG",
+    "contentType": "image/png"
+  },
+  "license": "CREATIVE_COMMONS_BY",
+  "visibility": "PUBLIC",
+  "isCurated": true,
+  "presentationParams": {
+    "orientingRotation": {
+      "x": -7.8504622934188746e-17,
+      "y": -1,
+      "w": 7.8504622934188758e-17
+    },
+    "colorSpace": "LINEAR",
+    "backgroundColor": "#546e7a"
+  }
+}

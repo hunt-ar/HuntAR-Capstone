@@ -1,0 +1,76 @@
+{
+  "name": "assets/8BCxcUDQaOY",
+  "displayName": "Bomb",
+  "authorName": "Christopher Burgess (ChrispyBurgers)",
+  "createTime": "2017-08-04T21:41:11.160797Z",
+  "updateTime": "2019-01-28T10:41:52.195489Z",
+  "formats": [
+    {
+      "root": {
+        "relativePath": "model.obj",
+        "url": "https://poly.googleapis.com/downloads/8BCxcUDQaOY/2-JlVYBemSr/model.obj",
+        "contentType": "text/plain"
+      },
+      "resources": [
+        {
+          "relativePath": "materials.mtl",
+          "url": "https://poly.googleapis.com/downloads/8BCxcUDQaOY/2-JlVYBemSr/materials.mtl",
+          "contentType": "text/plain"
+        }
+      ],
+      "formatComplexity": {
+        "triangleCount": "11656"
+      },
+      "formatType": "OBJ"
+    },
+    {
+      "root": {
+        "relativePath": "model.gltf",
+        "url": "https://poly.googleapis.com/downloads/8BCxcUDQaOY/2GzNtS3seEj/model.gltf",
+        "contentType": "model/gltf+json"
+      },
+      "resources": [
+        {
+          "relativePath": "model.bin",
+          "url": "https://poly.googleapis.com/downloads/8BCxcUDQaOY/2GzNtS3seEj/model.bin",
+          "contentType": "application/octet-stream"
+        }
+      ],
+      "formatComplexity": {
+        "triangleCount": "11656"
+      },
+      "formatType": "GLTF"
+    },
+    {
+      "root": {
+        "relativePath": "model.gltf",
+        "url": "https://poly.googleapis.com/downloads/8BCxcUDQaOY/0k_jo-G1vpg/model.gltf",
+        "contentType": "model/gltf+json"
+      },
+      "resources": [
+        {
+          "relativePath": "model.bin",
+          "url": "https://poly.googleapis.com/downloads/8BCxcUDQaOY/0k_jo-G1vpg/model.bin",
+          "contentType": "application/octet-stream"
+        }
+      ],
+      "formatComplexity": {},
+      "formatType": "GLTF2"
+    }
+  ],
+  "thumbnail": {
+    "relativePath": "8BCxcUDQaOY.png",
+    "url": "https://lh3.googleusercontent.com/0s-_2vtFuNNGdaYZG9ZwTkVirQRSFFmWT8mZP9ma3hS1yjTwjZmBrqLh9UKxE7Vw",
+    "contentType": "image/png"
+  },
+  "license": "CREATIVE_COMMONS_BY",
+  "visibility": "PUBLIC",
+  "isCurated": true,
+  "presentationParams": {
+    "orientingRotation": {
+      "w": 1
+    },
+    "colorSpace": "LINEAR",
+    "backgroundColor": "#fafafa"
+  }
+}

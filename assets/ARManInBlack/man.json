@@ -1,0 +1,71 @@
+{
+  "name": "assets/9OIDLnwBg30",
+  "displayName": "jhey",
+  "authorName": "Julio Rodriguez",
+  "description": "3d scan using Kinect done by:\nhttps://onepixeloff.com/\nlet me know if you remix: julior @ gmail.com\n\t\ncreated at FITC - 5/2/14",
+  "createTime": "2017-11-10T17:03:24.707974Z",
+  "updateTime": "2019-01-30T10:41:29.795802Z",
+  "formats": [
+    {
+      "root": {
+        "relativePath": "Julio_Rodriquez.obj",
+        "url": "https://poly.googleapis.com/downloads/9OIDLnwBg30/e2PfrKVjKlJ/Julio_Rodriquez.obj",
+        "contentType": "text/plain"
+      },
+      "resources": [
+        {
+          "relativePath": "Julio_Rodriquez.jpg",
+          "url": "https://poly.googleapis.com/downloads/9OIDLnwBg30/e2PfrKVjKlJ/Julio_Rodriquez.jpg",
+          "contentType": "image/jpeg"
+        },
+        {
+          "relativePath": "Julio_Rodriquez.mtl",
+          "url": "https://poly.googleapis.com/downloads/9OIDLnwBg30/e2PfrKVjKlJ/Julio_Rodriquez.mtl",
+          "contentType": "text/plain"
+        }
+      ],
+      "formatComplexity": {
+        "triangleCount": "104880"
+      },
+      "formatType": "OBJ"
+    },
+    {
+      "root": {
+        "relativePath": "Julio_Rodriquez.gltf",
+        "url": "https://poly.googleapis.com/downloads/9OIDLnwBg30/cRQ96Im10pl/Julio_Rodriquez.gltf",
+        "contentType": "model/gltf+json"
+      },
+      "resources": [
+        {
+          "relativePath": "Julio_Rodriquez.bin",
+          "url": "https://poly.googleapis.com/downloads/9OIDLnwBg30/cRQ96Im10pl/Julio_Rodriquez.bin",
+          "contentType": "application/octet-stream"
+        },
+        {
+          "relativePath": "Julio_Rodriquez.jpg",
+          "url": "https://poly.googleapis.com/downloads/9OIDLnwBg30/cRQ96Im10pl/Julio_Rodriquez.jpg",
+          "contentType": "image/jpeg"
+        }
+      ],
+      "formatComplexity": {
+        "triangleCount": "104880"
+      },
+      "formatType": "GLTF2"
+    }
+  ],
+  "thumbnail": {
+    "relativePath": "9OIDLnwBg30.png",
+    "url": "https://lh3.googleusercontent.com/Z2gGze_NixXvXbGr14kGufYB1exQs9h57OgsypD1jTElwrUmuiTB3qinAESK9Bo",
+    "contentType": "image/png"
+  },
+  "license": "CREATIVE_COMMONS_BY",
+  "visibility": "PUBLIC",
+  "isCurated": true,
+  "presentationParams": {
+    "orientingRotation": {
+      "w": 1
+    },
+    "colorSpace": "LINEAR",
+    "backgroundColor": "#eeeeee"
+  }
+}
