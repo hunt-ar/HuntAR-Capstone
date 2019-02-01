@@ -17,26 +17,7 @@ export default class Map extends React.Component {
         longitude: 0,
         error: null
       },
-      markers: [
-        {
-          latitude: 35.334835915305,
-          longitude: -120.74475785104,
-          id: 1,
-          title: 'Clue 1'
-        },
-        {
-          latitude: 35.334235915305,
-          longitude: -120.74445785104,
-          id: 2,
-          title: 'Clue 2'
-        },
-        {
-          latitude: 35.334535915305,
-          longitude: -120.74445785104,
-          id: 3,
-          title: 'Clue 3'
-        }
-      ]
+      markers: []
     };
     this.onBackPackPress = this.onBackPackPress.bind(this);
     this.onBackPackClose = this.onBackPackClose.bind(this);
@@ -63,7 +44,24 @@ export default class Map extends React.Component {
             latitudeDelta: 0.001,
             longitudeDelta: 0.001,
             error: null
-          }
+          },
+          markers: [
+            {
+              latitude: Math.random() * 0.0005 + position.coords.latitude,
+              longitude: Math.random() * 0.0005 + position.coords.longitude,
+              id: 1
+            },
+            {
+              latitude: Math.random() * 0.0005 + position.coords.latitude,
+              longitude: Math.random() * 0.0005 + position.coords.longitude,
+              id: 2
+            },
+            {
+              latitude: Math.random() * 0.0005 + position.coords.latitude,
+              longitude: Math.random() * 0.0005 + position.coords.longitude,
+              id: 3
+            }
+          ]
         });
       },
       error => this.setState({ error: error.message }),
@@ -84,10 +82,11 @@ export default class Map extends React.Component {
         >
           {this.state.markers.map(marker => (
             <Marker
-              title={marker.title}
               key={marker.id}
               coordinate={marker}
-              onPress={() => this.props.navigation.navigate('ARClue1')}
+              onPress={() =>
+                this.props.navigation.navigate(`ARClue${marker.id}`)
+              }
             />
           ))}
         </MapView>
