@@ -4,7 +4,10 @@ import {
   View,
   Image,
   Keyboard,
-  Alert
+  Alert,
+  StyleSheet,
+  Text, 
+  TextInput
 } from 'react-native';
 import {
   RkButton,
@@ -20,15 +23,12 @@ import NavigationType from '../../config/navigation/propTypes';
 
 export class Login extends React.Component {
 
-  constructor(){
-    super()
-    this.state={
-      email:'',
-      password:''
-    }
-  }
+  state = { email: '', password: '', errorMessage: null }
 
-  // onSubmit(event) => {}
+  handleLogin= (event) => {
+    // TODO: Firebase stuff ...
+    console.log('handleLogin')
+  }
 
   // onChange(event) => {
   //   event.preventDefault();
@@ -53,8 +53,8 @@ export class Login extends React.Component {
   );
 
   //need to add login functionality
-  onLoginButtonPressed = () => {
-    this.props.navigation.goBack();
+  handleLogin = () => {
+    this.props.navigation.navigate('Loading');
     //this.onSubmit
   };
 
@@ -75,16 +75,18 @@ export class Login extends React.Component {
       onResponderRelease={() => Keyboard.dismiss()}>
       <View style={styles.header}>
         {this.renderImage()}
-        <RkText style={styles.headerText}>Sign In Brave Adventurer!</RkText>
+        <RkText style={styles.headerText}>Sign In Brave Adventurer,</RkText>
         <RkText style={styles.subHeader}>Your Mission Awaits...</RkText>
       </View>
       <View style={styles.content}>
         <View>
-          <RkTextInput rkType='rounded' placeholder='Username' />
-          <RkTextInput rkType='rounded' placeholder='Password' secureTextEntry />
+          <RkTextInput rkType='rounded' placeholder='Email' onChangeText={email => this.setState({email})} value={this.state.email} />
+
+          <RkTextInput rkType='rounded' placeholder='Password' secureTextEntry onChangeText={password => this.setState({password})} value={this.state.password} />
+
           <Button
             title="LOGIN"
-            onPress={this.onLoginButtonPressed}
+            onPress={this.handleLogin}
             style={styles.save}
           />
         </View>
@@ -131,7 +133,7 @@ const styles = RkStyleSheet.create(theme => ({
     backgroundColor: theme.colors.screen.base,
   },
   image: {
-    height: scaleVertical(77),
+    height: scaleVertical(150),
     resizeMode: 'contain',
   },
   header: {
