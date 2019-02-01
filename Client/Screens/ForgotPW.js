@@ -7,14 +7,13 @@ import {
 import {
   RkStyleSheet,
   RkText,
-  RkTextInput,
-  RkTheme,
+  RkTextInput
 } from 'react-native-ui-kitten';
-import { GradientButton } from '../../components/';
-import { scaleVertical } from '../../utils/scale';
+import { GradientButton } from '../Components';
+import { scaleVertical } from '../utils/scale';
 import NavigationType from '../../config/navigation/propTypes';
 
-export class ForgotPW extends React.Component {
+class ForgotPW extends React.Component {
   static propTypes = {
     navigation: NavigationType.isRequired,
   };
@@ -41,14 +40,14 @@ export class ForgotPW extends React.Component {
       onStartShouldSetResponder={() => true}
       onResponderRelease={() => Keyboard.dismiss()}>
       <View style={styles.header}>
+				<RkText rkType='h1'>Password Recovery</RkText>
         {this.renderImage()}
-        <RkText rkType='h1'>Password Recovery</RkText>
       </View>
       <View style={styles.content}>
-        <RkTextInput rkType='rounded' placeholder='Email' />
-        <RkText rkType='secondary5 secondaryColor center'>
-            Enter your email below to receive your password reset instructions
+				<RkText rkType='secondary5 secondaryColor center'>
+            Don't worry brave adventurer! Enter your email below to receive your password reset instructions.
         </RkText>
+        <RkTextInput rkType='rounded' placeholder='Email' />
       </View>
       <GradientButton
         style={styles.save}
@@ -60,6 +59,8 @@ export class ForgotPW extends React.Component {
   );
 }
 
+export default ForgotPW
+
 const styles = RkStyleSheet.create(theme => ({
   screen: {
     flex: 1,
@@ -69,7 +70,8 @@ const styles = RkStyleSheet.create(theme => ({
     backgroundColor: theme.colors.screen.base,
   },
   header: {
-    alignItems: 'center',
+		alignItems: 'center',
+		marginTop: 150
   },
   image: {
     marginVertical: scaleVertical(27),
@@ -77,6 +79,8 @@ const styles = RkStyleSheet.create(theme => ({
     resizeMode: 'contain',
   },
   content: {
-    alignItems: 'center',
+		alignItems: 'center',
+		padding: 20,
+		justifyContent: 'center'
   },
 }));
