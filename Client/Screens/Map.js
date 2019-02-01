@@ -138,12 +138,14 @@ export default class Map extends React.Component {
         </MapView>
         <View flexDirection="row" padding={15}>
           <View style={styles.quitButtonContainer}>
-            <Text>
+            {/*
+              If we need to track coordinates for debugging:
+               <Text>
               {`Your latitude: ${this.state.userLocation ? this.state.userLocation.latitude : 0}`}
             </Text>
             <Text>
               {`Your longitude: ${this.state.userLocation ? this.state.userLocation.longitude : 0}`}
-            </Text>
+            </Text> */}
             <AwesomeButton
               style={styles.quitButton}
               onPress={() => this.props.navigation.navigate('Home')}
