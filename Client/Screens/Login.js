@@ -19,6 +19,24 @@ import { scaleVertical } from '../utils/scale';
 import NavigationType from '../../config/navigation/propTypes';
 
 export class Login extends React.Component {
+
+  constructor(){
+    super()
+    this.state={
+      email:'',
+      password:''
+    }
+  }
+
+  // onSubmit(event) => {}
+
+  // onChange(event) => {
+  //   event.preventDefault();
+  //   this.setState({
+  //     [event.target.name]: event.target.value
+  //   });
+  // }
+
   static propTypes = {
     navigation: NavigationType.isRequired,
   };
@@ -37,6 +55,7 @@ export class Login extends React.Component {
   //need to add login functionality
   onLoginButtonPressed = () => {
     this.props.navigation.goBack();
+    //this.onSubmit
   };
 
   //goes to sign up component
@@ -56,8 +75,8 @@ export class Login extends React.Component {
       onResponderRelease={() => Keyboard.dismiss()}>
       <View style={styles.header}>
         {this.renderImage()}
-        <RkText rkType='light h1'>React Native</RkText>
-        <RkText rkType='logo h0'>UI Kitten</RkText>
+        <RkText style={styles.headerText}>Sign In Brave Adventurer!</RkText>
+        <RkText style={styles.subHeader}>Your Mission Awaits...</RkText>
       </View>
       <View style={styles.content}>
         <View>
@@ -68,15 +87,8 @@ export class Login extends React.Component {
             onPress={this.onLoginButtonPressed}
             style={styles.save}
           />
-          {/* This button does not display 'LOGIN' text but functions otherwise:
-          <GradientButton
-            style={styles.save}
-            rkType='large'
-            text='LOGIN'
-            onPress={this.onLoginButtonPressed}
-          /> */}
         </View>
-        <View style={styles.buttons}>
+        {/* <View style={styles.buttons}>
           <RkButton style={styles.button} rkType='social'>
             <RkText rkType='awesome hero'>{FontAwesome.twitter}</RkText>
           </RkButton>
@@ -85,19 +97,25 @@ export class Login extends React.Component {
           </RkButton>
           <RkButton style={styles.button} rkType='social'>
             <RkText rkType='awesome hero'>{FontAwesome.facebook}</RkText>
-          </RkButton>
-        </View>
+          </RkButton> */}
+        {/* </View> */}
         <View style={styles.footer}>
           <View style={styles.textRow}>
-            <RkText rkType='primary3'>Don’t have an account?</RkText>
-            <RkButton rkType='clear' onPress={this.onSignUpButtonPressed}>
-              <RkText rkType='header6'>Sign up now</RkText>
-            </RkButton>
+            <RkText rkType='title'>Don’t have an account?</RkText>
+          </View >
+          <View style={styles.textRow}>
+            <Button
+              title="Sign Up Now!"
+              onPress={this.onSignUpButtonPressed}
+              style={styles.save}
+            />
           </View>
           <View style={styles.textRow}>
-            <RkButton rkType='clear' onPress={this.onForgotButtonPressed}>
-              <RkText rkType='header6'>Forgot Password?</RkText>
-            </RkButton>
+            <Button
+              title="Forgot Password?"
+              onPress={this.onForgotButtonPressed}
+              style={styles.save}
+            />
           </View>
         </View>
       </View>
@@ -124,6 +142,7 @@ const styles = RkStyleSheet.create(theme => ({
   },
   content: {
     justifyContent: 'space-between',
+    marginBottom: 25
   },
   save: {
     marginVertical: 20,
@@ -141,5 +160,20 @@ const styles = RkStyleSheet.create(theme => ({
   button: {
     borderColor: theme.colors.border.solid,
   },
-  footer: {},
+  footer: {
+    marginVertical: 75
+  },
+  headerText: {
+    fontSize: 30,
+    color: 'black',
+    textAlignVertical: 'center',
+    textAlign: 'center',
+    fontWeight: 'bold'
+  },
+  subHeader: {
+    fontSize: 25,
+    color: 'black',
+    textAlignVertical: 'center',
+    textAlign: 'center'
+  }
 }));
