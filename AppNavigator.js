@@ -7,26 +7,32 @@ import {
   Inventory,
   Login,
   SignUp,
+  Loading,
+  Welcome,
+  ForgotPW,
   ARClue1,
   ARClue2,
   ARClue3
 } from './Client/Screens';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-
+console.log('Our component:', ForgotPW)
 //when I load the app with this, whatever is first shows up
 const RootStack = createStackNavigator(
   {
-    Home: Home,
-    StoryConcept: StoryConcept,
-    Map: Map,
-    Inventory: Inventory,
-    Clue: Clue,
-    Win: Win,
-    Login: Login,
-    SignUp: SignUp,
-    ARClue1: ARClue1,
-    ARClue2: ARClue2,
-    ARClue3: ARClue3
+    Home,
+    StoryConcept,
+    Map,
+    Inventory,
+    Clue,
+    Win,
+    Loading,
+    Welcome,
+    Login,
+    SignUp,
+    ForgotPW,
+    ARClue1,
+    ARClue2,
+    ARClue3,
   },
   { headerMode: 'none' }
 );

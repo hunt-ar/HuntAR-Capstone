@@ -3,6 +3,10 @@ import {
   View,
   Image,
   Keyboard,
+  StyleSheet,
+  Text, 
+  TextInput, 
+  Button
 } from 'react-native';
 import {
   RkButton,
@@ -16,12 +20,20 @@ import { scaleVertical } from '../utils/scale';
 import NavigationType from '../../config/navigation/propTypes';
 
 export class SignUp extends React.Component {
+
+  state = { name: '', email: '', password: '', errorMessage: null }
+
   static navigationOptions = {
     header: null,
   };
   static propTypes = {
     navigation: NavigationType.isRequired,
   };
+
+  handleSignUp = () => {
+    // TODO: Firebase stuff ...
+    console.log('handleSignup')
+  }
 
   renderImage = () => (
     <Image
@@ -32,7 +44,7 @@ export class SignUp extends React.Component {
   );
 
   //need to add sign up functionality
-  onSignUpButtonPressed = () => {
+  handleSignUp = () => {
     this.props.navigation.goBack();
   };
 
@@ -52,15 +64,17 @@ export class SignUp extends React.Component {
       </View>
       <View style={styles.content}>
         <View>
-          <RkTextInput rkType='rounded' placeholder='Name' />
-          <RkTextInput rkType='rounded' placeholder='Email' />
-          <RkTextInput rkType='rounded' placeholder='Password' secureTextEntry />
-          <RkTextInput rkType='rounded' placeholder='Confirm Password' secureTextEntry />
+          <RkTextInput rkType='rounded' placeholder='Name' onChangeText={name => this.setState({name})} value={this.state.name} />
+
+          <RkTextInput rkType='rounded' placeholder='Email' onChangeText={email => this.setState({email})} value={this.state.email} />
+
+          <RkTextInput rkType='rounded' placeholder='Password' secureTextEntry onChangeText={password => this.setState({password})} value={this.state.password} />
+          
           <GradientButton
             style={styles.save}
             rkType='large'
             text='SIGN UP'
-            onPress={this.onSignUpButtonPressed}
+            onPress={this.handleSignUp}
           />
         </View>
         <View style={styles.footer}>

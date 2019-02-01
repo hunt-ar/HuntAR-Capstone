@@ -7,8 +7,6 @@ export default class StoryConcept extends React.Component {
     title: 'StoryConcept'
   };
 
-  onPressMap() { }
-
   render() {
     return (
       <View style={styles.parentContainer}>
@@ -39,7 +37,8 @@ export default class StoryConcept extends React.Component {
         <View>
           <Button
             title="No, not today..."
-            onPress={this.onPressMap} />
+            onPress={() =>
+            this.props.navigation.goBack()} />
         </View>
       </View>
     );

@@ -6,18 +6,11 @@ import { Inventory } from './index';
 import MapStyle from '../../assets/mapStyle';
 import { styles } from '../../assets/styles';
 import { MaterialCommunityIcons as Icon } from 'react-native-vector-icons';
-import geolib from 'geolib'
 
 export default class Map extends React.Component {
   constructor() {
     super();
     this.state = {
-      userLocation: {
-        latitude: 0,
-        longitude: 0,
-        latitudeDelta: 0.004,
-        longitudeDelta: 0.004
-      },
       BackPackVisible: false,
       region: {
         latitude: 0,
@@ -43,13 +36,10 @@ export default class Map extends React.Component {
           id: 3,
           title: 'Clue 3'
         }
-      ],
-      distance: 0
+      ]
     };
     this.onBackPackPress = this.onBackPackPress.bind(this);
     this.onBackPackClose = this.onBackPackClose.bind(this);
-    this.setUserLocation = this.setUserLocation.bind(this);
-    this.distanceToMarker = this.distanceToMarker.bind(this);
   }
 
   onBackPackPress() {
@@ -61,25 +51,6 @@ export default class Map extends React.Component {
     this.setState({
       BackPackVisible: false
     });
-  }
-  setUserLocation(coordinate) {
-    //alert("User location changed MAP SHOULDNT MOVE")
-    this.setState({
-      userLocation: {
-        latitude: coordinate.latitude,
-        longitude: coordinate.longitude,
-        latitudeDelta: 0.004,
-        longitudeDelta: 0.004
-      }
-    })
-  }
-  distanceToMarker(coordinate, marker) {
-    if (coordinate) {
-      return geolib.getDistance(coordinate, marker, 1);
-    }
-    else {
-      return 0;
-    }
   }
 
   componentDidMount() {
@@ -101,7 +72,6 @@ export default class Map extends React.Component {
   }
 
   render() {
-    console.log('dist', this.distanceToMarker(this.state.userLocation, this.state.markers[0]));
     return this.state.region.latitude ? (
       <View style={styles.mapContainer}>
         <MapView
@@ -111,27 +81,18 @@ export default class Map extends React.Component {
           region={this.state.region}
           onRegionChange={this.onRegionChange}
           showsUserLocation
-          onUserLocationChange={locationChangedResult => this.setUserLocation(locationChangedResult.nativeEvent.coordinate)}
         >
           {this.state.markers.map(marker => (
             <Marker
               title={marker.title}
               key={marker.id}
               coordinate={marker}
-              onPress={() =>
-                this.props.navigation.navigate(`ARClue${marker.id}`)
-              }
+              onPress={() => this.props.navigation.navigate('ARClue1')}
             />
           ))}
         </MapView>
         <View flexDirection="row" padding={15}>
           <View style={styles.quitButtonContainer}>
-            <Text>
-              {`Your latitude: ${this.state.userLocation ? this.state.userLocation.latitude : 0}`}
-            </Text>
-            <Text>
-              {`Your longitude: ${this.state.userLocation ? this.state.userLocation.longitude : 0}`}
-            </Text>
             <AwesomeButton
               style={styles.quitButton}
               onPress={() => this.props.navigation.navigate('Home')}
@@ -158,9 +119,7 @@ export default class Map extends React.Component {
         </Modal>
       </View>
     ) : (
-        <View style={styles.parentContainer}>
-          <Text style={styles.headerText}>Loading...</Text>
-        </View>
-      );
+      <Text>Loading...</Text>
+    );
   }
 }
