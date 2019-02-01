@@ -2,6 +2,7 @@ import React from 'react';
 import { AR } from 'expo';
 import { View, Button } from 'react-native';
 import { connect } from 'react-redux';
+import { styles } from '../../assets/styles';
 //import AwesomeButton from 'react-native-really-awesome-button';
 // Let's alias ExpoTHREE.AR as ThreeAR so it doesn't collide with Expo.AR.
 import ExpoTHREE, { AR as ThreeAR, THREE } from 'expo-three';
@@ -59,11 +60,13 @@ class ARClue1 extends React.Component {
             position: 'absolute'
           }}
         >
-          <Button
-            onPress={this.onButtonPress}
-            backgroundColor="transparent"
-            title="Continue"
-          />
+          <View style={styles.parentContainer}>
+            <Button
+              onPress={this.onButtonPress}
+              backgroundColor="transparent"
+              title="Continue"
+            />
+          </View>
         </View>
       </View>
     );
