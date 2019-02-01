@@ -35,10 +35,8 @@ export default class Map extends React.Component {
           title: 'Clue 1'
         },
         {
-          // latitude: 35.334235915305,
-          // longitude: -120.74445785104,
-          latitude: 35.33494492530388,
-          longitude: -120.74434465739945,
+          latitude: 35.334235915305,
+          longitude: -120.74445785104,
           id: 2,
           title: 'Clue 2'
         },
@@ -67,7 +65,6 @@ export default class Map extends React.Component {
     });
   }
   setUserLocation(coordinate) {
-    //alert("User location changed MAP SHOULDNT MOVE")
     this.setState({
       userLocation: {
         latitude: coordinate.latitude,
@@ -138,14 +135,6 @@ export default class Map extends React.Component {
         </MapView>
         <View flexDirection="row" padding={15}>
           <View style={styles.quitButtonContainer}>
-            {/*
-              If we need to track coordinates for debugging:
-               <Text>
-              {`Your latitude: ${this.state.userLocation ? this.state.userLocation.latitude : 0}`}
-            </Text>
-            <Text>
-              {`Your longitude: ${this.state.userLocation ? this.state.userLocation.longitude : 0}`}
-            </Text> */}
             <AwesomeButton
               style={styles.quitButton}
               onPress={() => this.props.navigation.navigate('Home')}
