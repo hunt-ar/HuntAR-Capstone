@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Modal } from 'react-native';
+import { Text, View, Modal, ActivityIndicator, StyleSheet } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Inventory } from './index';
@@ -170,9 +170,10 @@ export default class Map extends React.Component {
         </Modal>
       </View>
     ) : (
-        <View style={styles.parentContainer}>
-          <Text style={styles.headerText}>Loading...</Text>
-        </View>
+      <View style={styles.loadingContainer}>
+        <Text>Loading</Text>
+        <ActivityIndicator size="large" />
+      </View>
       );
   }
 }
