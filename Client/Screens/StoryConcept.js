@@ -37,7 +37,7 @@ export default class StoryConcept extends React.Component {
         <View>
           <Button
             title="No, not today..."
-            onPress={() => 
+            onPress={() =>
             this.props.navigation.goBack()} />
         </View>
       </View>
