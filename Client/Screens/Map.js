@@ -8,6 +8,9 @@ import { styles } from '../../assets/styles';
 import { MaterialCommunityIcons as Icon } from 'react-native-vector-icons';
 import geolib from 'geolib'
 
+//get within range of marker to be able to render AR
+const inRange = 5;
+
 export default class Map extends React.Component {
   constructor() {
     super();
@@ -32,8 +35,10 @@ export default class Map extends React.Component {
           title: 'Clue 1'
         },
         {
-          latitude: 35.334235915305,
-          longitude: -120.74445785104,
+          // latitude: 35.334235915305,
+          // longitude: -120.74445785104,
+          latitude: 35.33494492530388,
+          longitude: -120.74434465739945,
           id: 2,
           title: 'Clue 2'
         },
@@ -44,7 +49,6 @@ export default class Map extends React.Component {
           title: 'Clue 3'
         }
       ],
-      distance: 0
     };
     this.onBackPackPress = this.onBackPackPress.bind(this);
     this.onBackPackClose = this.onBackPackClose.bind(this);
@@ -78,7 +82,7 @@ export default class Map extends React.Component {
       return geolib.getDistance(coordinate, marker, 1);
     }
     else {
-      return 0;
+      return Infinity;
     }
   }
 
@@ -118,8 +122,16 @@ export default class Map extends React.Component {
               title={marker.title}
               key={marker.id}
               coordinate={marker}
-              onPress={() =>
-                this.props.navigation.navigate(`ARClue${marker.id}`)
+              onPress={() => {
+                if (this.distanceToMarker(this.state.userLocation, { latitude: marker.latitude, longitude: marker.longitude }) < inRange) 
+                {
+                  console.log('within range!')
+                  this.props.navigation.navigate(`ARClue${marker.id}`)
+                }
+                else {
+                  console.log('not within range!');
+                }
+              }
               }
             />
           ))}
