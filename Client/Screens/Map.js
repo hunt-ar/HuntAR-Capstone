@@ -15,6 +15,12 @@ export default class Map extends React.Component {
   constructor() {
     super();
     this.state = {
+      userLocation: {
+        latitude: 0,
+        longitude: 0,
+        latitudeDelta: 0.004,
+        longitudeDelta: 0.004
+      },
       BackPackVisible: false,
       region: {
         latitude: 0,
