@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   medText: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: 'bold',
   },
   introText: {
