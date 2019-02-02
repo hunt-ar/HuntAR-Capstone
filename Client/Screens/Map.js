@@ -1,11 +1,15 @@
 import React from 'react';
-import { Text, View, Modal } from 'react-native';
+import { Text, View, Modal, ActivityIndicator, Stylesheet } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Inventory } from './index';
 import MapStyle from '../../assets/mapStyle';
 import { styles } from '../../assets/styles';
 import { MaterialCommunityIcons as Icon } from 'react-native-vector-icons';
+import geolib from 'geolib';
+
+//get within range of marker to be able to render AR
+const inRange = 5;
 
 export default class Map extends React.Component {
   constructor() {
@@ -21,6 +25,8 @@ export default class Map extends React.Component {
     };
     this.onBackPackPress = this.onBackPackPress.bind(this);
     this.onBackPackClose = this.onBackPackClose.bind(this);
+    this.setUserLocation.bind(this);
+    this.distanceToMarker = this.distanceToMarker.bind(this);
   }
 
   onBackPackPress() {
@@ -32,6 +38,23 @@ export default class Map extends React.Component {
     this.setState({
       BackPackVisible: false
     });
+  }
+  setUserLocation(coordinate) {
+    this.setState({
+      userLocation: {
+        latitude: coordinate.latitude,
+        longitude: coordinate.longitude,
+        latitudeDelta: 0.004,
+        longitudeDelta: 0.004
+      }
+    });
+  }
+  distanceToMarker(coordinate, marker) {
+    if (coordinate) {
+      return geolib.getDistance(coordinate, marker, 1);
+    } else {
+      return Infinity;
+    }
   }
 
   componentDidMount() {
@@ -70,6 +93,10 @@ export default class Map extends React.Component {
   }
 
   render() {
+    console.log(
+      'dist',
+      this.distanceToMarker(this.state.userLocation, this.state.markers[0])
+    );
     return this.state.region.latitude ? (
       <View style={styles.mapContainer}>
         <MapView
@@ -79,14 +106,27 @@ export default class Map extends React.Component {
           region={this.state.region}
           onRegionChange={this.onRegionChange}
           showsUserLocation
+          onUserLocationChange={locationChangedResult =>
+            this.setUserLocation(locationChangedResult.nativeEvent.coordinate)
+          }
         >
           {this.state.markers.map(marker => (
             <Marker
               key={marker.id}
               coordinate={marker}
-              onPress={() =>
-                this.props.navigation.navigate(`ARClue${marker.id}`)
-              }
+              onPress={() => {
+                if (
+                  this.distanceToMarker(this.state.userLocation, {
+                    latitude: marker.latitude,
+                    longitude: marker.longitude
+                  }) < inRange
+                ) {
+                  console.log('within range!');
+                  this.props.navigation.navigate(`ARClue${marker.id}`);
+                } else {
+                  console.log('not within range!');
+                }
+              }}
             />
           ))}
         </MapView>
@@ -118,7 +158,10 @@ export default class Map extends React.Component {
         </Modal>
       </View>
     ) : (
-      <Text>Loading...</Text>
+      <View style={styles.loadingContainer}>
+        <Text>Loading</Text>
+        <ActivityIndicator size="large" />
+      </View>
     );
   }
 }
