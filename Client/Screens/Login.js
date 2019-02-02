@@ -6,8 +6,7 @@ import {
   Keyboard,
   Alert,
   StyleSheet,
-  Text, 
-  TextInput,
+  Text,
   ActivityIndicator
 } from 'react-native';
 import {
