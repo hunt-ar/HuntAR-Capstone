@@ -6,7 +6,7 @@ import { Inventory } from './index';
 import MapStyle from '../../assets/mapStyle';
 import { styles } from '../../assets/styles';
 import { MaterialCommunityIcons as Icon } from 'react-native-vector-icons';
-import geolib from 'geolib'
+import geolib from 'geolib';
 
 //get within range of marker to be able to render AR
 const inRange = 5;
@@ -21,32 +21,7 @@ export default class Map extends React.Component {
         longitude: 0,
         error: null
       },
-      markers: [
-        {
-          latitude: 35.334835915305,
-          longitude: -120.74475785104,
-          id: 1,
-          title: 'Clue 1'
-        },
-        {
-          latitude: 35.334235915305,
-          longitude: -120.74445785104,
-          id: 2,
-          title: 'Clue 2'
-        },
-        {
-          latitude: 35.334535915305,
-          longitude: -120.74445785104,
-          id: 3,
-          title: 'Clue 3'
-        }
-      ],
-      userLocation: {
-        latitude: 0,
-        longitude: 0,
-        latitudeDelta: 0.004,
-        longitudeDelta: 0.004
-      }
+      markers: []
     };
     this.onBackPackPress = this.onBackPackPress.bind(this);
     this.onBackPackClose = this.onBackPackClose.bind(this);
@@ -72,13 +47,12 @@ export default class Map extends React.Component {
         latitudeDelta: 0.004,
         longitudeDelta: 0.004
       }
-    })
+    });
   }
   distanceToMarker(coordinate, marker) {
     if (coordinate) {
       return geolib.getDistance(coordinate, marker, 1);
-    }
-    else {
+    } else {
       return Infinity;
     }
   }
@@ -93,7 +67,24 @@ export default class Map extends React.Component {
             latitudeDelta: 0.001,
             longitudeDelta: 0.001,
             error: null
-          }
+          },
+          markers: [
+            {
+              latitude: Math.random() * 0.0005 + position.coords.latitude,
+              longitude: Math.random() * 0.0005 + position.coords.longitude,
+              id: 1
+            },
+            {
+              latitude: Math.random() * 0.0005 + position.coords.latitude,
+              longitude: Math.random() * 0.0005 + position.coords.longitude,
+              id: 2
+            },
+            {
+              latitude: Math.random() * 0.0005 + position.coords.latitude,
+              longitude: Math.random() * 0.0005 + position.coords.longitude,
+              id: 3
+            }
+          ]
         });
       },
       error => this.setState({ error: error.message }),
@@ -102,7 +93,10 @@ export default class Map extends React.Component {
   }
 
   render() {
-    console.log('dist', this.distanceToMarker(this.state.userLocation, this.state.markers[0]));
+    console.log(
+      'dist',
+      this.distanceToMarker(this.state.userLocation, this.state.markers[0])
+    );
     return this.state.region.latitude ? (
       <View style={styles.mapContainer}>
         <MapView
@@ -112,24 +106,27 @@ export default class Map extends React.Component {
           region={this.state.region}
           onRegionChange={this.onRegionChange}
           showsUserLocation
-          onUserLocationChange={locationChangedResult => this.setUserLocation(locationChangedResult.nativeEvent.coordinate)}
+          onUserLocationChange={locationChangedResult =>
+            this.setUserLocation(locationChangedResult.nativeEvent.coordinate)
+          }
         >
           {this.state.markers.map(marker => (
             <Marker
-              title={marker.title}
               key={marker.id}
               coordinate={marker}
               onPress={() => {
-                if (this.distanceToMarker(this.state.userLocation, { latitude: marker.latitude, longitude: marker.longitude }) < inRange) 
-                {
-                  console.log('within range!')
-                  this.props.navigation.navigate(`ARClue${marker.id}`)
-                }
-                else {
+                if (
+                  this.distanceToMarker(this.state.userLocation, {
+                    latitude: marker.latitude,
+                    longitude: marker.longitude
+                  }) < inRange
+                ) {
+                  console.log('within range!');
+                  this.props.navigation.navigate(`ARClue${marker.id}`);
+                } else {
                   console.log('not within range!');
                 }
-              }
-              }
+              }}
             />
           ))}
         </MapView>
