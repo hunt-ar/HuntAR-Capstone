@@ -7,14 +7,15 @@ import ExpoTHREE, { AR as ThreeAR, THREE } from 'expo-three';
 import { View as GraphicsView } from 'expo-graphics';
 import { addItem } from '../store/inventory';
 import ObjectLoader from '../utils/ObjectLoader';
-import BobObject from './bob';
+import Shovel from '../../assets/ARShovel/shovel3';
+
 class ARClue1 extends React.Component {
   constructor() {
     super();
     this.state = {
-      key: {
-        name: 'Old Key',
-        description: 'Rusty old Skeleton Key found deep in the catacombs'
+      shovel: {
+        name: 'Shovel',
+        description: 'For digging up an important clue.'
       }
     };
     this.onButtonPress = this.onButtonPress.bind(this);
@@ -26,7 +27,7 @@ class ARClue1 extends React.Component {
   }
 
   onButtonPress() {
-    this.props.addItem(this.state.key);
+    this.props.addItem(this.state.shovel);
     this.props.navigation.navigate('Map');
   }
 
@@ -77,10 +78,10 @@ class ARClue1 extends React.Component {
     this.camera = new ThreeAR.Camera(width, height, 0.01, 1000);
 
     ObjectLoader.getThreeModel(
-      BobObject,
+      Shovel,
       function(object) {
-        object.scale.set(0.2, 0.2, 0.2);
-        object.position.z = -1;
+        object.scale.set(0.2, 0.15, 0.2);
+        object.position.z = -.5;
         this.scene.add(object);
       }.bind(this),
       function(error) {

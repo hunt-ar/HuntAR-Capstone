@@ -1,0 +1,85 @@
+{
+  "name": "assets/dR-kItm5ihP",
+  "displayName": "Skeleton Key",
+  "authorName": "Jerad Bitner",
+  "createTime": "2017-11-30T17:07:22.010096Z",
+  "updateTime": "2019-01-31T10:54:06.176763Z",
+  "formats": [
+    {
+      "root": {
+        "relativePath": "model.obj",
+        "url": "https://poly.googleapis.com/downloads/dR-kItm5ihP/0vclIjgL4qq/model.obj",
+        "contentType": "text/plain"
+      },
+      "resources": [
+        {
+          "relativePath": "materials.mtl",
+          "url": "https://poly.googleapis.com/downloads/dR-kItm5ihP/0vclIjgL4qq/materials.mtl",
+          "contentType": "text/plain"
+        }
+      ],
+      "formatComplexity": {
+        "triangleCount": "246"
+      },
+      "formatType": "OBJ"
+    },
+    {
+      "root": {
+        "relativePath": "model.fbx",
+        "url": "https://poly.googleapis.com/downloads/dR-kItm5ihP/bTUWkFC50cm/model.fbx",
+        "contentType": "application/octet-stream"
+      },
+      "formatComplexity": {},
+      "formatType": "FBX"
+    },
+    {
+      "root": {
+        "relativePath": "model.gltf",
+        "url": "https://poly.googleapis.com/downloads/dR-kItm5ihP/5CMy4cZtvQH/model.gltf",
+        "contentType": "model/gltf+json"
+      },
+      "resources": [
+        {
+          "relativePath": "model.bin",
+          "url": "https://poly.googleapis.com/downloads/dR-kItm5ihP/5CMy4cZtvQH/model.bin",
+          "contentType": "application/octet-stream"
+        }
+      ],
+      "formatComplexity": {
+        "triangleCount": "328"
+      },
+      "formatType": "GLTF"
+    },
+    {
+      "root": {
+        "relativePath": "model.gltf",
+        "url": "https://poly.googleapis.com/downloads/dR-kItm5ihP/agNp_r2tk0V/model.gltf",
+        "contentType": "model/gltf+json"
+      },
+      "resources": [
+        {
+          "relativePath": "model.bin",
+          "url": "https://poly.googleapis.com/downloads/dR-kItm5ihP/agNp_r2tk0V/model.bin",
+          "contentType": "application/octet-stream"
+        }
+      ],
+      "formatComplexity": {},
+      "formatType": "GLTF2"
+    }
+  ],
+  "thumbnail": {
+    "relativePath": "dR-kItm5ihP.png",
+    "url": "https://lh3.googleusercontent.com/HJz4Bqtv8Xh5mFikbFZpUY58jS4JiDdxssaBBK_YTpwDrWehdMW_0FMHQAhAYcIu",
+    "contentType": "image/png"
+  },
+  "license": "CREATIVE_COMMONS_BY",
+  "visibility": "PUBLIC",
+  "isCurated": true,
+  "presentationParams": {
+    "orientingRotation": {
+      "w": 1
+    },
+    "colorSpace": "LINEAR",
+    "backgroundColor": "#455a64"
+  }
+}

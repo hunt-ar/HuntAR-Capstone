@@ -13,6 +13,7 @@ import {
   ARClue1,
   ARClue2,
   ARClue3,
+  ARBombToDefuse,
   Lose
 } from './Client/Screens';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
@@ -34,6 +35,7 @@ const RootStack = createStackNavigator(
     ARClue1,
     ARClue2,
     ARClue3,
+    ARBombToDefuse,
     Lose
   },
   { headerMode: 'none' }
