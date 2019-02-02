@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Modal, ActivityIndicator, StyleSheet } from 'react-native';
+import { Text, View, Modal, ActivityIndicator, Stylesheet } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Inventory } from './index';
@@ -15,12 +15,6 @@ export default class Map extends React.Component {
   constructor() {
     super();
     this.state = {
-      userLocation: {
-        latitude: 0,
-        longitude: 0,
-        latitudeDelta: 0.004,
-        longitudeDelta: 0.004
-      },
       BackPackVisible: false,
       region: {
         latitude: 0,
@@ -47,10 +41,16 @@ export default class Map extends React.Component {
           title: 'Clue 3'
         }
       ],
+      userLocation: {
+        latitude: 0,
+        longitude: 0,
+        latitudeDelta: 0.004,
+        longitudeDelta: 0.004
+      }
     };
     this.onBackPackPress = this.onBackPackPress.bind(this);
     this.onBackPackClose = this.onBackPackClose.bind(this);
-    this.setUserLocation = this.setUserLocation.bind(this);
+    this.setUserLocation.bind(this);
     this.distanceToMarker = this.distanceToMarker.bind(this);
   }
 
@@ -165,6 +165,6 @@ export default class Map extends React.Component {
         <Text>Loading</Text>
         <ActivityIndicator size="large" />
       </View>
-      );
+    );
   }
 }
