@@ -1,0 +1,61 @@
+{
+  "name": "assets/fCeaY97tP4r",
+  "displayName": "Shovel",
+  "authorName": "Poly by Google",
+  "description": "#tools #shovel #gardening #garden",
+  "createTime": "2017-10-22T21:53:18.245461Z",
+  "updateTime": "2019-02-01T10:44:06.279475Z",
+  "formats": [
+    {
+      "root": {
+        "relativePath": "Spade.obj",
+        "url": "https://poly.googleapis.com/downloads/fCeaY97tP4r/9djRNIWRTkq/Spade.obj",
+        "contentType": "text/plain"
+      },
+      "resources": [
+        {
+          "relativePath": "Spade.mtl",
+          "url": "https://poly.googleapis.com/downloads/fCeaY97tP4r/9djRNIWRTkq/Spade.mtl",
+          "contentType": "text/plain"
+        }
+      ],
+      "formatComplexity": {
+        "triangleCount": "580"
+      },
+      "formatType": "OBJ"
+    },
+    {
+      "root": {
+        "relativePath": "Spade.gltf",
+        "url": "https://poly.googleapis.com/downloads/fCeaY97tP4r/89vCDWUrQbQ/Spade.gltf",
+        "contentType": "model/gltf+json"
+      },
+      "resources": [
+        {
+          "relativePath": "Spade.bin",
+          "url": "https://poly.googleapis.com/downloads/fCeaY97tP4r/89vCDWUrQbQ/Spade.bin",
+          "contentType": "application/octet-stream"
+        }
+      ],
+      "formatComplexity": {
+        "triangleCount": "580"
+      },
+      "formatType": "GLTF2"
+    }
+  ],
+  "thumbnail": {
+    "relativePath": "fCeaY97tP4r.png",
+    "url": "https://lh3.googleusercontent.com/-NlYT7y2ACqcUaTJ3ZnwRVGHW1ivj3kBdTutM3_RJtGfcV34o37H-2OH_WSqe0Hm1g",
+    "contentType": "image/png"
+  },
+  "license": "CREATIVE_COMMONS_BY",
+  "visibility": "PUBLIC",
+  "isCurated": true,
+  "presentationParams": {
+    "orientingRotation": {
+      "w": 1
+    },
+    "colorSpace": "LINEAR",
+    "backgroundColor": "#ff5722"
+  }
+}

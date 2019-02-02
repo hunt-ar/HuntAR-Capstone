@@ -43,7 +43,7 @@ export default class Home extends React.Component {
           />
           <Button
             title="Start multi-player game"
-            onPress={() => this.props.navigation.navigate('Clue')}
+            onPress={() => this.props.navigation.navigate('ARClue1')}
           />
           <Button
             title="Log In"

@@ -12,6 +12,7 @@ import ARClue2 from './ARClue2';
 import ARClue3 from './ARClue3';
 import Loading from './Loading';
 import Welcome from './Welcome';
+import ARBombToDefuse from './ARBombToDefuse';
 export {
   Clue,
   Map,
@@ -26,5 +27,6 @@ export {
   ForgotPW,
   ARClue1,
   ARClue2,
-  ARClue3
+  ARClue3,
+  ARBombToDefuse
 };

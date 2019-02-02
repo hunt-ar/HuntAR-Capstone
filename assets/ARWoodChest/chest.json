@@ -1,0 +1,86 @@
+{
+  "name": "assets/3SGvQIwe214",
+  "displayName": "Treasure Chest",
+  "authorName": "Alex “SAFFY” Safayan",
+  "description": "Arrgh. A treasure chest #MadeWithBlocks\n\nFollow me to show support! \nhttps://www.instagram.com/newpxl/\nhttps://twitter.com/alexsafayan\n\nTags: #chest #treasurechest #gold",
+  "createTime": "2017-10-30T23:04:12.435162Z",
+  "updateTime": "2019-02-02T10:34:08.848341Z",
+  "formats": [
+    {
+      "root": {
+        "relativePath": "model.obj",
+        "url": "https://poly.googleapis.com/downloads/3SGvQIwe214/6sK-z3UKK1o/model.obj",
+        "contentType": "text/plain"
+      },
+      "resources": [
+        {
+          "relativePath": "materials.mtl",
+          "url": "https://poly.googleapis.com/downloads/3SGvQIwe214/6sK-z3UKK1o/materials.mtl",
+          "contentType": "text/plain"
+        }
+      ],
+      "formatComplexity": {
+        "triangleCount": "483"
+      },
+      "formatType": "OBJ"
+    },
+    {
+      "root": {
+        "relativePath": "model.fbx",
+        "url": "https://poly.googleapis.com/downloads/3SGvQIwe214/dRc0Qehamb4/model.fbx",
+        "contentType": "application/octet-stream"
+      },
+      "formatComplexity": {},
+      "formatType": "FBX"
+    },
+    {
+      "root": {
+        "relativePath": "model.gltf",
+        "url": "https://poly.googleapis.com/downloads/3SGvQIwe214/4vMIhdfnVrn/model.gltf",
+        "contentType": "model/gltf+json"
+      },
+      "resources": [
+        {
+          "relativePath": "model.bin",
+          "url": "https://poly.googleapis.com/downloads/3SGvQIwe214/4vMIhdfnVrn/model.bin",
+          "contentType": "application/octet-stream"
+        }
+      ],
+      "formatComplexity": {
+        "triangleCount": "992"
+      },
+      "formatType": "GLTF"
+    },
+    {
+      "root": {
+        "relativePath": "model.gltf",
+        "url": "https://poly.googleapis.com/downloads/3SGvQIwe214/e-uijpNttjF/model.gltf",
+        "contentType": "model/gltf+json"
+      },
+      "resources": [
+        {
+          "relativePath": "model.bin",
+          "url": "https://poly.googleapis.com/downloads/3SGvQIwe214/e-uijpNttjF/model.bin",
+          "contentType": "application/octet-stream"
+        }
+      ],
+      "formatComplexity": {},
+      "formatType": "GLTF2"
+    }
+  ],
+  "thumbnail": {
+    "relativePath": "3SGvQIwe214.png",
+    "url": "https://lh3.googleusercontent.com/Sq7gVV1C_UOKnBskGn8GSVciqtBM2wm-Bmk32g8FUO9gqPzB_bCizqWgYWxJtY-N",
+    "contentType": "image/png"
+  },
+  "license": "CREATIVE_COMMONS_BY",
+  "visibility": "PUBLIC",
+  "isCurated": true,
+  "presentationParams": {
+    "orientingRotation": {
+      "w": 1
+    },
+    "colorSpace": "LINEAR",
+    "backgroundColor": "#00bcd4"
+  }
+}

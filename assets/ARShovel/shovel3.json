@@ -1,0 +1,84 @@
+{
+  "name": "assets/caBnJ7SyE0I",
+  "displayName": "TIME HOTEL 4.29",
+  "authorName": "S. Paul Michael",
+  "createTime": "2017-11-24T20:58:31.381201Z",
+  "updateTime": "2019-02-01T10:45:13.479082Z",
+  "formats": [
+    {
+      "root": {
+        "relativePath": "model.obj",
+        "url": "https://poly.googleapis.com/downloads/caBnJ7SyE0I/9ENbf_OYpI-/model.obj",
+        "contentType": "text/plain"
+      },
+      "resources": [
+        {
+          "relativePath": "materials.mtl",
+          "url": "https://poly.googleapis.com/downloads/caBnJ7SyE0I/9ENbf_OYpI-/materials.mtl",
+          "contentType": "text/plain"
+        }
+      ],
+      "formatComplexity": {
+        "triangleCount": "521"
+      },
+      "formatType": "OBJ"
+    },
+    {
+      "root": {
+        "relativePath": "model.fbx",
+        "url": "https://poly.googleapis.com/downloads/caBnJ7SyE0I/9X36uzrSmW9/model.fbx",
+        "contentType": "application/octet-stream"
+      },
+      "formatComplexity": {},
+      "formatType": "FBX"
+    },
+    {
+      "root": {
+        "relativePath": "model.gltf",
+        "url": "https://poly.googleapis.com/downloads/caBnJ7SyE0I/825hMstiRoJ/model.gltf",
+        "contentType": "model/gltf+json"
+      },
+      "resources": [
+        {
+          "relativePath": "model.bin",
+          "url": "https://poly.googleapis.com/downloads/caBnJ7SyE0I/825hMstiRoJ/model.bin",
+          "contentType": "application/octet-stream"
+        }
+      ],
+      "formatComplexity": {
+        "triangleCount": "1134"
+      },
+      "formatType": "GLTF"
+    },
+    {
+      "root": {
+        "relativePath": "model.gltf",
+        "url": "https://poly.googleapis.com/downloads/caBnJ7SyE0I/1vRdqW7e05o/model.gltf",
+        "contentType": "model/gltf+json"
+      },
+      "resources": [
+        {
+          "relativePath": "model.bin",
+          "url": "https://poly.googleapis.com/downloads/caBnJ7SyE0I/1vRdqW7e05o/model.bin",
+          "contentType": "application/octet-stream"
+        }
+      ],
+      "formatComplexity": {},
+      "formatType": "GLTF2"
+    }
+  ],
+  "thumbnail": {
+    "relativePath": "caBnJ7SyE0I.png",
+    "url": "https://lh3.googleusercontent.com/uk20yjX8tv95wsB6FE3gIn4i09BhLFoPfM4F76kdSJcUyCvwgJMlTl4NJkyzW22vxg",
+    "contentType": "image/png"
+  },
+  "license": "CREATIVE_COMMONS_BY",
+  "visibility": "PUBLIC",
+  "presentationParams": {
+    "orientingRotation": {
+      "w": 1
+    },
+    "colorSpace": "LINEAR",
+    "backgroundColor": "#eeeeee"
+  }
+}
