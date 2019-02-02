@@ -56,7 +56,7 @@ export default class Map extends React.Component {
     });
   }
   distanceToMarker(coordinate, marker) {
-    if (coordinate) {
+    if (coordinate && marker) {
       return geolib.getDistance(coordinate, marker, 1);
     } else {
       return Infinity;
