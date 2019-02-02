@@ -6,11 +6,10 @@ import {
   Keyboard,
   Alert,
   StyleSheet,
-  Text, 
-  TextInput
+  Text,
+  ActivityIndicator
 } from 'react-native';
 import {
-  RkButton,
   RkText,
   RkTextInput,
   RkAvoidKeyboard,
@@ -19,23 +18,16 @@ import {
 import { FontAwesome } from '../../assets/icons';
 import { GradientButton } from '../Components';
 import { scaleVertical } from '../utils/scale';
+import firebase from 'firebase'
 import NavigationType from '../../config/navigation/propTypes';
 
 export class Login extends React.Component {
 
-  state = { email: '', password: '', errorMessage: null }
+  state = { email: '', password: '', error: '', loading: false }
 
   handleLogin= (event) => {
-    // TODO: Firebase stuff ...
     console.log('handleLogin')
   }
-
-  // onChange(event) => {
-  //   event.preventDefault();
-  //   this.setState({
-  //     [event.target.name]: event.target.value
-  //   });
-  // }
 
   static propTypes = {
     navigation: NavigationType.isRequired,
@@ -54,8 +46,16 @@ export class Login extends React.Component {
 
   //need to add login functionality
   handleLogin = () => {
-    this.props.navigation.navigate('Loading');
-    //this.onSubmit
+    this.setState({ loading: true });
+
+    const { email, password } = this.state;
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then( () => { this.setState({ error: '', loading: false}); })
+      .then( () => {this.props.navigation.navigate('StoryConcept'); })
+      .catch( () => {
+        //Login was not successful.
+        this.setState({ error: "Authenication failed. Please try again or select the 'Forgot Password' button below.", loading: false })
+      })
   };
 
   //goes to sign up component
@@ -68,7 +68,8 @@ export class Login extends React.Component {
       this.props.navigation.navigate('ForgotPW');
     };
 
-  render = () => (
+  render() {
+    return this.state.loading === false ? (
     <RkAvoidKeyboard
       style={styles.screen}
       onStartShouldSetResponder={() => true}
@@ -90,17 +91,6 @@ export class Login extends React.Component {
             style={styles.save}
           />
         </View>
-        {/* <View style={styles.buttons}>
-          <RkButton style={styles.button} rkType='social'>
-            <RkText rkType='awesome hero'>{FontAwesome.twitter}</RkText>
-          </RkButton>
-          <RkButton style={styles.button} rkType='social'>
-            <RkText rkType='awesome hero'>{FontAwesome.google}</RkText>
-          </RkButton>
-          <RkButton style={styles.button} rkType='social'>
-            <RkText rkType='awesome hero'>{FontAwesome.facebook}</RkText>
-          </RkButton> */}
-        {/* </View> */}
         <View style={styles.footer}>
           <View style={styles.textRow}>
             <RkText rkType='title'>Don’t have an account?</RkText>
@@ -122,7 +112,12 @@ export class Login extends React.Component {
         </View>
       </View>
     </RkAvoidKeyboard>
-  );
+  ) : (
+    <View style={styles.loadingContainer}>
+      <Text>Loading</Text>
+      <ActivityIndicator size="large" />
+    </View>
+  )}
 }
 
 const styles = RkStyleSheet.create(theme => ({
@@ -177,5 +172,10 @@ const styles = RkStyleSheet.create(theme => ({
     color: 'black',
     textAlignVertical: 'center',
     textAlign: 'center'
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 }));

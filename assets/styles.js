@@ -7,12 +7,16 @@ export const styles = StyleSheet.create({
     padding: 10
   },
   largeText: {
-    fontSize: 30,
+    fontSize: 40,
     fontWeight: 'bold'
   },
   medText: {
+    fontSize: 25,
+    fontWeight: 'bold',
+  },
+  introText: {
     fontSize: 20,
-    fontWeight: 'bold'
+    padding: 50
   },
   titleContainer: {
     flex: 2,
