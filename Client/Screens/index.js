@@ -13,6 +13,7 @@ import ARClue3 from './ARClue3';
 import Loading from './Loading';
 import Welcome from './Welcome';
 import ARBombToDefuse from './ARBombToDefuse';
+import Lose from './Lose';
 export {
   Clue,
   Map,
@@ -28,5 +29,6 @@ export {
   ARClue1,
   ARClue2,
   ARClue3,
-  ARBombToDefuse
+  ARBombToDefuse,
+  Lose
 };

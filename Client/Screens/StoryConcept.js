@@ -12,20 +12,8 @@ export default class StoryConcept extends React.Component {
       <View style={styles.parentContainer}>
         <View style={styles.titleContainer}>
           <Text style={styles.largeText}>We need your help!</Text>
-          <Text>
-            We have detected a ticking bomb in this area and you have to help us
-            defuse it before time runs out! Three covert agents claim to have
-            the secret code to deactivate the bomb, but two of them are working
-            for the other side and are deliberately giving us false information.
-            While we work to find out who the true agent is, you need to meet
-            with all three agents and collect the secret codes that they give
-            you.
-          </Text>
-          <Text>
-            By the time you are done meeting with all three, we (hopefully!)
-            will have identified who the true agent is and will pass this
-            information to you. You will then need to go find the bomb and enter
-            the agent's secret code to stop it from exploding!
+          <Text style={styles.introText}>
+            We have detected a ticking bomb in the area and need your help to disarm it before time runs out! Luckily, the tools needed to defuse the bomb are scattered nearby. We have marked their locations on your map. You may not be able to access some items before accessing others, so if you visit one item before another, you may have to come back. Collect all the items, then disarm the bomb. Please hurry, time is ticking!
           </Text>
         </View>
         <Text style={styles.medText}>Do you accept the mission?</Text>
@@ -38,7 +26,7 @@ export default class StoryConcept extends React.Component {
           <Button
             title="No, not today..."
             onPress={() =>
-            this.props.navigation.goBack()} />
+            this.props.navigation.navigate('Home')} />
         </View>
       </View>
     );
