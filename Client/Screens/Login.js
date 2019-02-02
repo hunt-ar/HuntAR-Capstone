@@ -28,16 +28,8 @@ export class Login extends React.Component {
   state = { email: '', password: '', error: '', loading: false }
 
   handleLogin= (event) => {
-    // TODO: Firebase stuff ...
     console.log('handleLogin')
   }
-
-  // onChange(event) => {
-  //   event.preventDefault();
-  //   this.setState({
-  //     [event.target.name]: event.target.value
-  //   });
-  // }
 
   static propTypes = {
     navigation: NavigationType.isRequired,
@@ -56,7 +48,6 @@ export class Login extends React.Component {
 
   //need to add login functionality
   handleLogin = () => {
-    console.log('FIREBASE', firebase)
     this.setState({ loading: true });
 
     const { email, password } = this.state;
@@ -102,17 +93,6 @@ export class Login extends React.Component {
             style={styles.save}
           />
         </View>
-        {/* <View style={styles.buttons}>
-          <RkButton style={styles.button} rkType='social'>
-            <RkText rkType='awesome hero'>{FontAwesome.twitter}</RkText>
-          </RkButton>
-          <RkButton style={styles.button} rkType='social'>
-            <RkText rkType='awesome hero'>{FontAwesome.google}</RkText>
-          </RkButton>
-          <RkButton style={styles.button} rkType='social'>
-            <RkText rkType='awesome hero'>{FontAwesome.facebook}</RkText>
-          </RkButton> */}
-        {/* </View> */}
         <View style={styles.footer}>
           <View style={styles.textRow}>
             <RkText rkType='title'>Don’t have an account?</RkText>
