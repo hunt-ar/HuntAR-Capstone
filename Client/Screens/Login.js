@@ -10,7 +10,6 @@ import {
   ActivityIndicator
 } from 'react-native';
 import {
-  RkButton,
   RkText,
   RkTextInput,
   RkAvoidKeyboard,
