@@ -13,6 +13,7 @@ import ARClue3 from './ARClue3';
 import Timer from './Timer';
 import Loading from './Loading';
 import Welcome from './Welcome';
+import ARBombToDefuse from './ARBombToDefuse';
 import Lose from './Lose';
 export {
   Clue,
@@ -30,5 +31,6 @@ export {
   ARClue2,
   ARClue3,
   Timer,
+  ARBombToDefuse,
   Lose
 };
