@@ -10,6 +10,7 @@ import ForgotPW from './ForgotPW';
 import ARClue1 from './ARClue1';
 import ARClue2 from './ARClue2';
 import ARClue3 from './ARClue3';
+import Timer from './Timer';
 import Loading from './Loading';
 import Welcome from './Welcome';
 import Lose from './Lose';
@@ -28,5 +29,6 @@ export {
   ARClue1,
   ARClue2,
   ARClue3,
+  Timer,
   Lose
 };

@@ -2,7 +2,6 @@ import React from 'react';
 import { Text, View, Button } from 'react-native';
 import { styles } from '../../assets/styles';
 import { connect } from 'react-redux';
-// import { beginTimerAction } from '../store/timer'
 import { thunk_beganTimer, thunk_stoppedTimer } from '../store/timer'
 
 const timeRemaining = 300;
@@ -28,7 +27,7 @@ class StoryConcept extends React.Component {
             title="Yes! I am ready to be a hero."
             onPress={() => {
               this.props.beginTimer(timeRemaining);
-              // this.props.navigation.navigate('Map')
+              this.props.navigation.navigate('Map')
             }}
           />
         </View>
@@ -37,7 +36,7 @@ class StoryConcept extends React.Component {
             title="No, not today..."
             onPress={() => {
               this.props.stopTimer(id)
-              // this.props.navigation.navigate('Home')
+              this.props.navigation.navigate('Home')
             }
             }
           />
