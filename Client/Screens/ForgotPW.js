@@ -5,6 +5,7 @@ import {
   Keyboard,
   Button,
   Alert,
+  Text,
   ActivityIndicator
 } from 'react-native';
 import {
@@ -124,5 +125,10 @@ const styles = RkStyleSheet.create(theme => ({
 		alignItems: 'center',
 		padding: 20,
 		justifyContent: 'center'
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 }));
