@@ -1,8 +1,12 @@
 import React from "react";
 import { Text, View, Button, Image } from "react-native";
 import { styles } from "../../assets/styles";
+import { connect } from 'react-redux';
+import { thunk_beganTimer } from '../store/timer'
 
-export default class StoryConcept extends React.Component {
+const timeRemaining = 30;
+
+class StoryConcept extends React.Component {
   renderImage = () => (
     <Image style= {{width: 60, height: 60}} source={require("../../assets/explode.png")} />
   );
@@ -29,16 +33,36 @@ export default class StoryConcept extends React.Component {
         <View>
           <Button
             title="Yes! I am ready to be a hero."
-            onPress={() => this.props.navigation.navigate("Map")}
+            onPress={() => {
+              this.props.beginTimer(timeRemaining);
+              this.props.navigation.navigate('Map')
+            }}
           />
         </View>
         <View>
           <Button
             title="No, not today..."
-            onPress={() => this.props.navigation.navigate("Home")}
+            onPress={() => {
+              this.props.navigation.navigate('Home')
+            }
+            }
           />
         </View>
       </View>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  timeRemaining: state.timer.timeRemaining,
+  id: state.timer.id
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    beginTimer: (time) => dispatch(thunk_beganTimer(time)),
+    stopTimer: (id) => dispatch(thunk_stoppedTimer(id))
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(StoryConcept);

@@ -14,7 +14,8 @@ import {
   ARClue2,
   ARClue3,
   ARBombToDefuse,
-  Lose
+  Lose,
+  Timer
 } from './Client/Screens';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 console.log('Our component:', ForgotPW)
@@ -36,7 +37,8 @@ const RootStack = createStackNavigator(
     ARClue2,
     ARClue3,
     ARBombToDefuse,
-    Lose
+    Lose,
+    Timer
   },
   { headerMode: 'none' }
 );

@@ -144,5 +144,16 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  timerStyle: {
+    padding: 20,
+    fontSize: 30,
+    fontWeight: 'bold'
+  },
+  timeAlmostUpStyle: {
+    padding: 20,
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: 'red'
   }
 });

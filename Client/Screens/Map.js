@@ -1,17 +1,20 @@
 import React from 'react';
-import { Text, View, Modal, ActivityIndicator, Stylesheet } from 'react-native';
+import { Text, View, Modal, ActivityIndicator } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Inventory } from './index';
+import { Timer } from './index';
 import MapStyle from '../../assets/mapStyle';
 import { styles } from '../../assets/styles';
 import { MaterialCommunityIcons as Icon } from 'react-native-vector-icons';
 import geolib from 'geolib';
+import { connect } from 'react-redux';
+import { thunk_stoppedTimer } from '../store/timer'
 
 //get within range of marker to be able to render AR
-const inRange = 5;
+const inRange = 30;
 
-export default class Map extends React.Component {
+class Map extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -99,10 +102,11 @@ export default class Map extends React.Component {
   }
 
   render() {
-    console.log(
-      'dist',
-      this.distanceToMarker(this.state.userLocation, this.state.markers[0])
-    );
+    const id = this.props.id;
+    // console.log(
+    //   'dist',
+    //   this.distanceToMarker(this.state.userLocation, this.state.markers[0])
+    // );
     return this.state.region.latitude ? (
       <View style={styles.mapContainer}>
         <MapView
@@ -116,6 +120,7 @@ export default class Map extends React.Component {
             this.setUserLocation(locationChangedResult.nativeEvent.coordinate)
           }
         >
+          <Timer />
           {this.state.markers.map(marker => (
             <Marker
               key={marker.id}
@@ -140,7 +145,10 @@ export default class Map extends React.Component {
           <View style={styles.quitButtonContainer}>
             <AwesomeButton
               style={styles.quitButton}
-              onPress={() => this.props.navigation.navigate('Home')}
+              onPress={() => {
+                this.props.stopTimer(id)
+                this.props.navigation.navigate('Lose')
+              }}
               backgroundColor="#c64747"
               backgroundActive="#595757"
               springRelease={true}
@@ -164,10 +172,23 @@ export default class Map extends React.Component {
         </Modal>
       </View>
     ) : (
-      <View style={styles.loadingContainer}>
-        <Text>Loading</Text>
-        <ActivityIndicator size="large" />
-      </View>
-    );
+        <View style={styles.loadingContainer}>
+          <Text>Loading</Text>
+          <ActivityIndicator size="large" />
+        </View>
+      );
   }
 }
+
+const mapStateToProps = state => ({
+  timeRemaining: state.timer.timeRemaining,
+  id: state.timer.id
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    stopTimer: (id) => dispatch(thunk_stoppedTimer(id))
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Map);
