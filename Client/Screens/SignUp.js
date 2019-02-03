@@ -7,7 +7,8 @@ import {
   Text, 
   TextInput, 
   Button,
-  ActivityIndicator
+  ActivityIndicator,
+  Alert
 } from 'react-native';
 import {
   RkButton,
@@ -23,7 +24,7 @@ import NavigationType from '../../config/navigation/propTypes';
 
 export class SignUp extends React.Component {
 
-  state = { email: '', password: '', error: '', loading: false }
+  state = { email: '', password: '', loading: false }
 
   static navigationOptions = {
     header: null,
@@ -33,17 +34,16 @@ export class SignUp extends React.Component {
   };
 
   handleSignUp = () => {
-    console.log('button press')
-    console.log('****FIREBASE', firebase)
     this.setState({ loading: true });
 
     const { email, password } = this.state;
     firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then( () => { this.setState({ error: '', loading: false}); })
-      .then( () => {this.props.navigation.navigate('StoryConcept'); })
+      .then( () => { this.setState({loading: false}); })
+      .then( () => {this.props.navigation.navigate('Welcome'); })
       .catch( () => {
         //Login was not successful.
-        this.setState({ error: "We are unable to process your request at this time.", loading: false })
+        this.setState({ loading: false })
+        Alert.alert("We are unable to process your request at this time");
       })
   }
 
@@ -54,16 +54,6 @@ export class SignUp extends React.Component {
       }
     />
   );
-
-  //need to add sign up functionality
-  handleSignUp = () => {
-    this.props.navigation.goBack();
-  };
-
-  //need to add sign in functionality
-  onSignInButtonPressed = () => {
-    this.props.navigation.navigate('Login');
-  };
 
   render() {
     return this.state.loading === false ? (
@@ -87,14 +77,34 @@ export class SignUp extends React.Component {
             onPress={this.handleSignUp}
           />
         </View>
+
         <View style={styles.footer}>
           <View style={styles.textRow}>
             <RkText rkType='primary3'>Already have an account?</RkText>
-            <RkButton rkType='clear' onPress={this.onSignInButtonPressed}>
-              <RkText rkType='header6'>Sign in now</RkText>
-            </RkButton>
+          </View>
+          <View>
+            <Button
+              onPress={() => {
+                this.props.navigation.navigate('Login');
+              }}
+              title="Sign In"
+              style={styles.save}
+            />
           </View>
         </View>
+
+        <View style={styles.footer}>
+          <View>
+            <Button
+              onPress={() => {
+                this.props.navigation.navigate('Home');
+              }}
+              title="Go Back"
+              style={styles.save}
+            />
+          </View>
+        </View>
+
       </View>
     </RkAvoidKeyboard>
   ) : (

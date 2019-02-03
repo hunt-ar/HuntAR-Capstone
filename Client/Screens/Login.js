@@ -47,7 +47,7 @@ export class Login extends React.Component {
 
     const { email, password } = this.state;
     firebase.auth().signInWithEmailAndPassword(email, password)
-      .then( () => { this.setState({ loading: false}); })
+      .then( () => { this.setState({loading: false}); })
       .then( () => {this.props.navigation.navigate('Welcome'); })
       .catch( () => {
         //Login was not successful.
