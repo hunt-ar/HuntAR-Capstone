@@ -118,6 +118,17 @@ export class Login extends React.Component {
           </View>
         </View>
       </View>
+
+      <View style={styles.textRow}>
+        <Button
+          title="Go Back"
+          onPress={() => {
+            this.props.navigation.navigate('Home');
+          }}
+          style={styles.save}
+        />
+      </View>
+
     </RkAvoidKeyboard>
   ) : (
     <View style={styles.loadingContainer}>
