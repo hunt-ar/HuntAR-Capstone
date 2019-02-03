@@ -4,26 +4,49 @@ export const styles = StyleSheet.create({
   parentContainer: {
     flex: 1,
     alignItems: 'center',
-    padding: 10
+    padding: 20,
+    backgroundColor: 'transparent',
+  },
+  storyParentContainer: {
+    flex: 1,
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: 'transparent',
   },
   largeText: {
     fontSize: 40,
     fontWeight: 'bold'
   },
-  medText: {
-    fontSize: 25,
+  titleText: {
+    fontSize: 30,
     fontWeight: 'bold',
+    textAlign: 'center',
+    justifyContent: 'center',
+    paddingTop: 15,
+    padding: 5
+  },
+  medText: {
+    fontSize: 23,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    justifyContent: 'center',
+    color: "#be3b3b",
+    padding: 5
   },
   introText: {
-    fontSize: 20,
-    padding: 50
+    fontSize: 17,
+    paddingTop: 5,
+    padding: 15
   },
   titleContainer: {
     flex: 2,
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+
   },
+
+
   clueContainer: {
     display: 'flex',
     backgroundColor: 'orange',
