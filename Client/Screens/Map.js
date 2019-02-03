@@ -3,6 +3,7 @@ import { Text, View, Modal, ActivityIndicator } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Inventory } from './index';
+import { Timer } from './index';
 import MapStyle from '../../assets/mapStyle';
 import { styles } from '../../assets/styles';
 import { MaterialCommunityIcons as Icon } from 'react-native-vector-icons';
@@ -102,10 +103,10 @@ class Map extends React.Component {
 
   render() {
     const id = this.props.id;
-    console.log(
-      'dist',
-      this.distanceToMarker(this.state.userLocation, this.state.markers[0])
-    );
+    // console.log(
+    //   'dist',
+    //   this.distanceToMarker(this.state.userLocation, this.state.markers[0])
+    // );
     return this.state.region.latitude ? (
       <View style={styles.mapContainer}>
         <MapView
@@ -119,6 +120,7 @@ class Map extends React.Component {
             this.setUserLocation(locationChangedResult.nativeEvent.coordinate)
           }
         >
+          <Timer />
           {this.state.markers.map(marker => (
             <Marker
               key={marker.id}
@@ -145,7 +147,8 @@ class Map extends React.Component {
               style={styles.quitButton}
               onPress={() => {
                 this.props.stopTimer(id)
-                this.props.navigation.navigate('Lose')} }
+                this.props.navigation.navigate('Lose')
+              }}
               backgroundColor="#c64747"
               backgroundActive="#595757"
               springRelease={true}
@@ -169,11 +172,11 @@ class Map extends React.Component {
         </Modal>
       </View>
     ) : (
-      <View style={styles.loadingContainer}>
-        <Text>Loading</Text>
-        <ActivityIndicator size="large" />
-      </View>
-    );
+        <View style={styles.loadingContainer}>
+          <Text>Loading</Text>
+          <ActivityIndicator size="large" />
+        </View>
+      );
   }
 }
 
