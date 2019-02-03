@@ -9,6 +9,7 @@ import {
   Text,
   ActivityIndicator
 } from 'react-native';
+import { WebView } from "react-native-webview";
 import {
   RkText,
   RkTextInput,
@@ -24,10 +25,6 @@ import NavigationType from '../../config/navigation/propTypes';
 export class Login extends React.Component {
 
   state = { email: '', password: '', error: '', loading: false }
-
-  handleLogin= (event) => {
-    console.log('handleLogin')
-  }
 
   static propTypes = {
     navigation: NavigationType.isRequired,
@@ -51,7 +48,7 @@ export class Login extends React.Component {
     const { email, password } = this.state;
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then( () => { this.setState({ error: '', loading: false}); })
-      .then( () => {this.props.navigation.navigate('StoryConcept'); })
+      .then( () => {this.props.navigation.navigate('Welcome'); })
       .catch( () => {
         //Login was not successful.
         this.setState({ error: "Authenication failed. Please try again or select the 'Forgot Password' button below.", loading: false })
@@ -68,8 +65,17 @@ export class Login extends React.Component {
       this.props.navigation.navigate('ForgotPW');
     };
 
+  componentDidMount() {
+    //originally in a script tag
+    firebase.auth().onAuthStateChanged(function(user) {
+      window.user = user;
+    })
+    //If no user, sign in anonymously with firebase.auth().signInAnonymously()But if there is a user, log out out user details for potential debugging purposes.
+  }
+
   render() {
     return this.state.loading === false ? (
+      
     <RkAvoidKeyboard
       style={styles.screen}
       onStartShouldSetResponder={() => true}
