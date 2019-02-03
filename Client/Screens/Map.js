@@ -7,9 +7,10 @@ import MapStyle from '../../assets/mapStyle';
 import { styles } from '../../assets/styles';
 import { MaterialCommunityIcons as Icon } from 'react-native-vector-icons';
 import geolib from 'geolib';
+import { connect } from 'react-redux';
 
 //get within range of marker to be able to render AR
-const inRange = 5;
+const inRange = 30;
 
 export default class Map extends React.Component {
   constructor() {
@@ -171,3 +172,8 @@ export default class Map extends React.Component {
     );
   }
 }
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     beginTimer: (time) => dispatch(thunk_beganTimer(time))
+//   }
+// };
