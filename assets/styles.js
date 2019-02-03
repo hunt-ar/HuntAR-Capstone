@@ -14,6 +14,13 @@ export const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
   },
+  medium: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    textAlignVertical: 'center',
+    textAlign: 'center',
+    padding: 7
+  },
   introText: {
     fontSize: 20,
     padding: 50

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Platform, Image, Text, View, Button, Alert } from 'react-native'
+import { StyleSheet, Platform, Image, Text, View, Button, Alert, ActivityIndicator } from 'react-native'
 import firebase from 'firebase'
 import { styles } from '../../assets/styles';
 
@@ -11,10 +11,22 @@ export default class Welcome extends React.Component {
     super()
     this.state = {
       user: firebase.auth().currentUser,
-      image : ''
+      image : '',
+      loading: false
     }
   }
-	
+  
+  onSignOutButtonPressed = () => {
+    this.setState({ loading: true })
+    firebase.auth().signOut()
+      .then( () => {this.setState({loading:false})} )
+      .then( () => {Alert.alert('You have been signed out')} )
+      .then( () => {this.props.navigation.navigate('Home'); })
+      .catch( () => {
+        this.setState({ loading: false })
+        Alert.alert("We are unable to process your request at this time");
+      })
+  }
   
   renderImage = () => (
     <Image
@@ -27,7 +39,7 @@ export default class Welcome extends React.Component {
   render() {
     console.log()
 		const { user, image } = this.state
-    return (
+    return this.state.loading === false ? (
 			<View style={styles.parentContainer}>
         <View>
           {this.renderImage()}
@@ -37,9 +49,9 @@ export default class Welcome extends React.Component {
 				<Text style={styles.header}>
 					Hello {user.email}!
 				</Text>
-        <Text style={styles.introText}>
-					What does our brave adventurer want to do?
-				</Text>
+        <Text style={styles.medium}>
+					What do you want to do brave adventurer?
+        </Text>
         </View>
 
         <View>
@@ -88,7 +100,18 @@ export default class Welcome extends React.Component {
           />
         </View>
 
+        <View>
+          <Button
+            title="Sign Out"
+            onPress={this.onSignOutButtonPressed}
+          />
+        </View>
+
 			</View>
-    )
-  }
+    ) : (
+      <View style={styles.loadingContainer}>
+        <Text>Loading</Text>
+        <ActivityIndicator size="large" />
+      </View>
+    )}
 }
