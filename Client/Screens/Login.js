@@ -24,7 +24,7 @@ import NavigationType from '../../config/navigation/propTypes';
 
 export class Login extends React.Component {
 
-  state = { email: '', password: '', error: '', loading: false }
+  state = { email: '', password: '', loading: false }
 
   static propTypes = {
     navigation: NavigationType.isRequired,
@@ -47,11 +47,12 @@ export class Login extends React.Component {
 
     const { email, password } = this.state;
     firebase.auth().signInWithEmailAndPassword(email, password)
-      .then( () => { this.setState({ error: '', loading: false}); })
+      .then( () => { this.setState({ loading: false}); })
       .then( () => {this.props.navigation.navigate('Welcome'); })
       .catch( () => {
         //Login was not successful.
-        this.setState({ error: "Authenication failed. Please try again or select the 'Forgot Password' button below.", loading: false })
+        this.setState({ loading: false })
+        Alert.alert('Invalid username or password. Please try again or reset your password');
       })
   };
 
