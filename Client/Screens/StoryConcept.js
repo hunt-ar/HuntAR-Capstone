@@ -2,9 +2,9 @@ import React from 'react';
 import { Text, View, Button } from 'react-native';
 import { styles } from '../../assets/styles';
 import { connect } from 'react-redux';
-import { thunk_beganTimer, thunk_stoppedTimer } from '../store/timer'
+import { thunk_beganTimer } from '../store/timer'
 
-const timeRemaining = 300;
+const timeRemaining = 30;
 
 class StoryConcept extends React.Component {
   static navigationOptions = {
@@ -12,7 +12,6 @@ class StoryConcept extends React.Component {
   };
 
   render() {
-    const id = this.props.id;
     return (
       <View style={styles.parentContainer}>
         <View style={styles.titleContainer}>
@@ -35,7 +34,6 @@ class StoryConcept extends React.Component {
           <Button
             title="No, not today..."
             onPress={() => {
-              this.props.stopTimer(id)
               this.props.navigation.navigate('Home')
             }
             }

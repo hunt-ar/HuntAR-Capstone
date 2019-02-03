@@ -66,7 +66,7 @@ export default function (state = initialState, action) {
       return { ...state, timeRemaining: action.time }
     case DECREMENT_TIME:
       let currentTime = state.timeRemaining;
-      console.log('time left:', currentTime);
+      // console.log('time left:', currentTime);
       if (currentTime > 0) {
         currentTime = currentTime - 1;
         return { ...state, timeRemaining: currentTime };
@@ -75,14 +75,11 @@ export default function (state = initialState, action) {
         return state;
       }
     case REGISTER_INTERVAL:
-      console.log('registerInterval', state.id)
       return { ...state, id: action.id }
     case CLEAR_INTERVAL:
-      console.log('clearInterval')
       clearInterval(state.id);
       return { ...state, id: 0 }
     case RESET_TIMER:
-      console.log('resetTimer, state:', state)
       return { ...state, timeRemaining: 0, id: 0 }
     default:
       return state;
