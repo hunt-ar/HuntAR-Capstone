@@ -1,24 +1,33 @@
-import React from 'react';
-import { Text, View, Button } from 'react-native';
-import { styles } from '../../assets/styles';
+import React from "react";
+import { Text, View, Button, Image } from "react-native";
+import { styles } from "../../assets/styles";
 import { connect } from 'react-redux';
 import { thunk_beganTimer } from '../store/timer'
 
 const timeRemaining = 30;
 
 class StoryConcept extends React.Component {
+  renderImage = () => (
+    <Image style= {{width: 60, height: 60}} source={require("../../assets/explode.png")} />
+  );
   static navigationOptions = {
-    title: 'StoryConcept'
+    title: "StoryConcept"
   };
 
   render() {
     return (
-      <View style={styles.parentContainer}>
+      <View style={styles.storyParentContainer}>
         <View style={styles.titleContainer}>
-          <Text style={styles.largeText}>We need your help!</Text>
+          <Text style={styles.titleText}>We need your help!</Text>
+        
           <Text style={styles.introText}>
-            We have detected a ticking bomb in the area and need your help to disarm it before time runs out! Luckily, the tools needed to defuse the bomb are scattered nearby. We have marked their locations on your map. You may not be able to access some items before accessing others, so if you visit one item before another, you may have to come back. Collect all the items, then disarm the bomb. Please hurry, time is ticking!
+            There is a ticking bomb nearby and you have to disarm it
+            before it explodes! Luckily, the tools needed to defuse the bomb
+            are scattered nearby, and we have marked their locations on your
+            map. But be warned - you need to collect tools in the right order, because each tool helps you access another one. Collect all the items, then use them to disarm the bomb.
+            Please hurry, time is running out!
           </Text>
+          {this.renderImage()}
         </View>
         <Text style={styles.medText}>Do you accept the mission?</Text>
         <View>
