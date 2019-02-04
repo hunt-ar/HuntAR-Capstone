@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Modal, ActivityIndicator } from 'react-native';
+import { Alert, Text, View, Modal, ActivityIndicator } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Inventory, Timer } from './index';
@@ -89,10 +89,9 @@ class Map extends React.Component {
                   longitude: marker.longitude
                 }) < inRange
               ) {
-                console.log('within range!');
                 this.props.navigation.navigate(`ARClue${marker.id}`);
               } else {
-                console.log('not within range!');
+                Alert.alert('Not close enough!')
               }
             }}
           />
@@ -125,7 +124,8 @@ class Map extends React.Component {
         </View>
       </View>
       <Modal visible={this.state.BackPackVisible} animationType="slide">
-        <Inventory onBackPackClose={this.onBackPackClose} />
+        <Inventory
+          onBackPackClose={this.onBackPackClose} />
       </Modal>
     </View>
   );
@@ -173,7 +173,10 @@ class Map extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.props.timeRemaining <= 0) {
+    if (this.props.timeRemaining <= 0 && this.state.BackPackVisible) {
+      this.setState({
+        BackPackVisible: false
+      });
       this.props.navigation.navigate('Lose')
     }
   }
@@ -188,7 +191,7 @@ class Map extends React.Component {
         <React.Fragment>
           {this.renderLoading()}
         </React.Fragment>
-    );
+      );
   }
 }
 
