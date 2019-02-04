@@ -22,9 +22,9 @@ export default class Welcome extends React.Component {
       .then( () => {this.setState({loading:false})} )
       .then( () => {Alert.alert('You have been signed out')} )
       .then( () => {this.props.navigation.navigate('Home'); })
-      .catch( () => {
+      .catch( (error) => {
         this.setState({ loading: false })
-        Alert.alert("We are unable to process your request at this time");
+        Alert.alert(`We are unable to process your request at this time. ${error}`);
       })
   }
   

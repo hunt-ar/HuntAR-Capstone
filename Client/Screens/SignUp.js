@@ -40,10 +40,10 @@ export class SignUp extends React.Component {
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then( () => { this.setState({loading: false}); })
       .then( () => {this.props.navigation.navigate('Welcome'); })
-      .catch( () => {
+      .catch( (error) => {
         //Login was not successful.
         this.setState({ loading: false })
-        Alert.alert("We are unable to process your request at this time");
+        Alert.alert(`We are unable to process your request at this time. ${error}`);
       })
   }
 

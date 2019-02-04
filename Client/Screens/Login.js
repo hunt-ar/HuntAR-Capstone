@@ -49,10 +49,10 @@ export class Login extends React.Component {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then( () => { this.setState({loading: false}); })
       .then( () => {this.props.navigation.navigate('Welcome'); })
-      .catch( () => {
+      .catch( (error) => {
         //Login was not successful.
         this.setState({ loading: false })
-        Alert.alert('Invalid username or password. Please try again or reset your password');
+        Alert.alert(`We are unable to process your request at this time. ${error}`);
       })
   };
 

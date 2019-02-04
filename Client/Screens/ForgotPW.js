@@ -35,9 +35,9 @@ class ForgotPW extends React.Component {
     firebase.auth().sendPasswordResetEmail(email)
       .then( () => {this.setState({loading:false})})
       .then( () => {Alert.alert('A reset password has been sent to the email provided')})
-      .catch( () => {
+      .catch( (error) => {
         this.setState({ loading: false })
-        Alert.alert("We are unable to process your request at this time");
+        Alert.alert(`We are unable to process your request at this time. ${error}`);
       })
   };
 
