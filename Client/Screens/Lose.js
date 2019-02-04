@@ -10,10 +10,14 @@ import {
   RkAvoidKeyboard,
   RkStyleSheet,
 } from 'react-native-ui-kitten';
+import { connect } from 'react-redux';
+import { clearInventoryAction } from '../store/inventory';
 import { scaleVertical } from '../utils/scale';
 import NavigationType from '../../config/navigation/propTypes';
 
-export default class Lose extends React.Component {
+const loseImage = require('../../assets/lose.gif')
+
+class Lose extends React.Component {
   static propTypes = {
     navigation: NavigationType.isRequired,
   };
@@ -24,12 +28,12 @@ export default class Lose extends React.Component {
   renderImage = () => (
     <Image
       style={styles.image}
-      source={require('../../assets/lose.gif')
-      }
+      source={loseImage}
     />
   );
 
   onNewGameButtonPressed = () => {
+    this.props.clearInventory();
     this.props.navigation.navigate('Home');
   };
 
@@ -54,6 +58,20 @@ export default class Lose extends React.Component {
     </RkAvoidKeyboard>
   );
 }
+
+const mapStateToProps = state => ({
+  inventory: state.inventory.inventory,
+  timeRemaining: state.timer.timeRemaining,
+  id: state.timer.id
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    clearInventory: () => dispatch(clearInventoryAction())
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Lose);
 
 const styles = RkStyleSheet.create(theme => ({
   screen: {

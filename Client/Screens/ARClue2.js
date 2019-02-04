@@ -8,7 +8,7 @@ import { View as GraphicsView } from 'expo-graphics';
 import { addItem } from '../store/inventory';
 import ObjectLoader from '../utils/ObjectLoader';
 import WoodChest from '../../assets/ARWoodChest/chest';
-
+//Generate random deactivation code
 class ARClue2 extends React.Component {
   constructor() {
     super();
