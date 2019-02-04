@@ -22,11 +22,6 @@ export default class Home extends React.Component {
             }}
           />
 
-          {/* THIS LOGIC WILL NEED TO BE ADDED AFTER MVP ESTABLISHED. CONSIDER MOVING TO LOGGED-IN USER HOME SCREEN AS A NON-LOGGED IN USER SHOULD NOT BE ABLE TO START A MULTI-PLAYER GAME.
-          <Button
-            title="Start multi-player game"
-            onPress={() => this.props.navigation.navigate('Clue')}
-          /> */}
           <Button
             title="Log In"
             onPress={() => {
