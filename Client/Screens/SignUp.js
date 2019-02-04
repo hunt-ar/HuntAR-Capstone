@@ -6,7 +6,9 @@ import {
   StyleSheet,
   Text, 
   TextInput, 
-  Button
+  Button,
+  ActivityIndicator,
+  Alert
 } from 'react-native';
 import {
   RkButton,
@@ -17,11 +19,12 @@ import {
 } from 'react-native-ui-kitten';
 import { GradientButton } from '../Components';
 import { scaleVertical } from '../utils/scale';
+import firebase from 'firebase'
 import NavigationType from '../../config/navigation/propTypes';
 
 export class SignUp extends React.Component {
 
-  state = { name: '', email: '', password: '', errorMessage: null }
+  state = { email: '', password: '', loading: false }
 
   static navigationOptions = {
     header: null,
@@ -31,8 +34,17 @@ export class SignUp extends React.Component {
   };
 
   handleSignUp = () => {
-    // TODO: Firebase stuff ...
-    console.log('handleSignup')
+    this.setState({ loading: true });
+
+    const { email, password } = this.state;
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then( () => { this.setState({loading: false}); })
+      .then( () => {this.props.navigation.navigate('Welcome'); })
+      .catch( (error) => {
+        //Login was not successful.
+        this.setState({ loading: false })
+        Alert.alert(`We are unable to process your request at this time. ${error}`);
+      })
   }
 
   renderImage = () => (
@@ -43,17 +55,8 @@ export class SignUp extends React.Component {
     />
   );
 
-  //need to add sign up functionality
-  handleSignUp = () => {
-    this.props.navigation.goBack();
-  };
-
-  //need to add sign in functionality
-  onSignInButtonPressed = () => {
-    this.props.navigation.navigate('Login');
-  };
-
-  render = () => (
+  render() {
+    return this.state.loading === false ? (
     <RkAvoidKeyboard
       style={styles.screen}
       onStartShouldSetResponder={() => true}
@@ -64,30 +67,52 @@ export class SignUp extends React.Component {
       </View>
       <View style={styles.content}>
         <View>
-          <RkTextInput rkType='rounded' placeholder='Name' onChangeText={name => this.setState({name})} value={this.state.name} />
-
           <RkTextInput rkType='rounded' placeholder='Email' onChangeText={email => this.setState({email})} value={this.state.email} />
 
           <RkTextInput rkType='rounded' placeholder='Password' secureTextEntry onChangeText={password => this.setState({password})} value={this.state.password} />
           
-          <GradientButton
+          <Button
             style={styles.save}
-            rkType='large'
-            text='SIGN UP'
+            title='SIGN UP'
             onPress={this.handleSignUp}
           />
         </View>
+
         <View style={styles.footer}>
           <View style={styles.textRow}>
             <RkText rkType='primary3'>Already have an account?</RkText>
-            <RkButton rkType='clear' onPress={this.onSignInButtonPressed}>
-              <RkText rkType='header6'>Sign in now</RkText>
-            </RkButton>
+          </View>
+          <View>
+            <Button
+              onPress={() => {
+                this.props.navigation.navigate('Login');
+              }}
+              title="Sign In"
+              style={styles.save}
+            />
           </View>
         </View>
+
+        <View style={styles.footer}>
+          <View>
+            <Button
+              onPress={() => {
+                this.props.navigation.navigate('Home');
+              }}
+              title="Go Back"
+              style={styles.save}
+            />
+          </View>
+        </View>
+
       </View>
     </RkAvoidKeyboard>
-  )
+  ) : (
+    <View style={styles.loadingContainer}>
+      <Text>Loading</Text>
+      <ActivityIndicator size="large" />
+    </View>
+  )}
 }
 
 const styles = RkStyleSheet.create(theme => ({
@@ -121,4 +146,9 @@ const styles = RkStyleSheet.create(theme => ({
     flexDirection: 'row',
     justifyContent: 'center',
   },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 }));

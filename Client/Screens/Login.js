@@ -9,6 +9,7 @@ import {
   Text,
   ActivityIndicator
 } from 'react-native';
+import { WebView } from "react-native-webview";
 import {
   RkText,
   RkTextInput,
@@ -23,11 +24,7 @@ import NavigationType from '../../config/navigation/propTypes';
 
 export class Login extends React.Component {
 
-  state = { email: '', password: '', error: '', loading: false }
-
-  handleLogin= (event) => {
-    console.log('handleLogin')
-  }
+  state = { email: '', password: '', loading: false }
 
   static propTypes = {
     navigation: NavigationType.isRequired,
@@ -50,11 +47,12 @@ export class Login extends React.Component {
 
     const { email, password } = this.state;
     firebase.auth().signInWithEmailAndPassword(email, password)
-      .then( () => { this.setState({ error: '', loading: false}); })
-      .then( () => {this.props.navigation.navigate('StoryConcept'); })
-      .catch( () => {
+      .then( () => { this.setState({loading: false}); })
+      .then( () => {this.props.navigation.navigate('Welcome'); })
+      .catch( (error) => {
         //Login was not successful.
-        this.setState({ error: "Authenication failed. Please try again or select the 'Forgot Password' button below.", loading: false })
+        this.setState({ loading: false })
+        Alert.alert(`We are unable to process your request at this time. ${error}`);
       })
   };
 
@@ -68,8 +66,17 @@ export class Login extends React.Component {
       this.props.navigation.navigate('ForgotPW');
     };
 
+  componentDidMount() {
+    //originally in a script tag
+    firebase.auth().onAuthStateChanged(function(user) {
+      window.user = user;
+    })
+    //If no user, sign in anonymously with firebase.auth().signInAnonymously()But if there is a user, log out out user details for potential debugging purposes.
+  }
+
   render() {
     return this.state.loading === false ? (
+      
     <RkAvoidKeyboard
       style={styles.screen}
       onStartShouldSetResponder={() => true}
@@ -111,6 +118,17 @@ export class Login extends React.Component {
           </View>
         </View>
       </View>
+
+      <View style={styles.textRow}>
+        <Button
+          title="Go Back"
+          onPress={() => {
+            this.props.navigation.navigate('Home');
+          }}
+          style={styles.save}
+        />
+      </View>
+
     </RkAvoidKeyboard>
   ) : (
     <View style={styles.loadingContainer}>
