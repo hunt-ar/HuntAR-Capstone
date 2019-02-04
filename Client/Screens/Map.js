@@ -182,11 +182,14 @@ class Map extends React.Component {
     );
   }
 
-  componentDidUpdate() {
-    if (this.props.timeRemaining <= 0 && this.state.BackPackVisible) {
-      this.setState({
-        BackPackVisible: false
-      });
+  componentDidUpdate(id) {
+    if (this.props.timeRemaining <= 0) {
+      if (this.state.BackPackVisible) {
+        this.setState({
+          BackPackVisible: false
+        });
+      }
+      this.props.stopTimer(id);
       this.props.navigation.navigate('Lose')
     }
   }

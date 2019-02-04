@@ -66,7 +66,6 @@ export default function (state = initialState, action) {
       return { ...state, timeRemaining: action.time }
     case DECREMENT_TIME:
       let currentTime = state.timeRemaining;
-      // console.log('time left:', currentTime);
       if (currentTime > 0) {
         currentTime = currentTime - 1;
         return { ...state, timeRemaining: currentTime };
