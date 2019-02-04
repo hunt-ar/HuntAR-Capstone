@@ -55,7 +55,7 @@ class ARClue2 extends React.Component {
             <Button
               onPress={this.onButtonPress}
               backgroundColor="transparent"
-              title="Continue"
+              title="Pick up item"
             />
           </View>
         </View>

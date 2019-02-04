@@ -6,20 +6,21 @@ import { styles } from '../../assets/styles';
 class Timer extends React.Component {
 
   render() {
-    const {timeRemaining} = this.props;
-    return (timeRemaining > 10) ? (
+    const { timeRemaining } = this.props;
+    const lowTime = 10;
+    return (timeRemaining > lowTime) ? (
       <View>
         <Text style={styles.timerStyle}>
           {timeRemaining}
         </Text>
       </View>
     ) : (
-      <View>
-      <Text style={styles.timeAlmostUpStyle}>
-        {timeRemaining}
-      </Text>
-    </View>
-    )
+        <View>
+          <Text style={styles.timeAlmostUpStyle}>
+            {timeRemaining}
+          </Text>
+        </View>
+      )
   }
 }
 
