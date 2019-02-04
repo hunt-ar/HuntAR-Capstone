@@ -148,7 +148,8 @@ export const styles = StyleSheet.create({
   timerStyle: {
     padding: 20,
     fontSize: 30,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: 'white'
   },
   timeAlmostUpStyle: {
     padding: 20,
