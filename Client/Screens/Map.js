@@ -8,7 +8,7 @@ import { styles } from '../../assets/styles';
 import { MaterialCommunityIcons as Icon } from 'react-native-vector-icons';
 import geolib from 'geolib';
 import { connect } from 'react-redux';
-import { thunk_stoppedTimer } from '../store/timer'
+import { thunk_stoppedTimer } from '../store/timer';
 
 //get within range of marker to be able to render AR
 const inRange = 30;
@@ -138,6 +138,7 @@ class Map extends React.Component {
   );
 
   componentDidMount() {
+    const randomDistance = Math.random() * (0.0002 - 0.0001) + 0.0001;
     navigator.geolocation.getCurrentPosition(
       position => {
         this.setState({
@@ -150,18 +151,27 @@ class Map extends React.Component {
           },
           markers: [
             {
-              latitude: Math.random() * 0.0005 + position.coords.latitude,
-              longitude: Math.random() * 0.0005 + position.coords.longitude,
+              latitude: randomDistance + position.coords.latitude,
+              longitude:
+                Math.random() * (0.0004 - 0.0002) +
+                0.0002 +
+                position.coords.longitude,
               id: 1
             },
             {
-              latitude: Math.random() * 0.0005 + position.coords.latitude,
-              longitude: Math.random() * 0.0005 + position.coords.longitude,
+              latitude: randomDistance + 0.0002 + position.coords.latitude,
+              longitude:
+                Math.random() * (0.0004 - 0.0002) +
+                0.0002 +
+                position.coords.longitude,
               id: 2
             },
             {
-              latitude: Math.random() * 0.0005 + position.coords.latitude,
-              longitude: Math.random() * 0.0005 + position.coords.longitude,
+              latitude: randomDistance + 0.0004 + position.coords.latitude,
+              longitude:
+                position.coords.longitude -
+                Math.random() * (0.0004 - 0.0002) +
+                0.0002,
               id: 3
             }
           ]
@@ -202,8 +212,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    stopTimer: (id) => dispatch(thunk_stoppedTimer(id))
-  }
+    stopTimer: id => dispatch(thunk_stoppedTimer(id))
+  };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Map);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Map);

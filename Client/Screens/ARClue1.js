@@ -81,7 +81,11 @@ class ARClue1 extends React.Component {
       Shovel,
       function(object) {
         object.scale.set(0.2, 0.15, 0.2);
-        object.position.z = -.5;
+        object.position.z = -.9;
+        object.rotateX(90);
+        object.rotateY(90);
+        object.rotateZ(90);
+
         this.scene.add(object);
       }.bind(this),
       function(error) {

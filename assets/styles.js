@@ -33,6 +33,13 @@ export const styles = StyleSheet.create({
     color: "#be3b3b",
     padding: 5
   },
+  medium: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    textAlignVertical: 'center',
+    textAlign: 'center',
+    padding: 7
+  },
   introText: {
     fontSize: 17,
     paddingTop: 5,
