@@ -5,6 +5,7 @@ import { styles } from '../../assets/styles';
 import ExpoTHREE, { AR as ThreeAR, THREE } from 'expo-three';
 import { View as GraphicsView } from 'expo-graphics';
 import ObjectLoader from '../utils/ObjectLoader';
+
 import Bomb from '../../assets/ARBomb/bomb';
 
 export default class ARBombToDefuse extends React.Component {
@@ -72,13 +73,17 @@ export default class ARBombToDefuse extends React.Component {
 
     this.scene = new THREE.Scene();
     this.scene.background = new ThreeAR.BackgroundTexture(this.renderer);
+    this.points = new ThreeAR.Points();
     this.camera = new ThreeAR.Camera(width, height, 0.01, 1000);
 
     ObjectLoader.getThreeModel(
       Bomb,
       function(object) {
         object.scale.set(0.08, 0.08, 0.08);
-        object.position.z = -1;
+        object.position.z = -.9;
+        object.rotateX(90);
+        object.rotateY(90);
+
         this.scene.add(object);
       }.bind(this),
       function(error) {
@@ -99,7 +104,12 @@ export default class ARBombToDefuse extends React.Component {
     this.renderer.setSize(width, height);
   };
 
-  onRender = () => {
+  onRender = (delta) => {
+    if (this.getThreeModel){
+      this.getThreeModel.rotation.x += 2 * delta;
+      this.getThreeModel.rotation.y += 1.5 * delta;
+    }
+    this.points.update();
     this.renderer.render(this.scene, this.camera);
   };
 }
