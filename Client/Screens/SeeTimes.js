@@ -1,8 +1,9 @@
 import React from "react";
 import { Text, View, Button } from "react-native";
 import { styles } from "../../assets/styles";
-
-export default class SeeTimes extends React.Component {
+import { db } from '../store'
+import { connect } from 'react-redux';
+class SeeTimes extends React.Component {
 
 
   render() {
@@ -23,3 +24,21 @@ export default class SeeTimes extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  inventory: state.inventory.inventory,
+  timeRemaining: state.timer.timeRemaining,
+  id: state.timer.id
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    stopTimer: id => dispatch(thunk_stoppedTimer(id)),
+    resetTimer:() => dispatch(thunk_resetTimer)
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SeeTimes);

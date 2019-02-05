@@ -8,7 +8,7 @@ import { styles } from '../../assets/styles';
 import { MaterialCommunityIcons as Icon } from 'react-native-vector-icons';
 import geolib from 'geolib';
 import { connect } from 'react-redux';
-import { thunk_stoppedTimer } from '../store/timer';
+import { thunk_stoppedTimer, thunk_resetTimer } from '../store/timer';
 
 //get within range of marker to be able to render AR
 const inRange = 100;
@@ -102,7 +102,8 @@ class Map extends React.Component {
           <AwesomeButton
             style={styles.quitButton}
             onPress={() => {
-              this.props.stopTimer(id)
+              this.props.stopTimer(id);
+              this.props.resetTimer();
               this.props.navigation.navigate('Lose')
             }}
             backgroundColor="#c64747"
@@ -192,6 +193,7 @@ class Map extends React.Component {
         });
       }
       this.props.stopTimer(id);
+      this.props.resetTimer();
       this.props.navigation.navigate('Lose')
     }
     if (this.props.inventory.length === 3 && this.state.markers.length === 3) {
@@ -212,6 +214,7 @@ class Map extends React.Component {
   }
 
   render() {
+ 
     const id = this.props.id;
     return this.state.region.latitude ? (
       <React.Fragment>
@@ -233,7 +236,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    stopTimer: id => dispatch(thunk_stoppedTimer(id))
+    stopTimer: id => dispatch(thunk_stoppedTimer(id)),
+    resetTimer:() => dispatch(thunk_resetTimer)
   };
 };
 
