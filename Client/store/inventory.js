@@ -21,10 +21,24 @@ export const clearInventoryAction = () => {
 export default function(state = initialState, action) {
   switch (action.type) {
     case ADD_ITEM:
+      console.log('action', action)
       //if inventory already contains, then don't add
       let tempInventory = [...state.inventory];
-      tempInventory.push(action.item);
-      return { ...state, inventory: [...tempInventory] };
+
+      // const result = tempInventory.find(item => item.name === action.item.name);
+      // if (result) {
+      //   return { ...state}
+      // } else {
+      //     tempInventory.push(action.item);
+      //   return { ...state, inventory: [...tempInventory] };
+      // }
+      
+      if (!tempInventory.includes(action.item)) {
+        tempInventory.push(action.item);
+        return { ...state, inventory: [...tempInventory] };
+      } else {
+        return { ...state}
+      }
       //might need an empty arr
     case CLEAR_INVENTORY:
       return { ...state, inventory: initialState.inventory }

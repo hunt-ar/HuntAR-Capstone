@@ -169,13 +169,13 @@ class Map extends React.Component {
               id: 2
             },
             {
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-              // latitude: randomDistance + 0.0004 + position.coords.latitude,
-              // longitude:
-              //   position.coords.longitude +
-              //   Math.random() * (0.0004 - 0.0002) +
-              //   0.0002,
+              // latitude: position.coords.latitude,
+              // longitude: position.coords.longitude,
+              latitude: randomDistance + 0.0004 + position.coords.latitude,
+              longitude:
+                position.coords.longitude +
+                Math.random() * (0.0004 - 0.0002) +
+                0.0002,
               id: 3
             }
           ]
