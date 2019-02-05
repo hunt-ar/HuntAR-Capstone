@@ -56,6 +56,11 @@ class Win extends React.Component {
       </View>
       <View style={styles.content}>
         <View>
+        <Button
+            title="See my final time"
+            onPress={() => {this.props.navigation.navigate('SeeTimes')}}
+            style={styles.save}
+          />
           <Button
             title="Play Again"
             onPress={this.onNewGameButtonPressed}
