@@ -21,6 +21,7 @@ import { GradientButton } from '../Components';
 import { scaleVertical } from '../utils/scale';
 import firebase from 'firebase'
 import NavigationType from '../../config/navigation/propTypes';
+import { db } from '../store'
 
 export class SignUp extends React.Component {
 
@@ -39,11 +40,14 @@ export class SignUp extends React.Component {
     const { email, password } = this.state;
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then( () => { this.setState({loading: false}); })
-      .then( () => {this.props.navigation.navigate('Welcome'); })
+      // .then( () => {this.props.navigation.navigate('Welcome'); })
       .catch( (error) => {
         //Login was not successful.
         this.setState({ loading: false })
         Alert.alert(`We are unable to process your request at this time. ${error}`);
+      })
+      db.collection('users').add({
+        email
       })
   }
 
