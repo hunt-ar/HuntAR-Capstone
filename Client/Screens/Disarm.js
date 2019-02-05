@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { View, Text, TextInput } from 'react-native';
 import { styles } from '../../assets/styles';
 import AwesomeButton from 'react-native-really-awesome-button';
+import { connect } from 'react-redux';
 
-export default class Disarm extends Component {
+class Disarm extends Component {
   constructor() {
     super();
     this.state = {
@@ -13,7 +14,7 @@ export default class Disarm extends Component {
   }
 
   onDisarmSubmit() {
-    console.log(this.state.text);
+    console.log(this.props.code);
   }
 
   render() {
@@ -48,3 +49,9 @@ export default class Disarm extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  code: state.inventory.code
+});
+
+export default connect(mapStateToProps)(Disarm);
