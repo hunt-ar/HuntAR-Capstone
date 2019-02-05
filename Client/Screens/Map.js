@@ -195,6 +195,7 @@ class Map extends React.Component {
       this.props.navigation.navigate('Lose')
     }
     if (this.props.inventory.length === 3 && this.state.markers.length === 3) {
+      Alert.alert('You have everything you need. Go disarm the bomb!')
       const lat = this.state.userLocation.latitude + 0.0003;
       const lon = this.state.userLocation.longitude + 0.0003;
       let bombMarker = [

@@ -3,7 +3,6 @@ import StoryConcept from './StoryConcept';
 import Win from './Win';
 import Map from './Map';
 import Inventory from './Inventory';
-import Clue from './Clue';
 import { Login } from './Login';
 import { SignUp } from './SignUp';
 import ForgotPW from './ForgotPW';
@@ -16,7 +15,6 @@ import Welcome from './Welcome';
 import ARClue4 from './ARClue4';
 import Lose from './Lose';
 export {
-  Clue,
   Map,
   Win,
   StoryConcept,
