@@ -137,7 +137,7 @@ class Map extends React.Component {
 
   renderLoading = () => (
     <View style={styles.loadingContainer}>
-      <Text>Loading</Text>
+      <Text>Fetching Clues...</Text>
       <ActivityIndicator size="large" />
     </View>
   );
