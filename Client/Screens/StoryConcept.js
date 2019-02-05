@@ -2,9 +2,7 @@ import React from "react";
 import { Text, View, Button, Image } from "react-native";
 import { styles } from "../../assets/styles";
 import { connect } from 'react-redux';
-import { thunk_beganTimer } from '../store/timer'
 
-// const timeRemaining = 30;
 const explodeImage = require('../../assets/explode.png');
 
 class StoryConcept extends React.Component {
@@ -34,7 +32,6 @@ class StoryConcept extends React.Component {
           <Button
             title="Yes! I am ready to be a hero."
             onPress={() => {
-              // this.props.beginTimer(timeRemaining);
               this.props.navigation.navigate('Map')
             }}
           />
@@ -58,11 +55,4 @@ const mapStateToProps = state => ({
   id: state.timer.id
 });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    beginTimer: (time) => dispatch(thunk_beganTimer(time)),
-    // stopTimer: (id) => dispatch(thunk_stoppedTimer(id))
-  }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(StoryConcept);
+export default connect(mapStateToProps)(StoryConcept);

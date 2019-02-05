@@ -12,7 +12,7 @@ import { thunk_beganTimer, thunk_stoppedTimer } from '../store/timer';
 
 //get within range of marker to be able to render AR
 const inRange = 100;
-const startTime = 15;
+const startTime = 40;
 
 class Map extends React.Component {
   constructor() {
@@ -25,7 +25,7 @@ class Map extends React.Component {
         longitudeDelta: 0.004
       },
       BackPackVisible: false,
-      region: {
+      initialRegion: {
         latitude: 0,
         longitude: 0,
         error: null
@@ -72,8 +72,7 @@ class Map extends React.Component {
           style={styles.map}
           provider={PROVIDER_GOOGLE}
           customMapStyle={MapStyle}
-          region={this.state.region}
-          onRegionChange={this.onRegionChange}
+          initialRegion={this.state.initialRegion}
           showsUserLocation
           onUserLocationChange={locationChangedResult =>
             this.setUserLocation(locationChangedResult.nativeEvent.coordinate)
@@ -131,8 +130,7 @@ class Map extends React.Component {
         </Modal>
       </View>
     );
-  }
-  
+  }  
 
   renderLoading = () => (
     <View style={styles.loadingContainer}>
@@ -146,7 +144,7 @@ class Map extends React.Component {
     navigator.geolocation.getCurrentPosition(
       position => {
         this.setState({
-          region: {
+          initialRegion: {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
             latitudeDelta: 0.001,
@@ -220,7 +218,7 @@ class Map extends React.Component {
 
   render() {
     const id = this.props.id;
-    return this.state.region.latitude ? (
+    return this.state.initialRegion.latitude ? (
       <React.Fragment>
         {this.renderMap(id)}
       </React.Fragment>
