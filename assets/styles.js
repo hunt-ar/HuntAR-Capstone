@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   parentContainer: {
-    flex: 1,
+    flex: .8,
     alignItems: 'center',
     padding: 20,
     backgroundColor: 'transparent',
@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
   storyParentContainer: {
     flex: 1,
     alignItems: 'center',
-    padding: 20,
+    padding: 15,
     backgroundColor: 'transparent',
   },
   largeText: {

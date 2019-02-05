@@ -54,8 +54,12 @@ export const thunk_beganTimer = (time) => {
 export const thunk_stoppedTimer = (id) => {
   return dispatch => {
     dispatch(clearIntervalAction(id));
-    dispatch(resetTimerAction());
   }
+}
+export const thunk_resetTimer = () => {
+  return dispatch =>{
+    dispatch(resetTimerAction());
+    }
 }
 
 //Sub-Reducer
