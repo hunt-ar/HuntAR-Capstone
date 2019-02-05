@@ -2,22 +2,28 @@ import React, { Component } from 'react';
 import { View, Text, TextInput } from 'react-native';
 import { styles } from '../../assets/styles';
 import AwesomeButton from 'react-native-really-awesome-button';
+import { connect } from 'react-redux';
+import Lose from './Lose';
+import Win from './Win';
 
-export default class Disarm extends Component {
+class Disarm extends Component {
   constructor() {
     super();
     this.state = {
-      text: ''
+      text: '',
+      submitted: false
     };
     this.onDisarmSubmit = this.onDisarmSubmit.bind(this);
   }
 
   onDisarmSubmit() {
-    console.log(this.state.text);
+    this.setState({
+      submitted: true
+    });
   }
 
   render() {
-    return (
+    return !this.state.submitted ? (
       <View style={styles.parentContainer}>
         <Text style={styles.headerText}>Enter Code</Text>
         <TextInput
@@ -45,6 +51,16 @@ export default class Disarm extends Component {
           Disarm
         </AwesomeButton>
       </View>
+    ) : this.props.code === this.state.text ? (
+      <Win />
+    ) : (
+      <Lose />
     );
   }
 }
+
+const mapStateToProps = state => ({
+  code: state.inventory.code
+});
+
+export default connect(mapStateToProps)(Disarm);
