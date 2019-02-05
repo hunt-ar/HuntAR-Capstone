@@ -4,7 +4,7 @@ import { styles } from "../../assets/styles";
 import { connect } from 'react-redux';
 import { thunk_beganTimer } from '../store/timer'
 
-const timeRemaining = 30;
+// const timeRemaining = 30;
 const explodeImage = require('../../assets/explode.png');
 
 class StoryConcept extends React.Component {
@@ -34,7 +34,7 @@ class StoryConcept extends React.Component {
           <Button
             title="Yes! I am ready to be a hero."
             onPress={() => {
-              this.props.beginTimer(timeRemaining);
+              // this.props.beginTimer(timeRemaining);
               this.props.navigation.navigate('Map')
             }}
           />
