@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { thunk_stoppedTimer } from '../store/timer';
 
 //get within range of marker to be able to render AR
-const inRange = 30;
+const inRange = 100;
 
 class Map extends React.Component {
   constructor() {
@@ -167,11 +167,13 @@ class Map extends React.Component {
               id: 2
             },
             {
-              latitude: randomDistance + 0.0004 + position.coords.latitude,
-              longitude:
-                position.coords.longitude -
-                Math.random() * (0.0004 - 0.0002) +
-                0.0002,
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+              // latitude: randomDistance + 0.0004 + position.coords.latitude,
+              // longitude:
+              //   position.coords.longitude +
+              //   Math.random() * (0.0004 - 0.0002) +
+              //   0.0002,
               id: 3
             }
           ]
@@ -192,6 +194,20 @@ class Map extends React.Component {
       this.props.stopTimer(id);
       this.props.navigation.navigate('Lose')
     }
+    if (this.props.inventory.length === 3 && this.state.markers.length === 3) {
+      const lat = this.state.userLocation.latitude + 0.0003;
+      const lon = this.state.userLocation.longitude + 0.0003;
+      let bombMarker = [
+        {
+          latitude: lat,
+          longitude: lon,
+          id: 4
+        }
+      ];
+      this.setState({
+        markers: bombMarker
+      });
+    }
   }
 
   render() {
@@ -209,6 +225,7 @@ class Map extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  inventory: state.inventory.inventory,
   timeRemaining: state.timer.timeRemaining,
   id: state.timer.id
 });

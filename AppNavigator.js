@@ -13,7 +13,7 @@ import {
   ARClue1,
   ARClue2,
   ARClue3,
-  ARBombToDefuse,
+  ARClue4,
   Lose,
   Timer
 } from './Client/Screens';
@@ -36,7 +36,7 @@ const RootStack = createStackNavigator(
     ARClue1,
     ARClue2,
     ARClue3,
-    ARBombToDefuse,
+    ARClue4,
     Lose,
     Timer
   },
