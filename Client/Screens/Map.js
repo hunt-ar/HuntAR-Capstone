@@ -1,14 +1,18 @@
-import React from 'react';
-import { Alert, Text, View, Modal, ActivityIndicator } from 'react-native';
-import AwesomeButton from 'react-native-really-awesome-button';
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
-import { Inventory, Timer } from './index';
-import MapStyle from '../../assets/mapStyle';
-import { styles } from '../../assets/styles';
-import { MaterialCommunityIcons as Icon } from 'react-native-vector-icons';
-import geolib from 'geolib';
-import { connect } from 'react-redux';
-import { thunk_beganTimer, thunk_stoppedTimer, thunk_resetTimer } from '../store/timer';
+import React from "react";
+import { Alert, Text, View, Modal, ActivityIndicator } from "react-native";
+import AwesomeButton from "react-native-really-awesome-button";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import { Inventory, Timer } from "./index";
+import MapStyle from "../../assets/mapStyle";
+import { styles } from "../../assets/styles";
+import { MaterialCommunityIcons as Icon } from "react-native-vector-icons";
+import geolib from "geolib";
+import { connect } from "react-redux";
+import {
+  thunk_beganTimer,
+  thunk_stoppedTimer,
+  thunk_resetTimer
+} from "../store/timer";
 
 //get within range of marker to be able to render AR
 const inRange = 100;
@@ -65,7 +69,7 @@ class Map extends React.Component {
       return Infinity;
     }
   }
-  renderMap = (id) => {
+  renderMap = id => {
     return (
       <View style={styles.mapContainer}>
         <MapView
@@ -92,7 +96,7 @@ class Map extends React.Component {
                 ) {
                   this.props.navigation.navigate(`ARClue${marker.id}`);
                 } else {
-                  Alert.alert('Not close enough!')
+                  Alert.alert("Not close enough!");
                 }
               }}
             />
@@ -103,8 +107,8 @@ class Map extends React.Component {
             <AwesomeButton
               style={styles.quitButton}
               onPress={() => {
-                this.props.stopTimer(id)
-                this.props.navigation.navigate('Lose')
+                this.props.stopTimer(id);
+                this.props.navigation.navigate("Lose");
               }}
               backgroundColor="#c64747"
               backgroundActive="#595757"
@@ -112,7 +116,7 @@ class Map extends React.Component {
               width={150}
             >
               Quit
-          </AwesomeButton>
+            </AwesomeButton>
           </View>
           <View style={styles.backPackContainer}>
             <Icon.Button
@@ -125,12 +129,11 @@ class Map extends React.Component {
           </View>
         </View>
         <Modal visible={this.state.BackPackVisible} animationType="slide">
-          <Inventory
-            onBackPackClose={this.onBackPackClose} />
+          <Inventory onBackPackClose={this.onBackPackClose} />
         </Modal>
       </View>
     );
-  }  
+  };
 
   renderLoading = () => (
     <View style={styles.loadingContainer}>
@@ -184,12 +187,13 @@ class Map extends React.Component {
       error => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 2000, maximumAge: 2000 }
     );
-  }
-
-  async componentDidUpdate(id) {
     if (!this.props.timeRemaining) {
       this.props.beginTimer(startTime);
     }
+  }
+
+  async componentDidUpdate(id) {
+ 
     if (this.props.timeRemaining === 0 && this.props.id !== 0) {
       if (this.state.BackPackVisible) {
         this.setState({
@@ -198,10 +202,10 @@ class Map extends React.Component {
       }
       await this.props.stopTimer(id);
       await this.props.resetTimer();
-      this.props.navigation.navigate('Lose')
+      this.props.navigation.navigate("Lose");
     }
     if (this.props.inventory.length === 3 && this.state.markers.length === 3) {
-      Alert.alert('You have everything you need. Go disarm the bomb!')
+      Alert.alert("You have everything you need. Go disarm the bomb!");
       const lat = this.state.userLocation.latitude + 0.0003;
       const lon = this.state.userLocation.longitude + 0.0003;
       let bombMarker = [
@@ -218,17 +222,12 @@ class Map extends React.Component {
   }
 
   render() {
- 
     const id = this.props.id;
     return this.state.initialRegion.latitude ? (
-      <React.Fragment>
-        {this.renderMap(id)}
-      </React.Fragment>
+      <React.Fragment>{this.renderMap(id)}</React.Fragment>
     ) : (
-        <React.Fragment>
-          {this.renderLoading()}
-        </React.Fragment>
-      );
+      <React.Fragment>{this.renderLoading()}</React.Fragment>
+    );
   }
 }
 
@@ -240,8 +239,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-beginTimer: (time) => dispatch(thunk_beganTimer(time)),    
-stopTimer: id => dispatch(thunk_stoppedTimer(id)),
+    beginTimer: time => dispatch(thunk_beganTimer(time)),
+    stopTimer: id => dispatch(thunk_stoppedTimer(id)),
     resetTimer: () => dispatch(thunk_resetTimer())
   };
 };
