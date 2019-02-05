@@ -2,7 +2,6 @@ import {
   Home,
   StoryConcept,
   Map,
-  Clue,
   Win,
   Inventory,
   Login,
@@ -13,7 +12,7 @@ import {
   ARClue1,
   ARClue2,
   ARClue3,
-  ARBombToDefuse,
+  ARClue4,
   Lose,
   Timer
 } from './Client/Screens';
@@ -26,7 +25,6 @@ const RootStack = createStackNavigator(
     StoryConcept,
     Map,
     Inventory,
-    Clue,
     Win,
     Loading,
     Welcome,
@@ -36,7 +34,7 @@ const RootStack = createStackNavigator(
     ARClue1,
     ARClue2,
     ARClue3,
-    ARBombToDefuse,
+    ARClue4,
     Lose,
     Timer
   },

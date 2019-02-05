@@ -53,7 +53,11 @@ class ARClue1 extends React.Component {
         >
           <View style={styles.parentContainer}>
             <Button
-              onPress={this.onButtonPress}
+              // onPress={this.onButtonPress}
+              onPress={() => {
+                this.props.addItem(this.state.shovel);
+                this.props.navigation.navigate('Map');
+              }}
               backgroundColor="transparent"
               title="Pick up item"
             />

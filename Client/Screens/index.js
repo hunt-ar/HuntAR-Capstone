@@ -3,7 +3,6 @@ import StoryConcept from './StoryConcept';
 import Win from './Win';
 import Map from './Map';
 import Inventory from './Inventory';
-import Clue from './Clue';
 import { Login } from './Login';
 import { SignUp } from './SignUp';
 import ForgotPW from './ForgotPW';
@@ -13,10 +12,9 @@ import ARClue3 from './ARClue3';
 import Timer from './Timer';
 import Loading from './Loading';
 import Welcome from './Welcome';
-import ARBombToDefuse from './ARBombToDefuse';
+import ARClue4 from './ARClue4';
 import Lose from './Lose';
 export {
-  Clue,
   Map,
   Win,
   StoryConcept,
@@ -31,6 +29,6 @@ export {
   ARClue2,
   ARClue3,
   Timer,
-  ARBombToDefuse,
+  ARClue4,
   Lose
 };
