@@ -53,7 +53,7 @@ export default class ARBombToDefuse extends React.Component {
             <Button
               onPress={this.onButtonPress}
               backgroundColor="transparent"
-              title="Continue"
+              title="Disarm bomb"
             />
           </View>
         </View>

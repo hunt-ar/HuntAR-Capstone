@@ -2,9 +2,11 @@ import React from "react";
 import { Text, View, Button, Image } from "react-native";
 import { styles } from "../../assets/styles";
 
+const bombImage = require("../../assets/bomb.png");
+
 export default class Home extends React.Component {
   renderImage = () => (
-    <Image style={styles.image} source={require("../../assets/bomb.png")} />
+    <Image style={styles.image} source={bombImage} />
   );
 
   render() {
