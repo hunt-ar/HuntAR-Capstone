@@ -22,6 +22,8 @@ import { scaleVertical } from '../utils/scale';
 import firebase from 'firebase'
 import NavigationType from '../../config/navigation/propTypes';
 
+const bombImage = require('../../assets/bomb.png');
+
 export class Login extends React.Component {
 
   state = { email: '', password: '', loading: false }
@@ -36,8 +38,7 @@ export class Login extends React.Component {
   renderImage = () => (
     <Image
       style={styles.image}
-      source={require('../../assets/bomb.png')
-      }
+      source={bombImage}
     />
   );
 

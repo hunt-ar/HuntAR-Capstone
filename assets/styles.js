@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
     backgroundColor: 'transparent',
+
   },
   storyParentContainer: {
     flex: 1,
@@ -73,6 +74,15 @@ export const styles = StyleSheet.create({
     color: 'black',
     textAlignVertical: 'center',
     textAlign: 'center'
+  },
+  userImage: {
+
+    height: 300,
+    resizeMode: 'contain'
+  },
+  userImageTiny: {
+    height: 100,
+    resizeMode: 'contain'
   },
   winImage: {
     marginBottom: 30,
