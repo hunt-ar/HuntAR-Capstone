@@ -21,10 +21,12 @@ import { GradientButton } from '../Components';
 import { scaleVertical } from '../utils/scale';
 import firebase from 'firebase'
 import NavigationType from '../../config/navigation/propTypes';
+import { db } from '../store'
 
 export class SignUp extends React.Component {
 
-  state = { email: '', password: '', loading: false }
+  state = { username: '', email: '', password: '', loading: false }
+
 
   static navigationOptions = {
     header: null,
@@ -34,9 +36,18 @@ export class SignUp extends React.Component {
   };
 
   handleSignUp = () => {
+    const { username, email, password } = this.state;
+    //creates an authorized instance of a new user
+
     this.setState({ loading: true });
 
-    const { email, password } = this.state;
+    firebase.auth().onAuthStateChanged(function(user){
+      db.collection('users').doc(user.uid).set({
+        username,
+        email
+      })
+    })
+
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then( () => { this.setState({loading: false}); })
       .then( () => {this.props.navigation.navigate('Welcome'); })
@@ -67,6 +78,8 @@ export class SignUp extends React.Component {
       </View>
       <View style={styles.content}>
         <View>
+          <RkTextInput rkType='rounded' placeholder='Username' onChangeText={username => this.setState({username})} value={this.state.username} />
+
           <RkTextInput rkType='rounded' placeholder='Email' onChangeText={email => this.setState({email})} value={this.state.email} />
 
           <RkTextInput rkType='rounded' placeholder='Password' secureTextEntry onChangeText={password => this.setState({password})} value={this.state.password} />

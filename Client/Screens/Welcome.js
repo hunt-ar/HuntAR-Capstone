@@ -30,7 +30,7 @@ export default class Welcome extends React.Component {
   
   renderImage = () => (
     <Image
-      style={styles.image}
+      style = {styles.userImage}
       source={require('../../assets/avatars/cat.jpg')
       }
     />

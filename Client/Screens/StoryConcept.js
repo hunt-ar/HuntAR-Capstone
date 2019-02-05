@@ -1,18 +1,16 @@
-import React from "react";
-import { Text, View, Button, Image } from "react-native";
-import { styles } from "../../assets/styles";
+import React from 'react';
+import { Text, View, Button, Image } from 'react-native';
+import { styles } from '../../assets/styles';
 import { connect } from 'react-redux';
-import { thunk_beganTimer } from '../store/timer'
 
-const timeRemaining = 30;
 const explodeImage = require('../../assets/explode.png');
 
 class StoryConcept extends React.Component {
   renderImage = () => (
-    <Image style= {{width: 60, height: 60}} source={explodeImage} />
+    <Image style={{ width: 60, height: 60 }} source={explodeImage} />
   );
   static navigationOptions = {
-    title: "StoryConcept"
+    title: 'StoryConcept'
   };
 
   render() {
@@ -21,11 +19,13 @@ class StoryConcept extends React.Component {
         <View style={styles.titleContainer}>
           <Text style={styles.titleText}>We need your help!</Text>
           <Text style={styles.introText}>
-            There is a ticking bomb nearby and you have to disarm it
-            before it explodes! Luckily, the tools needed to defuse the bomb
-            are scattered nearby, and we have marked their locations on your
-            map. Once you're close to a marker, tap it to reveal the tool. But be warned - you need to collect tools in the right order, because each tool helps you access another one. Collect all the items, then use them to disarm the bomb.
-            Please hurry, time is running out!
+            There is a ticking bomb nearby and you have to disarm it before it
+            explodes! Luckily, the tools needed to defuse the bomb are scattered
+            nearby, and we have marked their locations on your map. Once you're
+            close to a marker, tap it to reveal the tool. But be warned - you
+            need to collect tools in the right order, because each tool helps
+            you access another one. Collect all the items, then use them to
+            disarm the bomb. Please hurry, time is running out!
           </Text>
           {this.renderImage()}
         </View>
@@ -34,8 +34,7 @@ class StoryConcept extends React.Component {
           <Button
             title="Yes! I am ready to be a hero."
             onPress={() => {
-              this.props.beginTimer(timeRemaining);
-              this.props.navigation.navigate('Map')
+              this.props.navigation.navigate('Map');
             }}
           />
         </View>
@@ -43,9 +42,8 @@ class StoryConcept extends React.Component {
           <Button
             title="No, not today..."
             onPress={() => {
-              this.props.navigation.navigate('Home')
-            }
-            }
+              this.props.navigation.navigate('Home');
+            }}
           />
         </View>
       </View>
@@ -58,11 +56,4 @@ const mapStateToProps = state => ({
   id: state.timer.id
 });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    beginTimer: (time) => dispatch(thunk_beganTimer(time)),
-    // stopTimer: (id) => dispatch(thunk_stoppedTimer(id))
-  }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(StoryConcept);
+export default connect(mapStateToProps)(StoryConcept);

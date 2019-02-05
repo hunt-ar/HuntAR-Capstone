@@ -8,10 +8,11 @@ import { styles } from '../../assets/styles';
 import { MaterialCommunityIcons as Icon } from 'react-native-vector-icons';
 import geolib from 'geolib';
 import { connect } from 'react-redux';
-import { thunk_stoppedTimer, thunk_resetTimer } from '../store/timer';
+import { thunk_beganTimer, thunk_stoppedTimer, thunk_resetTimer } from '../store/timer';
 
 //get within range of marker to be able to render AR
 const inRange = 100;
+const startTime = 40;
 
 class Map extends React.Component {
   constructor() {
@@ -24,7 +25,7 @@ class Map extends React.Component {
         longitudeDelta: 0.004
       },
       BackPackVisible: false,
-      region: {
+      initialRegion: {
         latitude: 0,
         longitude: 0,
         error: null
@@ -64,72 +65,72 @@ class Map extends React.Component {
       return Infinity;
     }
   }
-  renderMap = (id) => (
-    <View style={styles.mapContainer}>
-      <MapView
-        style={styles.map}
-        provider={PROVIDER_GOOGLE}
-        customMapStyle={MapStyle}
-        region={this.state.region}
-        onRegionChange={this.onRegionChange}
-        showsUserLocation
-        onUserLocationChange={locationChangedResult =>
-          this.setUserLocation(locationChangedResult.nativeEvent.coordinate)
-        }
-      >
-        <Timer />
-        {this.state.markers.map(marker => (
-          <Marker
-            key={marker.id}
-            coordinate={marker}
-            onPress={() => {
-              if (
-                this.distanceToMarker(this.state.userLocation, {
-                  latitude: marker.latitude,
-                  longitude: marker.longitude
-                }) < inRange
-              ) {
-                this.props.navigation.navigate(`ARClue${marker.id}`);
-              } else {
-                Alert.alert('Not close enough!')
-              }
-            }}
-          />
-        ))}
-      </MapView>
-      <View flexDirection="row" padding={15}>
-        <View style={styles.quitButtonContainer}>
-          <AwesomeButton
-            style={styles.quitButton}
-            onPress={() => {
-              this.props.stopTimer(id);
-              this.props.resetTimer();
-              this.props.navigation.navigate('Lose')
-            }}
-            backgroundColor="#c64747"
-            backgroundActive="#595757"
-            springRelease={true}
-            width={150}
-          >
-            Quit
+  renderMap = (id) => {
+    return (
+      <View style={styles.mapContainer}>
+        <MapView
+          style={styles.map}
+          provider={PROVIDER_GOOGLE}
+          customMapStyle={MapStyle}
+          initialRegion={this.state.initialRegion}
+          showsUserLocation
+          onUserLocationChange={locationChangedResult =>
+            this.setUserLocation(locationChangedResult.nativeEvent.coordinate)
+          }
+        >
+          <Timer />
+          {this.state.markers.map(marker => (
+            <Marker
+              key={marker.id}
+              coordinate={marker}
+              onPress={() => {
+                if (
+                  this.distanceToMarker(this.state.userLocation, {
+                    latitude: marker.latitude,
+                    longitude: marker.longitude
+                  }) < inRange
+                ) {
+                  this.props.navigation.navigate(`ARClue${marker.id}`);
+                } else {
+                  Alert.alert('Not close enough!')
+                }
+              }}
+            />
+          ))}
+        </MapView>
+        <View flexDirection="row" padding={15}>
+          <View style={styles.quitButtonContainer}>
+            <AwesomeButton
+              style={styles.quitButton}
+              onPress={() => {
+                this.props.stopTimer(id)
+                this.props.navigation.navigate('Lose')
+              }}
+              backgroundColor="#c64747"
+              backgroundActive="#595757"
+              springRelease={true}
+              width={150}
+            >
+              Quit
           </AwesomeButton>
+          </View>
+          <View style={styles.backPackContainer}>
+            <Icon.Button
+              name="briefcase"
+              style={styles.backPackButton}
+              onPress={this.onBackPackPress}
+              backgroundColor="transparent"
+              size={50}
+            />
+          </View>
         </View>
-        <View style={styles.backPackContainer}>
-          <Icon.Button
-            name="briefcase"
-            style={styles.backPackButton}
-            onPress={this.onBackPackPress}
-            backgroundColor="transparent"
-            size={50}
-          />
-        </View>
+        <Modal visible={this.state.BackPackVisible} animationType="slide">
+          <Inventory
+            onBackPackClose={this.onBackPackClose} />
+        </Modal>
       </View>
-      <Modal visible={this.state.BackPackVisible} animationType="slide">
-        <Inventory
-          onBackPackClose={this.onBackPackClose} />
-      </Modal>
-    </View>
-  );
+    );
+  }  
 
   renderLoading = () => (
     <View style={styles.loadingContainer}>
@@ -143,7 +144,7 @@ class Map extends React.Component {
     navigator.geolocation.getCurrentPosition(
       position => {
         this.setState({
-          region: {
+          initialRegion: {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
             latitudeDelta: 0.001,
@@ -185,15 +186,18 @@ class Map extends React.Component {
     );
   }
 
-  componentDidUpdate(id) {
-    if (this.props.timeRemaining <= 0) {
+  async componentDidUpdate(id) {
+    if (!this.props.timeRemaining) {
+      this.props.beginTimer(startTime);
+    }
+    if (this.props.timeRemaining === 0 && this.props.id !== 0) {
       if (this.state.BackPackVisible) {
         this.setState({
           BackPackVisible: false
         });
       }
-      this.props.stopTimer(id);
-      this.props.resetTimer();
+      await this.props.stopTimer(id);
+      await this.props.resetTimer();
       this.props.navigation.navigate('Lose')
     }
     if (this.props.inventory.length === 3 && this.state.markers.length === 3) {
@@ -216,7 +220,7 @@ class Map extends React.Component {
   render() {
  
     const id = this.props.id;
-    return this.state.region.latitude ? (
+    return this.state.initialRegion.latitude ? (
       <React.Fragment>
         {this.renderMap(id)}
       </React.Fragment>
@@ -236,8 +240,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    stopTimer: id => dispatch(thunk_stoppedTimer(id)),
-    resetTimer:() => dispatch(thunk_resetTimer)
+beginTimer: (time) => dispatch(thunk_beganTimer(time)),    
+stopTimer: id => dispatch(thunk_stoppedTimer(id)),
+    resetTimer: () => dispatch(thunk_resetTimer())
   };
 };
 
