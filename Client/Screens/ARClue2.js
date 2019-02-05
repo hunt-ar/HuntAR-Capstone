@@ -5,25 +5,41 @@ import { connect } from 'react-redux';
 import { styles } from '../../assets/styles';
 import ExpoTHREE, { AR as ThreeAR, THREE } from 'expo-three';
 import { View as GraphicsView } from 'expo-graphics';
-import { addItem } from '../store/inventory';
+import { addItem, setCode } from '../store/inventory';
 import ObjectLoader from '../utils/ObjectLoader';
 import WoodChest from '../../assets/ARWoodChest/chest';
-//Generate random deactivation code
+
 class ARClue2 extends React.Component {
   constructor() {
     super();
     this.state = {
       chest: {
         name: 'Wooden Chest',
-        description: 'Dirty old wooden chest, looks like it requires a key'
+        description: ''
       }
     };
     this.onButtonPress = this.onButtonPress.bind(this);
+    this.setCode = this.setCode.bind(this);
+  }
+
+  setCode() {
+    let code = '';
+    for (let i = 0; i < 5; i++) {
+      code += Math.floor(Math.random() * (9 - 0));
+    }
+    this.props.setCode(code);
+    this.setState({
+      chest: {
+        description: `Dirty old wooden chest, with a withered paper inside. Has the numbers ${code} written on it.`,
+        name: 'Wooden Chest'
+      }
+    });
   }
 
   componentDidMount() {
     THREE.suppressExpoWarnings(true);
     ThreeAR.suppressWarnings();
+    this.setCode();
   }
 
   onButtonPress() {
@@ -108,7 +124,8 @@ class ARClue2 extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addItem: item => dispatch(addItem(item))
+  addItem: item => dispatch(addItem(item)),
+  setCode: code => dispatch(setCode(code))
 });
 
 export default connect(
