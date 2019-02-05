@@ -1,10 +1,12 @@
 import React from 'react';
 import { AR } from 'expo';
-import { View, Button } from 'react-native';
+import { View, Button, Modal, Text } from 'react-native';
 import { styles } from '../../assets/styles';
 import ExpoTHREE, { AR as ThreeAR, THREE } from 'expo-three';
 import { View as GraphicsView } from 'expo-graphics';
 import ObjectLoader from '../utils/ObjectLoader';
+import AwesomeButton from 'react-native-really-awesome-button';
+import Disarm from './Disarm';
 
 import Bomb from '../../assets/ARBomb/bomb';
 
@@ -15,9 +17,10 @@ export default class ARBombToDefuse extends React.Component {
       key: {
         name: 'Bomb',
         description: 'Bomb to defuse'
-      }
+      },
+      disarmVisible: false
     };
-    this.onButtonPress = this.onButtonPress.bind(this);
+    this.onDisarmPress = this.onDisarmPress.bind(this);
   }
 
   componentDidMount() {
@@ -25,8 +28,10 @@ export default class ARBombToDefuse extends React.Component {
     ThreeAR.suppressWarnings();
   }
 
-  onButtonPress() {
-    this.props.navigation.navigate('Map');
+  onDisarmPress() {
+    this.setState({
+      disarmVisible: true
+    });
   }
 
   render() {
@@ -50,13 +55,21 @@ export default class ARBombToDefuse extends React.Component {
           }}
         >
           <View style={styles.parentContainer}>
-            <Button
-              onPress={this.onButtonPress}
-              backgroundColor="transparent"
-              title="Continue"
-            />
+            <AwesomeButton
+              style={styles.quitButton}
+              onPress={this.onDisarmPress}
+              backgroundColor="#c64747"
+              backgroundActive="#595757"
+              springRelease={true}
+              width={150}
+            >
+              Disarm
+            </AwesomeButton>
           </View>
         </View>
+        <Modal visible={this.state.disarmVisible} animationType="slide">
+          <Disarm />
+        </Modal>
       </View>
     );
   }
@@ -80,7 +93,7 @@ export default class ARBombToDefuse extends React.Component {
       Bomb,
       function(object) {
         object.scale.set(0.08, 0.08, 0.08);
-        object.position.z = -.9;
+        object.position.z = -0.9;
         object.rotateX(90);
         object.rotateY(90);
 
@@ -104,8 +117,8 @@ export default class ARBombToDefuse extends React.Component {
     this.renderer.setSize(width, height);
   };
 
-  onRender = (delta) => {
-    if (this.getThreeModel){
+  onRender = delta => {
+    if (this.getThreeModel) {
       this.getThreeModel.rotation.x += 2 * delta;
       this.getThreeModel.rotation.y += 1.5 * delta;
     }
