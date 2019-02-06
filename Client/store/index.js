@@ -6,7 +6,7 @@ import { firebaseReducer } from 'react-redux-firebase';
 import {
   createFirestoreInstance,
   firestoreReducer,
-  reduxFirestore
+  reduxFirestore, getFirestore
 } from 'redux-firestore'; // <- needed if using firestore
 import inventory from './inventory';
 import timer from './timer';

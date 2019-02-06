@@ -7,7 +7,9 @@ import MapStyle from "../../assets/mapStyle";
 import { styles } from "../../assets/styles";
 import { MaterialCommunityIcons as Icon } from "react-native-vector-icons";
 import geolib from "geolib";
+import { firestoreConnect } from 'react-redux-firebase'
 import { connect } from "react-redux";
+import { compose } from 'redux'
 import {
   thunk_beganTimer,
   thunk_stoppedTimer,
@@ -316,11 +318,14 @@ class Map extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = state => {
+  console.log('STATE', state);
+  return {
   inventory: state.inventory.inventory,
   timeRemaining: state.timer.timeRemaining,
   id: state.timer.id
-});
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -330,7 +335,14 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Map);
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(Map);
+
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  firestoreConnect([
+    { collection: 'games'}
+  ])
+)(Map)
