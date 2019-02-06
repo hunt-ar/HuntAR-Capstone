@@ -16,7 +16,7 @@ import {
 
 //get within range of marker to be able to render AR
 const inRange = 100;
-const startTime = 40;
+const startTime = 60;
 
 class Map extends React.Component {
   constructor() {

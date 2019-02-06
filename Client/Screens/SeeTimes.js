@@ -3,6 +3,7 @@ import { Text, View, Button } from "react-native";
 import { styles } from "../../assets/styles";
 import { db } from '../store'
 import { connect } from 'react-redux';
+
 class SeeTimes extends React.Component {
 
 
@@ -10,7 +11,7 @@ class SeeTimes extends React.Component {
     return (
       <View style={styles.parentContainer}>
         <View style={styles.titleContainer}>
-          <Text style={styles.largeText}> You completed this game in..... </Text>
+          <Text style={styles.largeText}> You completed this game with {this.props.finalTime} seconds to spare.</Text>
         </View>
         <View>
           <Button
@@ -26,19 +27,13 @@ class SeeTimes extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  inventory: state.inventory.inventory,
-  timeRemaining: state.timer.timeRemaining,
-  id: state.timer.id
+finalTime: state.timer.finalTime
 });
 
 const mapDispatchToProps = dispatch => {
   return {
-    stopTimer: id => dispatch(thunk_stoppedTimer(id)),
-    resetTimer:() => dispatch(thunk_resetTimer)
-  };
+    clearInventory: () => dispatch(clearInventoryAction()),
+  }
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SeeTimes);
+export default connect(mapStateToProps, mapDispatchToProps)(SeeTimes);
