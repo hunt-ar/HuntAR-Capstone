@@ -2,18 +2,37 @@ import React, { Component } from 'react';
 import { View, Text, TextInput } from 'react-native';
 import { styles } from '../../assets/styles';
 import AwesomeButton from 'react-native-really-awesome-button';
+import NavigationType from '../../config/navigation/propTypes';
+import { connect } from 'react-redux';
+import { setFinalTime, thunk_stoppedTimer, thunk_resetTimer } from '../store/timer'
 
-export default class Disarm extends Component {
+class Disarm extends Component {
   constructor() {
     super();
     this.state = {
-      text: ''
+      text: '',
     };
     this.onDisarmSubmit = this.onDisarmSubmit.bind(this);
   }
 
+  static propTypes = {
+    navigation: NavigationType.isRequired,
+  };
+  static navigationOptions = {
+    header: null,
+  };
+
   onDisarmSubmit() {
-    console.log(this.state.text);
+    if (this.props.code === this.state.text) {
+      const finalTime = this.props.timeRemaining;
+      this.props.setFinalTime(finalTime);
+      this.props.stopTimer(this.id)
+      this.props.resetTimer();
+        //Alert.alert(`Final time logged as ${finalTime}`)
+      this.props.navigation.navigate('Win')
+    } else {
+      this.props.navigation.navigate('Lose');
+    }
   }
 
   render() {
@@ -27,7 +46,7 @@ export default class Disarm extends Component {
             borderWidth: 1,
             width: 200
           }}
-          placeholder="0 0 0 0 0"
+          placeholder="* * * * *"
           returnKeyLabel="Disarm"
           placeholderTextColor="red"
           maxLength={5}
@@ -45,6 +64,22 @@ export default class Disarm extends Component {
           Disarm
         </AwesomeButton>
       </View>
-    );
+    )
   }
 }
+
+const mapStateToProps = state => ({
+  code: state.inventory.code,  
+  timeRemaining: state.timer.timeRemaining,
+  id: state.timer.id
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setFinalTime: (time) => dispatch(setFinalTime(time)),
+    stopTimer: id => dispatch(thunk_stoppedTimer(id)),
+    resetTimer: () => dispatch(thunk_resetTimer()),
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Disarm);

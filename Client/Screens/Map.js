@@ -8,11 +8,15 @@ import { styles } from '../../assets/styles';
 import { MaterialCommunityIcons as Icon } from 'react-native-vector-icons';
 import geolib from 'geolib';
 import { connect } from 'react-redux';
-import { thunk_beganTimer, thunk_stoppedTimer } from '../store/timer';
+import {
+  thunk_beganTimer,
+  thunk_stoppedTimer,
+  thunk_resetTimer
+} from '../store/timer';
 
 //get within range of marker to be able to render AR
 const inRange = 100;
-const startTime = 40;
+const startTime = 60;
 
 class Map extends React.Component {
   constructor() {
@@ -134,7 +138,7 @@ class Map extends React.Component {
 
   renderLoading = () => (
     <View style={styles.loadingContainer}>
-      <Text>Loading</Text>
+      <Text>Fetching Clues...</Text>
       <ActivityIndicator size="large" />
     </View>
   );
@@ -184,12 +188,12 @@ class Map extends React.Component {
       error => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 2000, maximumAge: 2000 }
     );
-  }
-
-  async componentDidUpdate(id) {
     if (!this.props.timeRemaining) {
       this.props.beginTimer(startTime);
     }
+  }
+
+  async componentDidUpdate(id) {
     if (this.props.timeRemaining === 0 && this.props.id !== 0) {
       if (this.state.BackPackVisible) {
         this.setState({
@@ -197,6 +201,7 @@ class Map extends React.Component {
         });
       }
       await this.props.stopTimer(id);
+      await this.props.resetTimer();
       this.props.navigation.navigate('Lose');
     }
     if (this.props.inventory.length === 3 && this.state.markers.length === 3) {
@@ -235,7 +240,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   return {
     beginTimer: time => dispatch(thunk_beganTimer(time)),
-    stopTimer: id => dispatch(thunk_stoppedTimer(id))
+    stopTimer: id => dispatch(thunk_stoppedTimer(id)),
+    resetTimer: () => dispatch(thunk_resetTimer())
   };
 };
 

@@ -23,7 +23,7 @@ export default class Home extends React.Component {
             backgroundColor="#ff4d4d"
             backgroundActive="#1a0000"
             springRelease={true}
-            width={250}
+            width={200}
             textSize={20}
           >
             New Game
@@ -34,9 +34,9 @@ export default class Home extends React.Component {
               this.props.navigation.navigate('Login');
             }}
             backgroundColor="#ff4d4d"
-            backgroundActive="#1a0000"
+            backgroundActive="#660000"
             springRelease={true}
-            width={250}
+            width={200}
             textSize={20}
           >
             Log In

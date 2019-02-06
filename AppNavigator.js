@@ -1,6 +1,7 @@
 import {
   Home,
   StoryConcept,
+  StoryConcept2,
   Map,
   Win,
   Inventory,
@@ -14,15 +15,18 @@ import {
   ARClue3,
   ARClue4,
   Lose,
-  Timer
+  Timer,
+  SeeTimes,
+  Disarm
 } from './Client/Screens';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-console.log('Our component:', ForgotPW)
+console.log('Our component:', ForgotPW);
 //when I load the app with this, whatever is first shows up
 const RootStack = createStackNavigator(
   {
     Home,
     StoryConcept,
+    StoryConcept2,
     Map,
     Inventory,
     Win,
@@ -36,7 +40,9 @@ const RootStack = createStackNavigator(
     ARClue3,
     ARClue4,
     Lose,
-    Timer
+    Timer,
+    SeeTimes,
+    Disarm
   },
   { headerMode: 'none' }
 );

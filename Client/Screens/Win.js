@@ -4,6 +4,7 @@ import {
   View,
   Image,
   Keyboard,
+  Alert
 } from 'react-native';
 import {
   RkText,
@@ -11,9 +12,12 @@ import {
   RkStyleSheet,
 } from 'react-native-ui-kitten';
 import { connect } from 'react-redux';
+import { db } from '../store'
+import { thunk_resetTimer } from '../store/timer'
 import { clearInventoryAction } from '../store/inventory';
 import { scaleVertical } from '../utils/scale';
 import NavigationType from '../../config/navigation/propTypes';
+
 
 const winImages = [
   require('../../assets/winImages/comesaveday.gif'),
@@ -23,6 +27,10 @@ const winImages = [
 ];
 
 class Win extends React.Component {
+  constructor() {
+    super();
+    this.onSeeTimesButtonPressed = this.onSeeTimesButtonPressed.bind(this);
+  }
 
   static propTypes = {
     navigation: NavigationType.isRequired,
@@ -39,13 +47,20 @@ class Win extends React.Component {
       source={this.getRandomImage()}
     />
   );
-
+  onSeeTimesButtonPressed = () => {
+    this.props.clearInventory();
+    //Alert.alert(`Final time logged as ${finalTime}`)
+      this.props.navigation.navigate('SeeTimes');
+     };
+ 
   onNewGameButtonPressed = () => {
     this.props.clearInventory();
     this.props.navigation.navigate('Home');
   };
 
-  render = () => (
+  render () {
+    console.log(this.props)
+    return (
     <RkAvoidKeyboard
       style={styles.screen}
       onStartShouldSetResponder={() => true}
@@ -56,6 +71,11 @@ class Win extends React.Component {
       </View>
       <View style={styles.content}>
         <View>
+        <Button
+            title="See my final time"
+            onPress={this.onSeeTimesButtonPressed}
+            style={styles.save}
+          />
           <Button
             title="Play Again"
             onPress={this.onNewGameButtonPressed}
@@ -66,7 +86,7 @@ class Win extends React.Component {
     </RkAvoidKeyboard>
   );
 }
-
+}
 const mapStateToProps = state => ({
   inventory: state.inventory.inventory,
   timeRemaining: state.timer.timeRemaining,
@@ -75,7 +95,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    clearInventory: () => dispatch(clearInventoryAction())
+    setFinalTime: (time) => dispatch(setFinalTime(time)),
+    stopTimer: id => dispatch(thunk_stoppedTimer(id)),
+    resetTimer: () => dispatch(thunk_resetTimer()),
+    clearInventory: () => dispatch(clearInventoryAction()),
   }
 };
 

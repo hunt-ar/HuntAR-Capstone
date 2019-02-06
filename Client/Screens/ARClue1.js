@@ -1,6 +1,6 @@
 import React from 'react';
 import { AR } from 'expo';
-import { View, Button } from 'react-native';
+import { Alert, View, Button } from 'react-native';
 import { connect } from 'react-redux';
 import { styles } from '../../assets/styles';
 import ExpoTHREE, { AR as ThreeAR, THREE } from 'expo-three';
@@ -8,11 +8,13 @@ import { View as GraphicsView } from 'expo-graphics';
 import { addItem } from '../store/inventory';
 import ObjectLoader from '../utils/ObjectLoader';
 import Shovel from '../../assets/ARShovel/shovel3';
+import AwesomeButton from 'react-native-really-awesome-button';
 
 class ARClue1 extends React.Component {
   constructor() {
     super();
     this.state = {
+      count: 0,
       shovel: {
         name: 'Shovel',
         description: 'For digging up an important clue.'
@@ -47,21 +49,23 @@ class ARClue1 extends React.Component {
           style={{
             flex: 1,
             flexDirection: 'row',
-            justifyContent: 'space-between',
-            position: 'absolute'
+            justifyContent: 'center',
+            position: 'absolute',
+            bottom: 25,
+            alignItems: 'center'
           }}
         >
-          <View style={styles.parentContainer}>
-            <Button
-              // onPress={this.onButtonPress}
-              onPress={() => {
-                this.props.addItem(this.state.shovel);
-                this.props.navigation.navigate('Map');
-              }}
-              backgroundColor="transparent"
-              title="Pick up item"
-            />
-          </View>
+          <AwesomeButton
+            style={styles.HomeButton}
+            onPress={this.onButtonPress}
+            backgroundColor="#004466"
+            backgroundActive="#293d3d"
+            springRelease={true}
+            width={200}
+            textSize={20}
+          >
+            Pick up item
+          </AwesomeButton>
         </View>
       </View>
     );
@@ -85,7 +89,7 @@ class ARClue1 extends React.Component {
       Shovel,
       function(object) {
         object.scale.set(0.2, 0.15, 0.2);
-        object.position.z = -.9;
+        object.position.z = -0.9;
         object.rotateX(90);
         object.rotateY(90);
         object.rotateZ(90);

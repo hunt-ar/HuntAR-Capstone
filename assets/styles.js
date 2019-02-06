@@ -5,12 +5,14 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#004466'
+    flexDirection: 'column',
+    backgroundColor: '#004466',
+    justifyContent: 'space-between'
   },
   storyParentContainer: {
     flex: 1,
     alignItems: 'center',
-    padding: 20,
+    padding: 15,
     backgroundColor: 'transparent'
   },
   largeText: {
@@ -18,36 +20,36 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   HomeHeader: {
-    fontSize: 80,
+    fontSize: 60,
     fontWeight: 'bold',
     color: '#ffffff',
-    marginTop: '15%',
+    marginTop: '10%',
     textShadowColor: 'rgba(0, 0, 0, 1)',
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 30
   },
   HomeImage: {
-    marginTop: '15%'
+    //marginTop: '10%'
   },
   HomeButtons: {
-    marginTop: '10%'
+    marginBottom: '3%'
   },
   HomeButton: {
-    marginTop: '5%'
+    marginTop: '2%'
   },
   StoryHeader: {
-    fontSize: 40,
+    fontSize: 35,
     fontWeight: 'bold',
     color: '#ffffff',
-    marginTop: '15%',
+    marginLeft: 138,
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10
   },
   StoryText: {
-    fontSize: 24,
+    fontSize: 25,
     color: '#ffffff',
-    marginTop: '7%'
+    marginTop: '20%'
   },
   titleText: {
     fontSize: 30,

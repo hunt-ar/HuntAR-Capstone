@@ -6,22 +6,22 @@ import ExpoTHREE, { AR as ThreeAR, THREE } from 'expo-three';
 import { View as GraphicsView } from 'expo-graphics';
 import ObjectLoader from '../utils/ObjectLoader';
 import AwesomeButton from 'react-native-really-awesome-button';
-import Disarm from './Disarm';
+import NavigationType from '../../config/navigation/propTypes';
 
 import Bomb from '../../assets/ARBomb/bomb';
 
 export default class ARBombToDefuse extends React.Component {
   constructor() {
     super();
-    this.state = {
-      key: {
-        name: 'Bomb',
-        description: 'Bomb to defuse'
-      },
-      disarmVisible: false
-    };
     this.onDisarmPress = this.onDisarmPress.bind(this);
   }
+
+  static propTypes = {
+    navigation: NavigationType.isRequired
+  };
+  static navigationOptions = {
+    header: null
+  };
 
   componentDidMount() {
     THREE.suppressExpoWarnings(true);
@@ -29,9 +29,7 @@ export default class ARBombToDefuse extends React.Component {
   }
 
   onDisarmPress() {
-    this.setState({
-      disarmVisible: true
-    });
+    this.props.navigation.navigate('Disarm');
   }
 
   render() {
@@ -50,26 +48,23 @@ export default class ARBombToDefuse extends React.Component {
           style={{
             flex: 1,
             flexDirection: 'row',
-            justifyContent: 'space-between',
-            position: 'absolute'
+            justifyContent: 'center',
+            position: 'absolute',
+            bottom: 25,
+            alignItems: 'center'
           }}
         >
-          <View style={styles.parentContainer}>
-            <AwesomeButton
-              style={styles.quitButton}
-              onPress={this.onDisarmPress}
-              backgroundColor="#c64747"
-              backgroundActive="#595757"
-              springRelease={true}
-              width={150}
-            >
-              Disarm
-            </AwesomeButton>
-          </View>
+          <AwesomeButton
+            style={styles.quitButton}
+            onPress={this.onDisarmPress}
+            backgroundColor="#c64747"
+            backgroundActive="#595757"
+            springRelease={true}
+            width={150}
+          >
+            Disarm
+          </AwesomeButton>
         </View>
-        <Modal visible={this.state.disarmVisible} animationType="slide">
-          <Disarm />
-        </Modal>
       </View>
     );
   }

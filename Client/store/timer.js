@@ -1,6 +1,7 @@
 const initialState = {
   timeRemaining: 0,
-  id: 0
+  id: 0,
+  finalTime: 0
 };
 
 //Action Types
@@ -9,6 +10,7 @@ const DECREMENT_TIME = 'DECREMENT_TIME';
 const REGISTER_INTERVAL = 'REGISTER_INTERVAL';
 const CLEAR_INTERVAL = 'CLEAR_INTERVAL'
 const RESET_TIMER = 'RESET_TIMER'
+const SET_FINAL_TIME = 'SET_FINAL_TIME'
 
 //Action Creators
 export const setTimeAction = (time) => {
@@ -40,6 +42,12 @@ export const resetTimerAction = () => {
   }
 }
 
+export const setFinalTime = time => {
+  return {
+    type: SET_FINAL_TIME,
+    time
+  };
+};
 //Thunk Creators
 export const thunk_beganTimer = (time) => {
   return dispatch => {
@@ -54,8 +62,12 @@ export const thunk_beganTimer = (time) => {
 export const thunk_stoppedTimer = (id) => {
   return dispatch => {
     dispatch(clearIntervalAction(id));
-    dispatch(resetTimerAction());
   }
+}
+export const thunk_resetTimer = () => {
+  return dispatch =>{
+    dispatch(resetTimerAction());
+    }
 }
 
 //Sub-Reducer
@@ -80,6 +92,8 @@ export default function (state = initialState, action) {
       return { ...state, id: 0 }
     case RESET_TIMER:
       return { ...state, timeRemaining: 0, id: 0 }
+      case SET_FINAL_TIME:
+      return { ...state, finalTime: action.time };
     default:
       return state;
   }
