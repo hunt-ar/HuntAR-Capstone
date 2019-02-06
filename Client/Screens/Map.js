@@ -20,6 +20,7 @@ import { db } from "../store";
 const inRange = 100;
 const startTime = 60;
 
+
 class Map extends React.Component {
   constructor() {
     super();
@@ -46,7 +47,6 @@ class Map extends React.Component {
   }
 
   handleQuit(id) {
-    console.log('******ID*****', id)
     this.props.stopTimer(id);
 
     //updates the game state to closed. User has quit game.
@@ -95,7 +95,6 @@ class Map extends React.Component {
     }
   }
   renderMap = id => {
-    console.log('******MAPID*****', id)
     return (
       <View style={styles.mapContainer}>
         <MapView
@@ -216,7 +215,8 @@ class Map extends React.Component {
 
     //updates the game state
     const { user } = this.state
-    db.collection('games')
+    if (this.state.markers.length) {
+      db.collection('games')
       .where('users', 'array-contains', user.uid)
       .where('open', '==', true)
       .get()
@@ -224,10 +224,23 @@ class Map extends React.Component {
         querySnapshot.forEach(function(doc) {
           db.collection('games').doc(doc.id).update({
             time: startTime,
-            // markers: this.state.markers
+            marker: this.state.markers
           })
         })
       })
+    } else {
+      db.collection('games')
+      .where('users', 'array-contains', user.uid)
+      .where('open', '==', true)
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          db.collection('games').doc(doc.id).update({
+            time: startTime
+          })
+        })
+      })
+    }
   }
   
 
@@ -278,6 +291,7 @@ class Map extends React.Component {
 
     //updates the game state to record the bomb location in Firestore
     const { user } = this.state
+    
     db.collection('games')
       .where('users', 'array-contains', user.uid)
       .where('open', '==', true)

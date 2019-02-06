@@ -4,6 +4,7 @@ import { styles } from '../../assets/styles';
 import { connect } from 'react-redux';
 import firebase from 'firebase'
 import { db } from '../store'
+import { RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_MPEG_4 } from 'expo/build/av/Audio';
 
 const explodeImage = require('../../assets/explode.png');
 
@@ -26,11 +27,55 @@ class StoryConcept extends React.Component {
   };
 
   handleStartGame = () => {
-    //creates an instance of a game with the user's ID referenced
-    db.collection('games').add({
-      open: true,
-      users: [this.state.uid]
-    })
+    //creates an instance of a game with the user's ID referenced and generates the coordinates.
+    const randomDistance = Math.random() * (0.0002 - 0.0001) + 0.0001;
+    // let initialRegion;
+    // console.log('random markers before', randomMarkers)
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        let initialRegion = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          latitudeDelta: 0.001,
+          longitudeDelta: 0.001,
+          error: null
+        }
+        let markers = [
+          {
+            latitude: randomDistance + position.coords.latitude,
+            longitude:
+              Math.random() * (0.0004 - 0.0002) +
+              0.0002 +
+              position.coords.longitude,
+            id: 1
+          },
+          {
+            latitude: randomDistance + position.coords.latitude,
+            longitude:
+              Math.random() * (0.0004 - 0.0002) +
+              0.0002 +
+              position.coords.longitude,
+            id: 2
+          },
+          {
+            latitude: randomDistance + position.coords.latitude,
+            longitude:
+              Math.random() * (0.0004 - 0.0002) +
+              0.0002 +
+              position.coords.longitude,
+            id: 3
+          }
+        ]
+        db.collection('games').add({
+          open: true,
+          users: [this.state.uid],
+          markers,
+          initialRegion
+        })
+      },
+      error => console.log({ error: error.message }),
+      { enableHighAccuracy: true, timeout: 2000, maximumAge: 2000 }
+    )
     this.props.navigation.navigate('Map');
   }
 
