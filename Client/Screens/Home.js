@@ -1,35 +1,46 @@
-import React from "react";
-import { Text, View, Button, Image } from "react-native";
-import { styles } from "../../assets/styles";
+import React from 'react';
+import { Text, View, Button, Image } from 'react-native';
+import { styles } from '../../assets/styles';
+import AwesomeButton from 'react-native-really-awesome-button';
 
-const bombImage = require("../../assets/bomb.png");
+const bombImage = require('../../assets/bomb.png');
+const bombTrial = require('../../assets/bombTrial.png');
 
 export default class Home extends React.Component {
-  renderImage = () => (
-    <Image style={styles.image} source={bombImage} />
-  );
+  renderImage = () => <Image style={styles.image} source={bombTrial} />;
 
   render() {
     return (
       <View style={styles.parentContainer}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.largeText}> disARm </Text>
-          {this.renderImage()}
-        </View>
-        <View>
-          <Button
-            title="Start New Game"
+        <Text style={styles.HomeHeader}>DisARm</Text>
+        <View style={styles.HomeImage}>{this.renderImage()}</View>
+        <View style={styles.HomeButtons}>
+          <AwesomeButton
+            style={styles.HomeButton}
             onPress={() => {
-              this.props.navigation.navigate("StoryConcept");
+              this.props.navigation.navigate('StoryConcept');
             }}
-          />
-
-          <Button
-            title="Log In"
+            backgroundColor="#ff4d4d"
+            backgroundActive="#1a0000"
+            springRelease={true}
+            width={200}
+            textSize={20}
+          >
+            New Game
+          </AwesomeButton>
+          <AwesomeButton
+            style={styles.HomeButton}
             onPress={() => {
-              this.props.navigation.navigate("Win");
+              this.props.navigation.navigate('Login');
             }}
-          />
+            backgroundColor="#ff4d4d"
+            backgroundActive="#660000"
+            springRelease={true}
+            width={200}
+            textSize={20}
+          >
+            Log In
+          </AwesomeButton>
         </View>
       </View>
     );

@@ -17,10 +17,10 @@ export default class ARBombToDefuse extends React.Component {
   }
 
   static propTypes = {
-    navigation: NavigationType.isRequired,
+    navigation: NavigationType.isRequired
   };
   static navigationOptions = {
-    header: null,
+    header: null
   };
 
   componentDidMount() {
@@ -29,7 +29,7 @@ export default class ARBombToDefuse extends React.Component {
   }
 
   onDisarmPress() {
-    this.props.navigation.navigate('Disarm')
+    this.props.navigation.navigate('Disarm');
   }
 
   render() {
@@ -48,22 +48,22 @@ export default class ARBombToDefuse extends React.Component {
           style={{
             flex: 1,
             flexDirection: 'row',
-            justifyContent: 'space-between',
-            position: 'absolute'
+            justifyContent: 'center',
+            position: 'absolute',
+            bottom: 25,
+            alignItems: 'center'
           }}
         >
-          <View style={styles.parentContainer}>
-            <AwesomeButton
-              style={styles.quitButton}
-              onPress={this.onDisarmPress}
-              backgroundColor="#c64747"
-              backgroundActive="#595757"
-              springRelease={true}
-              width={150}
-            >
-              Disarm
-            </AwesomeButton>
-          </View>
+          <AwesomeButton
+            style={styles.quitButton}
+            onPress={this.onDisarmPress}
+            backgroundColor="#c64747"
+            backgroundActive="#595757"
+            springRelease={true}
+            width={150}
+          >
+            Disarm
+          </AwesomeButton>
         </View>
       </View>
     );
@@ -86,7 +86,7 @@ export default class ARBombToDefuse extends React.Component {
 
     ObjectLoader.getThreeModel(
       Bomb,
-      function (object) {
+      function(object) {
         object.scale.set(0.08, 0.08, 0.08);
         object.position.z = -0.9;
         object.rotateX(90);
@@ -94,7 +94,7 @@ export default class ARBombToDefuse extends React.Component {
 
         this.scene.add(object);
       }.bind(this),
-      function (error) {
+      function(error) {
         console.log(error);
       }
     );

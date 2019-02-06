@@ -29,16 +29,17 @@ class StoryConcept extends React.Component {
         </View>
         <View flex={3}>
           <Text flex={2} style={styles.StoryText}>
-            There is a ticking bomb nearby and you have to disarm it before it
-            explodes! Luckily, the tools needed to defuse the bomb are scattered
-            nearby.
+            We have marked the locations of the tools you will need on a map.
+            Once you're close to a marker, tap it to reveal the tool. You need
+            to collect all the tools -- in the right order -- and then use them
+            to disarm the bomb. Please hurry, time is running out!
           </Text>
         </View>
         <View>
           <AwesomeButton
             style={styles.HomeButton}
             onPress={() => {
-              this.props.navigation.navigate('StoryConcept2');
+              this.props.navigation.navigate('Map');
             }}
             backgroundColor="#ff4d4d"
             backgroundActive="#660000"
@@ -46,7 +47,7 @@ class StoryConcept extends React.Component {
             width={200}
             textSize={20}
           >
-            Mission Details
+            Start Mission
           </AwesomeButton>
         </View>
       </View>

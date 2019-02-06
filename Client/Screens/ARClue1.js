@@ -8,6 +8,7 @@ import { View as GraphicsView } from 'expo-graphics';
 import { addItem } from '../store/inventory';
 import ObjectLoader from '../utils/ObjectLoader';
 import Shovel from '../../assets/ARShovel/shovel3';
+import AwesomeButton from 'react-native-really-awesome-button';
 
 class ARClue1 extends React.Component {
   constructor() {
@@ -48,17 +49,23 @@ class ARClue1 extends React.Component {
           style={{
             flex: 1,
             flexDirection: 'row',
-            justifyContent: 'space-between',
-            position: 'absolute'
+            justifyContent: 'center',
+            position: 'absolute',
+            bottom: 25,
+            alignItems: 'center'
           }}
         >
-          <View style={styles.parentContainer}>
-            <Button
-              onPress={() => { this.onButtonPress()}}
-              backgroundColor="transparent"
-              title="Pick up item"
-            />
-          </View>
+          <AwesomeButton
+            style={styles.HomeButton}
+            onPress={this.onButtonPress}
+            backgroundColor="#004466"
+            backgroundActive="#293d3d"
+            springRelease={true}
+            width={200}
+            textSize={20}
+          >
+            Pick up item
+          </AwesomeButton>
         </View>
       </View>
     );
@@ -80,16 +87,16 @@ class ARClue1 extends React.Component {
 
     ObjectLoader.getThreeModel(
       Shovel,
-      function (object) {
+      function(object) {
         object.scale.set(0.2, 0.15, 0.2);
-        object.position.z = -.9;
+        object.position.z = -0.9;
         object.rotateX(90);
         object.rotateY(90);
         object.rotateZ(90);
 
         this.scene.add(object);
       }.bind(this),
-      function (error) {
+      function(error) {
         console.log(error);
       }
     );

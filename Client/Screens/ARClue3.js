@@ -8,6 +8,7 @@ import { View as GraphicsView } from 'expo-graphics';
 import { addItem } from '../store/inventory';
 import ObjectLoader from '../utils/ObjectLoader';
 import Key from '../../assets/ARKey/key';
+import AwesomeButton from 'react-native-really-awesome-button';
 
 class ARClue3 extends React.Component {
   constructor() {
@@ -47,17 +48,23 @@ class ARClue3 extends React.Component {
           style={{
             flex: 1,
             flexDirection: 'row',
-            justifyContent: 'space-between',
-            position: 'absolute'
+            justifyContent: 'center',
+            position: 'absolute',
+            bottom: 25,
+            alignItems: 'center'
           }}
         >
-          <View style={styles.parentContainer}>
-            <Button
-              onPress={this.onButtonPress}
-              backgroundColor="transparent"
-              title="Pick up item"
-            />
-          </View>
+          <AwesomeButton
+            style={styles.HomeButton}
+            onPress={this.onButtonPress}
+            backgroundColor="#004466"
+            backgroundActive="#293d3d"
+            springRelease={true}
+            width={200}
+            textSize={20}
+          >
+            Pick up item
+          </AwesomeButton>
         </View>
       </View>
     );

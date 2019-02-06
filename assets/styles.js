@@ -2,21 +2,54 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   parentContainer: {
-    flex: .8,
+    flex: 1,
     alignItems: 'center',
     padding: 20,
-    backgroundColor: 'transparent',
-
+    flexDirection: 'column',
+    backgroundColor: '#004466',
+    justifyContent: 'space-between'
   },
   storyParentContainer: {
     flex: 1,
     alignItems: 'center',
     padding: 15,
-    backgroundColor: 'transparent',
+    backgroundColor: 'transparent'
   },
   largeText: {
     fontSize: 40,
     fontWeight: 'bold'
+  },
+  HomeHeader: {
+    fontSize: 60,
+    fontWeight: 'bold',
+    color: '#ffffff',
+    marginTop: '10%',
+    textShadowColor: 'rgba(0, 0, 0, 1)',
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 30
+  },
+  HomeImage: {
+    //marginTop: '10%'
+  },
+  HomeButtons: {
+    marginBottom: '3%'
+  },
+  HomeButton: {
+    marginTop: '2%'
+  },
+  StoryHeader: {
+    fontSize: 35,
+    fontWeight: 'bold',
+    color: '#ffffff',
+    marginLeft: 138,
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10
+  },
+  StoryText: {
+    fontSize: 25,
+    color: '#ffffff',
+    marginTop: '20%'
   },
   titleText: {
     fontSize: 30,
@@ -31,7 +64,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     justifyContent: 'center',
-    color: "#be3b3b",
+    color: '#be3b3b',
     padding: 5
   },
   medium: {
@@ -50,10 +83,8 @@ export const styles = StyleSheet.create({
     flex: 2,
     backgroundColor: 'transparent',
     alignItems: 'center',
-    justifyContent: 'center',
-
+    justifyContent: 'center'
   },
-
 
   clueContainer: {
     display: 'flex',
@@ -76,7 +107,6 @@ export const styles = StyleSheet.create({
     textAlign: 'center'
   },
   userImage: {
-
     height: 300,
     resizeMode: 'contain'
   },
@@ -160,7 +190,7 @@ export const styles = StyleSheet.create({
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   timerStyle: {
     padding: 20,
