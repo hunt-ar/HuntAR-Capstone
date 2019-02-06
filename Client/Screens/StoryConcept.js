@@ -2,16 +2,37 @@ import React from 'react';
 import { Text, View, Button, Image } from 'react-native';
 import { styles } from '../../assets/styles';
 import { connect } from 'react-redux';
+import firebase from 'firebase'
+import { db } from '../store'
 
 const explodeImage = require('../../assets/explode.png');
 
 class StoryConcept extends React.Component {
+
+  constructor(){
+    super()
+    this.state = firebase.auth().currentUser
+  }
+
+  componentDidMount() {
+    console.log('*******', this.state.uid)
+  }
+
   renderImage = () => (
     <Image style={{ width: 60, height: 60 }} source={explodeImage} />
   );
   static navigationOptions = {
     title: 'StoryConcept'
   };
+
+  handleStartGame = () => {
+    //creates an instance of a game with the user's ID referenced
+    db.collection('games').add({
+      open: true,
+      users: [this.state.uid]
+    })
+    this.props.navigation.navigate('Map');
+  }
 
   render() {
     return (
@@ -33,9 +54,7 @@ class StoryConcept extends React.Component {
         <View>
           <Button
             title="Yes! I am ready to be a hero."
-            onPress={() => {
-              this.props.navigation.navigate('Map');
-            }}
+            onPress={this.handleStartGame}
           />
         </View>
         <View>
