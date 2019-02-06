@@ -15,7 +15,8 @@ import {
   ARClue4,
   Lose,
   Timer,
-  SeeTimes
+  SeeTimes,
+  Disarm
 } from './Client/Screens';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 console.log('Our component:', ForgotPW)
@@ -38,7 +39,8 @@ const RootStack = createStackNavigator(
     ARClue4,
     Lose,
     Timer,
-    SeeTimes
+    SeeTimes,
+    Disarm
   },
   { headerMode: 'none' }
 );

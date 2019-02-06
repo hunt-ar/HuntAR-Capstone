@@ -32,9 +32,13 @@ export default function(state = initialState, action) {
     case ADD_ITEM:
       //if inventory already contains, then don't add
       let tempInventory = [...state.inventory];
-      tempInventory.push(action.item);
-      return { ...state, inventory: [...tempInventory] };
-    //might need an empty arr
+      const result = tempInventory.find(item => item.name === action.item.name);
+      if (result) {
+        return { ...state}
+      } else {
+          tempInventory.push(action.item);
+        return { ...state, inventory: [...tempInventory] };
+      }
     case CLEAR_INVENTORY:
       return { ...state, inventory: initialState.inventory };
     case SET_CODE:

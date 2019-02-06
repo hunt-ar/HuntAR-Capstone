@@ -1,6 +1,6 @@
 import React from 'react';
 import { AR } from 'expo';
-import { View, Button } from 'react-native';
+import { Alert, View, Button } from 'react-native';
 import { connect } from 'react-redux';
 import { styles } from '../../assets/styles';
 import ExpoTHREE, { AR as ThreeAR, THREE } from 'expo-three';
@@ -13,6 +13,7 @@ class ARClue1 extends React.Component {
   constructor() {
     super();
     this.state = {
+      count: 0,
       shovel: {
         name: 'Shovel',
         description: 'For digging up an important clue.'
@@ -53,11 +54,7 @@ class ARClue1 extends React.Component {
         >
           <View style={styles.parentContainer}>
             <Button
-              // onPress={this.onButtonPress}
-              onPress={() => {
-                this.props.addItem(this.state.shovel);
-                this.props.navigation.navigate('Map');
-              }}
+              onPress={() => { this.onButtonPress()}}
               backgroundColor="transparent"
               title="Pick up item"
             />
@@ -83,7 +80,7 @@ class ARClue1 extends React.Component {
 
     ObjectLoader.getThreeModel(
       Shovel,
-      function(object) {
+      function (object) {
         object.scale.set(0.2, 0.15, 0.2);
         object.position.z = -.9;
         object.rotateX(90);
@@ -92,7 +89,7 @@ class ARClue1 extends React.Component {
 
         this.scene.add(object);
       }.bind(this),
-      function(error) {
+      function (error) {
         console.log(error);
       }
     );
