@@ -11,7 +11,7 @@ import {
   RkStyleSheet,
 } from 'react-native-ui-kitten';
 import { connect } from 'react-redux';
-import { clearInventoryAction } from '../store/inventory';
+import { clearInventoryAction, thunk_resetTimer, thunk_resetTimer } from '../store/inventory';
 import { scaleVertical } from '../utils/scale';
 import NavigationType from '../../config/navigation/propTypes';
 
@@ -34,6 +34,7 @@ class Lose extends React.Component {
 
   onNewGameButtonPressed = () => {
     this.props.clearInventory();
+    this.props.resetTimer();
     this.props.navigation.navigate('Home');
   };
 
@@ -67,7 +68,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    clearInventory: () => dispatch(clearInventoryAction())
+    clearInventory: () => dispatch(clearInventoryAction()),    resetTimer: () => dispatch(thunk_resetTimer()),
+
   }
 };
 
