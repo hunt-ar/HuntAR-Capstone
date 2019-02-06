@@ -62,7 +62,6 @@ class Win extends React.Component {
   };
 
   render () {
-    console.log(this.props)
     return (
     <RkAvoidKeyboard
       style={styles.screen}

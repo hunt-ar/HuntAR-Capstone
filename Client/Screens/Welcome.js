@@ -37,7 +37,6 @@ export default class Welcome extends React.Component {
   );
 
   render() {
-    console.log()
 		const { user, image } = this.state
     return this.state.loading === false ? (
 			<View style={styles.parentContainer}>

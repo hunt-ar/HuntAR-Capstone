@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
-import { Text, View, FlatList } from 'react-native';
+import { Text, View } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import { styles } from '../../assets/styles';
 import { connect } from 'react-redux';
 
 class Inventory extends Component {
-  constructor() {
-    super();
-    this.state = {};
-  }
-
   render() {
-    console.log(this.props.inventory);
     return (
       <View style={styles.parentContainer}>
         <Text style={styles.headerText}>INVENTORY</Text>

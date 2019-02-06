@@ -30,8 +30,8 @@ class ARClue2 extends React.Component {
     this.props.setCode(code);
     this.setState({
       chest: {
-        description: `Dirty old wooden chest, with a withered paper inside. Has the numbers ${code} written on it.`,
-        name: 'Wooden Chest'
+        description: `Crumpled up note with the numbers ${code} written on it.`,
+        name: 'Crumpled Note'
       }
     });
   }

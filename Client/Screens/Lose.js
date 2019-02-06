@@ -44,7 +44,7 @@ class Lose extends React.Component {
       onResponderRelease={() => Keyboard.dismiss()}>
       <View style={styles.header}>
         {this.renderImage()}
-        <RkText style={styles.headerText} rkType='light h1'>You didn't defuse the bomb in time!</RkText>
+        <RkText style={styles.headerText} rkType='light h1'>You failed your mission!</RkText>
       </View>
       <View style={styles.content}>
         <View>
