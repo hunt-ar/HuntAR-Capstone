@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TextInput } from 'react-native';
 import { styles } from '../../assets/styles';
 import AwesomeButton from 'react-native-really-awesome-button';
+import NavigationType from '../../config/navigation/propTypes';
 import { connect } from 'react-redux';
 import Lose from './Lose';
 import Win from './Win';
@@ -15,6 +16,13 @@ class Disarm extends Component {
     };
     this.onDisarmSubmit = this.onDisarmSubmit.bind(this);
   }
+
+  static propTypes = {
+    navigation: NavigationType.isRequired,
+  };
+  static navigationOptions = {
+    header: null,
+  };
 
   onDisarmSubmit() {
     this.setState({
@@ -52,10 +60,14 @@ class Disarm extends Component {
         </AwesomeButton>
       </View>
     ) : this.props.code === this.state.text ? (
-      <Win />
+      <React.Fragment>
+        {this.props.navigation.navigate('Win')}
+      </React.Fragment>
     ) : (
-      <Lose />
-    );
+          <React.Fragment>
+            {this.props.navigation.navigate('Lose')}
+          </React.Fragment>
+        );
   }
 }
 
