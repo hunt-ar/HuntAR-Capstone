@@ -52,8 +52,8 @@ class Win extends React.Component {
   this.props.setFinalTime(finalTime);
   this.props.stopTimer(this.id)
     this.props.clearInventory();
-    Alert.alert(`Final time logged as ${finalTime}`)
-        //this.props.navigation.navigate('SeeTimes');
+    //Alert.alert(`Final time logged as ${finalTime}`)
+      this.props.navigation.navigate('SeeTimes');
      };
  
   onNewGameButtonPressed = () => {
