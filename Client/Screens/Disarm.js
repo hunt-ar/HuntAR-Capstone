@@ -4,6 +4,7 @@ import { styles } from '../../assets/styles';
 import AwesomeButton from 'react-native-really-awesome-button';
 import NavigationType from '../../config/navigation/propTypes';
 import { connect } from 'react-redux';
+import { setFinalTime, thunk_stoppedTimer, thunk_resetTimer } from '../store/timer'
 
 class Disarm extends Component {
   constructor() {
@@ -23,6 +24,11 @@ class Disarm extends Component {
 
   onDisarmSubmit() {
     if (this.props.code === this.state.text) {
+      const finalTime = this.props.timeRemaining;
+      this.props.setFinalTime(finalTime);
+      this.props.stopTimer(this.id)
+      this.props.resetTimer();
+        //Alert.alert(`Final time logged as ${finalTime}`)
       this.props.navigation.navigate('Win')
     } else {
       this.props.navigation.navigate('Lose');
@@ -40,7 +46,7 @@ class Disarm extends Component {
             borderWidth: 1,
             width: 200
           }}
-          placeholder="0 0 0 0 0"
+          placeholder="* * * * *"
           returnKeyLabel="Disarm"
           placeholderTextColor="red"
           maxLength={5}
@@ -63,7 +69,17 @@ class Disarm extends Component {
 }
 
 const mapStateToProps = state => ({
-  code: state.inventory.code
+  code: state.inventory.code,  
+  timeRemaining: state.timer.timeRemaining,
+  id: state.timer.id
 });
 
-export default connect(mapStateToProps)(Disarm);
+const mapDispatchToProps = dispatch => {
+  return {
+    setFinalTime: (time) => dispatch(setFinalTime(time)),
+    stopTimer: id => dispatch(thunk_stoppedTimer(id)),
+    resetTimer: () => dispatch(thunk_resetTimer()),
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Disarm);
