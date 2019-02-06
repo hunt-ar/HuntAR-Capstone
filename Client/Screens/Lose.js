@@ -34,7 +34,7 @@ class Lose extends React.Component {
       <View style={styles.header}>
         {this.renderImage()}
         <RkText style={styles.headerText} rkType="light h1">
-          You didn't defuse the bomb in time!
+          You failed your mission!
         </RkText>
       </View>
       <View style={styles.content}>

@@ -89,15 +89,24 @@ class Map extends React.Component {
               coordinate={marker}
               //image={require('../../assets/location.png')}
               onPress={() => {
+                const clueUnlocked = this.props.inventory.find(
+                  item => item.name === `${marker.unlock}`
+                );
                 if (
                   this.distanceToMarker(this.state.userLocation, {
                     latitude: marker.latitude,
                     longitude: marker.longitude
-                  }) < inRange
+                  }) > inRange
                 ) {
-                  this.props.navigation.navigate(`ARClue${marker.id}`);
-                } else {
                   Alert.alert('Not close enough!');
+                } else if (
+                  marker.id !== 1 &&
+                  marker.id !== 4 &&
+                  !clueUnlocked
+                ) {
+                  Alert.alert('Access Denied');
+                } else {
+                  this.props.navigation.navigate(`ARClue${marker.id}`);
                 }
               }}
             />
@@ -170,7 +179,8 @@ class Map extends React.Component {
                 Math.random() * (0.0004 - 0.0002) +
                 0.0002 +
                 position.coords.longitude,
-              id: 2
+              id: 2,
+              unlock: 'Key'
             },
             {
               latitude: position.coords.latitude,
@@ -180,7 +190,8 @@ class Map extends React.Component {
               //   position.coords.longitude +
               //   Math.random() * (0.0004 - 0.0002) +
               //   0.0002,
-              id: 3
+              id: 3,
+              unlock: 'Shovel'
             }
           ]
         });
@@ -205,7 +216,9 @@ class Map extends React.Component {
       this.props.navigation.navigate('Lose');
     }
     if (this.props.inventory.length === 3 && this.state.markers.length === 3) {
-      Alert.alert('You have everything you need. Go disarm the bomb!');
+      Alert.alert(
+        'You found a crumpled up piece of paper in the chest with a message scribbled on it. Looks like a code to something.'
+      );
       const lat = this.state.userLocation.latitude + 0.0003;
       const lon = this.state.userLocation.longitude + 0.0003;
       let bombMarker = [
