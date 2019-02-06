@@ -2,28 +2,35 @@ import React, { Component } from 'react';
 import { View, Text, TextInput } from 'react-native';
 import { styles } from '../../assets/styles';
 import AwesomeButton from 'react-native-really-awesome-button';
+import NavigationType from '../../config/navigation/propTypes';
 import { connect } from 'react-redux';
-import Lose from './Lose';
-import Win from './Win';
 
 class Disarm extends Component {
   constructor() {
     super();
     this.state = {
       text: '',
-      submitted: false
     };
     this.onDisarmSubmit = this.onDisarmSubmit.bind(this);
   }
 
+  static propTypes = {
+    navigation: NavigationType.isRequired,
+  };
+  static navigationOptions = {
+    header: null,
+  };
+
   onDisarmSubmit() {
-    this.setState({
-      submitted: true
-    });
+    if (this.props.code === this.state.text) {
+      this.props.navigation.navigate('Win')
+    } else {
+      this.props.navigation.navigate('Lose');
+    }
   }
 
   render() {
-    return !this.state.submitted ? (
+    return (
       <View style={styles.parentContainer}>
         <Text style={styles.headerText}>Enter Code</Text>
         <TextInput
@@ -51,11 +58,7 @@ class Disarm extends Component {
           Disarm
         </AwesomeButton>
       </View>
-    ) : this.props.code === this.state.text ? (
-      <Win />
-    ) : (
-      <Lose />
-    );
+    )
   }
 }
 

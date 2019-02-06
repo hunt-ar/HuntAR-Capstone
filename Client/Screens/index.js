@@ -14,6 +14,7 @@ import Loading from './Loading';
 import Welcome from './Welcome';
 import ARClue4 from './ARClue4';
 import Lose from './Lose';
+import Disarm from './Disarm';
 import SeeTimes from './SeeTimes'
 export {
   Map,
@@ -32,5 +33,6 @@ export {
   Timer,
   ARClue4,
   Lose,
-  SeeTimes
+  SeeTimes,
+  Disarm
 };

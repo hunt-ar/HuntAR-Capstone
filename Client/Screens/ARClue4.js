@@ -6,22 +6,22 @@ import ExpoTHREE, { AR as ThreeAR, THREE } from 'expo-three';
 import { View as GraphicsView } from 'expo-graphics';
 import ObjectLoader from '../utils/ObjectLoader';
 import AwesomeButton from 'react-native-really-awesome-button';
-import Disarm from './Disarm';
+import NavigationType from '../../config/navigation/propTypes';
 
 import Bomb from '../../assets/ARBomb/bomb';
 
 export default class ARBombToDefuse extends React.Component {
   constructor() {
     super();
-    this.state = {
-      key: {
-        name: 'Bomb',
-        description: 'Bomb to defuse'
-      },
-      disarmVisible: false
-    };
     this.onDisarmPress = this.onDisarmPress.bind(this);
   }
+
+  static propTypes = {
+    navigation: NavigationType.isRequired,
+  };
+  static navigationOptions = {
+    header: null,
+  };
 
   componentDidMount() {
     THREE.suppressExpoWarnings(true);
@@ -29,9 +29,7 @@ export default class ARBombToDefuse extends React.Component {
   }
 
   onDisarmPress() {
-    this.setState({
-      disarmVisible: true
-    });
+    this.props.navigation.navigate('Disarm')
   }
 
   render() {
@@ -67,9 +65,6 @@ export default class ARBombToDefuse extends React.Component {
             </AwesomeButton>
           </View>
         </View>
-        <Modal visible={this.state.disarmVisible} animationType="slide">
-          <Disarm />
-        </Modal>
       </View>
     );
   }
@@ -91,7 +86,7 @@ export default class ARBombToDefuse extends React.Component {
 
     ObjectLoader.getThreeModel(
       Bomb,
-      function(object) {
+      function (object) {
         object.scale.set(0.08, 0.08, 0.08);
         object.position.z = -0.9;
         object.rotateX(90);
@@ -99,7 +94,7 @@ export default class ARBombToDefuse extends React.Component {
 
         this.scene.add(object);
       }.bind(this),
-      function(error) {
+      function (error) {
         console.log(error);
       }
     );
