@@ -2,23 +2,35 @@ import React from 'react';
 import { Text, View, Button, Image } from 'react-native';
 import { styles } from '../../assets/styles';
 import { connect } from 'react-redux';
+import AwesomeButton from 'react-native-really-awesome-button';
 
 const explodeImage = require('../../assets/explode.png');
+const defaultAvatar = require('../../assets/godfather.png');
 
 class StoryConcept extends React.Component {
-  renderImage = () => (
-    <Image style={{ width: 60, height: 60 }} source={explodeImage} />
-  );
+  renderImage = () => <Image source={defaultAvatar} />;
   static navigationOptions = {
     title: 'StoryConcept'
   };
 
   render() {
     return (
-      <View style={styles.storyParentContainer}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.titleText}>We need your help!</Text>
-          <Text style={styles.introText}>
+      <View style={styles.parentContainer}>
+        <View
+          width="100%"
+          justifyContent="space-between"
+          flexDirection="row"
+          flex={1}
+        >
+          <View marginTop={25} flex={1}>
+            {this.renderImage()}
+          </View>
+          <View marginLeft={55} flex={2}>
+            <Text style={styles.StoryHeader}>Mission Critical...</Text>
+          </View>
+        </View>
+        <View flex={3}>
+          <Text style={styles.StoryText}>
             There is a ticking bomb nearby and you have to disarm it before it
             explodes! Luckily, the tools needed to defuse the bomb are scattered
             nearby, and we have marked their locations on your map. Once you're
@@ -27,24 +39,36 @@ class StoryConcept extends React.Component {
             you access another one. Collect all the items, then use them to
             disarm the bomb. Please hurry, time is running out!
           </Text>
-          {this.renderImage()}
         </View>
-        <Text style={styles.medText}>Do you accept the mission?</Text>
         <View>
-          <Button
-            title="Yes! I am ready to be a hero."
+          <AwesomeButton
+            style={styles.HomeButton}
             onPress={() => {
               this.props.navigation.navigate('Map');
             }}
-          />
+            backgroundColor="#ff4d4d"
+            backgroundActive="#267326"
+            springRelease={true}
+            width={250}
+            textSize={20}
+          >
+            Start Mission
+          </AwesomeButton>
         </View>
         <View>
-          <Button
-            title="No, not today..."
+          <AwesomeButton
+            style={styles.HomeButton}
             onPress={() => {
               this.props.navigation.navigate('Home');
             }}
-          />
+            backgroundColor="#ff4d4d"
+            backgroundActive="#1a0000"
+            springRelease={true}
+            width={250}
+            textSize={20}
+          >
+            Too Scared
+          </AwesomeButton>
         </View>
       </View>
     );

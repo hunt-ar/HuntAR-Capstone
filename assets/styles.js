@@ -5,18 +5,49 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     padding: 20,
-    backgroundColor: 'transparent',
-
+    backgroundColor: '#004466'
   },
   storyParentContainer: {
     flex: 1,
     alignItems: 'center',
     padding: 20,
-    backgroundColor: 'transparent',
+    backgroundColor: 'transparent'
   },
   largeText: {
     fontSize: 40,
     fontWeight: 'bold'
+  },
+  HomeHeader: {
+    fontSize: 80,
+    fontWeight: 'bold',
+    color: '#ffffff',
+    marginTop: '15%',
+    textShadowColor: 'rgba(0, 0, 0, 1)',
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 30
+  },
+  HomeImage: {
+    marginTop: '15%'
+  },
+  HomeButtons: {
+    marginTop: '10%'
+  },
+  HomeButton: {
+    marginTop: '5%'
+  },
+  StoryHeader: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: '#ffffff',
+    marginTop: '15%',
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10
+  },
+  StoryText: {
+    fontSize: 24,
+    color: '#ffffff',
+    marginTop: '7%'
   },
   titleText: {
     fontSize: 30,
@@ -31,7 +62,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     justifyContent: 'center',
-    color: "#be3b3b",
+    color: '#be3b3b',
     padding: 5
   },
   medium: {
@@ -50,10 +81,8 @@ export const styles = StyleSheet.create({
     flex: 2,
     backgroundColor: 'transparent',
     alignItems: 'center',
-    justifyContent: 'center',
-
+    justifyContent: 'center'
   },
-
 
   clueContainer: {
     display: 'flex',
@@ -76,7 +105,6 @@ export const styles = StyleSheet.create({
     textAlign: 'center'
   },
   userImage: {
-
     height: 300,
     resizeMode: 'contain'
   },
@@ -160,7 +188,7 @@ export const styles = StyleSheet.create({
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   timerStyle: {
     padding: 20,
