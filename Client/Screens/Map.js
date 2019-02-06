@@ -45,6 +45,28 @@ class Map extends React.Component {
     this.distanceToMarker = this.distanceToMarker.bind(this);
   }
 
+  handleQuit(id) {
+    console.log('******ID*****', id)
+    this.props.stopTimer(id);
+
+    //updates the game state to closed. User has quit game.
+    const { user } = this.state
+    db.collection('games')
+      .where('users', 'array-contains', user.uid)
+      .where('open', '==', true)
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          db.collection('games').doc(doc.id).update({
+            open: false,
+            time: 0
+          })
+        })
+      })    
+
+    this.props.navigation.navigate("Lose");
+  }
+
   onBackPackPress() {
     this.setState({
       BackPackVisible: true
@@ -73,6 +95,7 @@ class Map extends React.Component {
     }
   }
   renderMap = id => {
+    console.log('******MAPID*****', id)
     return (
       <View style={styles.mapContainer}>
         <MapView
@@ -109,10 +132,7 @@ class Map extends React.Component {
           <View style={styles.quitButtonContainer}>
             <AwesomeButton
               style={styles.quitButton}
-              onPress={() => {
-                this.props.stopTimer(id);
-                this.props.navigation.navigate("Lose");
-              }}
+              onPress={() => this.handleQuit(id)}
               backgroundColor="#c64747"
               backgroundActive="#595757"
               springRelease={true}
@@ -203,7 +223,8 @@ class Map extends React.Component {
       .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
           db.collection('games').doc(doc.id).update({
-            time: startTime
+            time: startTime,
+            // markers: this.state.markers
           })
         })
       })
