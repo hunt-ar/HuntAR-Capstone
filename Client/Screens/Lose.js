@@ -11,7 +11,8 @@ import {
   RkStyleSheet,
 } from 'react-native-ui-kitten';
 import { connect } from 'react-redux';
-import { clearInventoryAction, thunk_resetTimer, thunk_resetTimer } from '../store/inventory';
+import { clearInventoryAction } from '../store/inventory';
+import { thunk_resetTimer } from '../store/timer';
 import { scaleVertical } from '../utils/scale';
 import NavigationType from '../../config/navigation/propTypes';
 
@@ -45,7 +46,7 @@ class Lose extends React.Component {
       onResponderRelease={() => Keyboard.dismiss()}>
       <View style={styles.header}>
         {this.renderImage()}
-        <RkText style={styles.headerText} rkType='light h1'>You didn't defuse the bomb in time!</RkText>
+        <RkText style={styles.headerText} rkType='light h1'>You failed your mission!</RkText>
       </View>
       <View style={styles.content}>
         <View>
@@ -68,8 +69,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    clearInventory: () => dispatch(clearInventoryAction()),    resetTimer: () => dispatch(thunk_resetTimer()),
-
+    clearInventory: () => dispatch(clearInventoryAction()),
+    resetTimer: () => dispatch(thunk_resetTimer()),
   }
 };
 

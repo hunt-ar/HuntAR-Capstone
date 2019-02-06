@@ -88,15 +88,18 @@ class Map extends React.Component {
               key={marker.id}
               coordinate={marker}
               onPress={() => {
+                const clueUnlocked = this.props.inventory.find(item => item.name === `${marker.unlock}`);
                 if (
                   this.distanceToMarker(this.state.userLocation, {
                     latitude: marker.latitude,
                     longitude: marker.longitude
-                  }) < inRange
+                  }) > inRange
                 ) {
-                  this.props.navigation.navigate(`ARClue${marker.id}`);
+                  Alert.alert('Not close enough!');
+                } else if ((marker.id !== 1 && marker.id !== 4) && !clueUnlocked) {
+                  Alert.alert('Access Denied');
                 } else {
-                  Alert.alert("Not close enough!");
+                  this.props.navigation.navigate(`ARClue${marker.id}`);
                 }
               }}
             />
@@ -161,7 +164,7 @@ class Map extends React.Component {
                 Math.random() * (0.0004 - 0.0002) +
                 0.0002 +
                 position.coords.longitude,
-              id: 1
+              id: 1,
             },
             {
               latitude: randomDistance + 0.0002 + position.coords.latitude,
@@ -169,7 +172,8 @@ class Map extends React.Component {
                 Math.random() * (0.0004 - 0.0002) +
                 0.0002 +
                 position.coords.longitude,
-              id: 2
+              id: 2,
+              unlock: "Key"
             },
             {
               latitude: position.coords.latitude,
@@ -179,7 +183,8 @@ class Map extends React.Component {
               //   position.coords.longitude +
               //   Math.random() * (0.0004 - 0.0002) +
               //   0.0002,
-              id: 3
+              id: 3,
+              unlock: "Shovel"
             }
           ]
         });
@@ -193,7 +198,7 @@ class Map extends React.Component {
   }
 
   async componentDidUpdate(id) {
- 
+
     if (this.props.timeRemaining === 0 && this.props.id !== 0) {
       if (this.state.BackPackVisible) {
         this.setState({
@@ -205,7 +210,7 @@ class Map extends React.Component {
       this.props.navigation.navigate("Lose");
     }
     if (this.props.inventory.length === 3 && this.state.markers.length === 3) {
-      Alert.alert("You have everything you need. Go disarm the bomb!");
+      Alert.alert("You found a crumpled up piece of paper in the chest with a message scribbled on it. Looks like a code to something.");
       const lat = this.state.userLocation.latitude + 0.0003;
       const lon = this.state.userLocation.longitude + 0.0003;
       let bombMarker = [
@@ -226,8 +231,8 @@ class Map extends React.Component {
     return this.state.initialRegion.latitude ? (
       <React.Fragment>{this.renderMap(id)}</React.Fragment>
     ) : (
-      <React.Fragment>{this.renderLoading()}</React.Fragment>
-    );
+        <React.Fragment>{this.renderLoading()}</React.Fragment>
+      );
   }
 }
 
