@@ -11,7 +11,8 @@ import {
   RkStyleSheet,
 } from 'react-native-ui-kitten';
 import { connect } from 'react-redux';
-import { clearInventoryAction, thunk_resetTimer, thunk_resetTimer } from '../store/inventory';
+import { clearInventoryAction } from '../store/inventory';
+import { thunk_resetTimer } from '../store/timer';
 import { scaleVertical } from '../utils/scale';
 import NavigationType from '../../config/navigation/propTypes';
 
@@ -68,8 +69,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    clearInventory: () => dispatch(clearInventoryAction()),    resetTimer: () => dispatch(thunk_resetTimer()),
-
+    clearInventory: () => dispatch(clearInventoryAction()),
+    resetTimer: () => dispatch(thunk_resetTimer()),
   }
 };
 
