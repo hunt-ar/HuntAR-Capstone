@@ -7,20 +7,12 @@ import { View as GraphicsView } from 'expo-graphics';
 import ObjectLoader from '../utils/ObjectLoader';
 import AwesomeButton from 'react-native-really-awesome-button';
 import NavigationType from '../../config/navigation/propTypes';
-// import Disarm from './Disarm';
 
 import Bomb from '../../assets/ARBomb/bomb';
 
 export default class ARBombToDefuse extends React.Component {
   constructor() {
     super();
-    this.state = {
-      // key: {
-      //   name: 'Bomb',
-      //   description: 'Bomb to defuse'
-      // },
-      disarmVisible: false
-    };
     this.onDisarmPress = this.onDisarmPress.bind(this);
   }
 
@@ -37,9 +29,7 @@ export default class ARBombToDefuse extends React.Component {
   }
 
   onDisarmPress() {
-    this.setState({
-      disarmVisible: true
-    });
+    this.props.navigation.navigate('Disarm')
   }
 
   render() {
@@ -75,9 +65,6 @@ export default class ARBombToDefuse extends React.Component {
             </AwesomeButton>
           </View>
         </View>
-        <Modal visible={this.state.disarmVisible} animationType="slide">
-          {this.props.navigation.navigate('Disarm')}
-        </Modal>
       </View>
     );
   }
