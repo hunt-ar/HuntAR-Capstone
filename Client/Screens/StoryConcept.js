@@ -17,7 +17,7 @@ class StoryConcept extends React.Component {
   }
 
   componentDidMount() {
-    console.log('***Confirm UserID***', this.state.uid)
+    // console.log('***Confirm UserID***', this.state.uid)
   }
 
   renderImage = () => (

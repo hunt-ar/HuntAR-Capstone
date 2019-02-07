@@ -49,19 +49,20 @@ class Map extends React.Component {
     this.props.stopTimer(id);
 
     //updates the game state to closed. User has quit game.
-    const { user } = this.state
-    db.collection('games')
-      .where('users', 'array-contains', user.uid)
-      .where('open', '==', true)
-      .get()
-      .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-          db.collection('games').doc(doc.id).update({
-            open: false,
-            time: 0
+    if (this.state.uid){
+      db.collection('games')
+        .where('users', 'array-contains', this.state.uid)
+        .where('open', '==', true)
+        .get()
+        .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+            db.collection('games').doc(doc.id).update({
+              open: false,
+              time: 0
+            })
           })
         })
-      })
+    } 
 
     this.props.navigation.navigate("Lose");
   }
@@ -246,9 +247,9 @@ class Map extends React.Component {
       this.props.navigation.navigate("Lose");
 
     //updates the game state to closed. User is a loser.
-    const { user } = this.state
-    db.collection('games')
-      .where('users', 'array-contains', user.uid)
+    if (this.state.uid){
+      db.collection('games')
+      .where('users', 'array-contains', this.state.uid)
       .where('open', '==', true)
       .get()
       .then(function(querySnapshot) {
@@ -259,7 +260,7 @@ class Map extends React.Component {
           })
         })
       })
-  
+    }
     }
 
     //Bomb renders because user has accessed all three clues
@@ -278,19 +279,6 @@ class Map extends React.Component {
         markers: bombMarker
       });
 
-    //updates the game state to record the bomb location in Firestore
-    const { user } = this.state
-    db.collection('games')
-      .where('users', 'array-contains', user.uid)
-      .where('open', '==', true)
-      .get()
-      .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-          db.collection('games').doc(doc.id).update({
-            bomb: bombMarker
-          })
-        })
-      })
     }
   }
 
