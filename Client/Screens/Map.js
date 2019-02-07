@@ -1,5 +1,12 @@
 import React from 'react';
-import { Alert, Text, View, Modal, ActivityIndicator } from 'react-native';
+import {
+  Alert,
+  Image,
+  Text,
+  View,
+  Modal,
+  ActivityIndicator
+} from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Inventory, Timer } from './index';
@@ -19,6 +26,7 @@ import { db } from '../store';
 //get within range of marker to be able to render AR
 const inRange = 100;
 const startTime = 60;
+const loadImage = require('../../assets/loading.gif');
 
 class Map extends React.Component {
   constructor() {
@@ -46,6 +54,7 @@ class Map extends React.Component {
   }
 
   handleQuit(id) {
+    console.log('QUIT-ID', id);
     this.props.stopTimer(id);
 
     //updates the game state to closed. User has quit game.
@@ -175,10 +184,16 @@ class Map extends React.Component {
 
   renderLoading = () => (
     <View style={styles.loadingContainer}>
-      <Text>Fetching Clues...</Text>
-      <ActivityIndicator size="large" />
+      <Image style={styles.image} source={loadImage} />
     </View>
   );
+
+  // renderLoading = () => (
+  //   <View style={styles.loadingContainer}>
+  //     <Text>Fetching Clues...</Text>
+  //     <ActivityIndicator size="large" />
+  //   </View>
+  // );
 
   componentDidMount() {
     const randomDistance = Math.random() * (0.0002 - 0.0001) + 0.0001;

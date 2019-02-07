@@ -9,6 +9,14 @@ export const styles = StyleSheet.create({
     backgroundColor: '#004466',
     justifyContent: 'space-between'
   },
+  TimesContainer: {
+    flex: 1,
+    alignItems: 'center',
+    padding: 15,
+    flexDirection: 'column',
+    backgroundColor: '#004466',
+    justifyContent: 'space-between'
+  },
   ItemContainer: {
     flex: 1,
     //alignItems: 'center',
@@ -58,6 +66,16 @@ export const styles = StyleSheet.create({
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 15
   },
+  TimesHeader: {
+    fontSize: 60,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#ffffff',
+    marginTop: '10%',
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 15
+  },
   InventoryHeaderText: {
     fontSize: 50,
     fontWeight: 'bold',
@@ -77,8 +95,22 @@ export const styles = StyleSheet.create({
   HomeButton: {
     marginTop: '2%'
   },
+  TimesButton: {
+    marginTop: '2%'
+  },
   StoryHeader: {
     fontSize: 45,
+    fontWeight: 'bold',
+    color: '#ffffff',
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10,
+    marginBottom: 35,
+    marginTop: 20
+  },
+  SeeTimesHeader: {
+    fontSize: 40,
+    textAlign: 'center',
     fontWeight: 'bold',
     color: '#ffffff',
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
@@ -95,6 +127,14 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
     marginLeft: 25
     // marginTop: '20%'
+  },
+  TimesText: {
+    fontSize: 30,
+    color: '#ffffff',
+    fontWeight: 'bold',
+    flexWrap: 'wrap',
+    marginLeft: 25
+
   },
   titleText: {
     fontSize: 30,
@@ -252,5 +292,9 @@ export const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     color: 'red'
-  }
+  },
+  image: {
+    // height: scaleVertical(200),
+    resizeMode: 'contain'
+  },
 });
