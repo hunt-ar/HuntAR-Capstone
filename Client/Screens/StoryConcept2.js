@@ -27,11 +27,10 @@ class StoryConcept extends React.Component {
             </View>
           </View>
         </View>
-        <View flex={3}>
+        <View flex={4}>
           <Text flex={2} style={styles.StoryText}>
-            We have marked the locations of the tools you will need on a map.
-            Once you're close to a marker, tap it to reveal the tool. You need
-            to collect all the tools -- in the right order -- and then use them
+            We've marked the locations of the tools you will need on a map.
+            Once you're close to a marker, tap it to reveal the tool. Collect all the tools -- in the right order -- and then use them
             to disarm the bomb. Please hurry, time is running out!
           </Text>
         </View>
