@@ -11,7 +11,7 @@ export default class Home extends React.Component {
 
   render() {
     return (
-      <View style={styles.parentContainer}>
+      <View style={styles.HomeContainer}>
         <Text style={styles.HomeHeader}>DisARm</Text>
         <View style={styles.HomeImage}>{this.renderImage()}</View>
         <View style={styles.HomeButtons}>
@@ -21,7 +21,7 @@ export default class Home extends React.Component {
               this.props.navigation.navigate('StoryConcept');
             }}
             backgroundColor="#ff4d4d"
-            backgroundActive="#1a0000"
+            backgroundActive="#660000"
             springRelease={true}
             width={200}
             textSize={20}

@@ -9,6 +9,7 @@ import { addItem } from '../store/inventory';
 import ObjectLoader from '../utils/ObjectLoader';
 import Shovel from '../../assets/ARShovel/shovel3';
 import AwesomeButton from 'react-native-really-awesome-button';
+const item1 = require('../../assets/ItemPics/shovel.png');
 
 class ARClue1 extends React.Component {
   constructor() {
@@ -17,7 +18,8 @@ class ARClue1 extends React.Component {
       count: 0,
       shovel: {
         name: 'Shovel',
-        description: 'For digging up an important clue.'
+        description: 'For digging up an important clue.',
+        img: item1
       }
     };
     this.onButtonPress = this.onButtonPress.bind(this);
@@ -49,10 +51,11 @@ class ARClue1 extends React.Component {
           style={{
             flex: 1,
             flexDirection: 'row',
-            justifyContent: 'center',
+            justifyContent: 'flex-end',
             position: 'absolute',
             bottom: 25,
-            alignItems: 'center'
+            alignItems: 'center',
+            marginLeft: 85
           }}
         >
           <AwesomeButton

@@ -2,28 +2,26 @@ import React from 'react';
 import { Text, View, Button, Image } from 'react-native';
 import { styles } from '../../assets/styles';
 import { connect } from 'react-redux';
-import firebase from 'firebase'
-import { db } from '../store'
+import firebase from 'firebase';
+import { db } from '../store';
 import AwesomeButton from 'react-native-really-awesome-button';
 
-const explodeImage = require('../../assets/explode.png');
-const defaultAvatar = require('../../assets/godfather.png');
+const time = require('../../assets/instructionPics/alarm-clock.png');
+const backpack = require('../../assets/instructionPics/briefcase.png');
+const tap = require('../../assets/instructionPics/tap.png');
+const marker = require('../../assets/instructionPics/location-pin.png');
+const order = require('../../assets/instructionPics/choice.png');
 
 class StoryConcept extends React.Component {
-
-  constructor(){
-    super()
-    this.state = firebase.auth().currentUser
+  constructor() {
+    super();
+    this.state = firebase.auth().currentUser;
   }
 
   componentDidMount() {
     // console.log('***Confirm UserID***', this.state.uid)
   }
 
-  renderImage = () => (
-    <Image style={{ width: 60, height: 60 }} source={explodeImage} />
-  );
-  renderImage = () => <Image height={20} width={20} source={defaultAvatar} />;
   static navigationOptions = {
     title: 'StoryConcept'
   };
@@ -31,7 +29,7 @@ class StoryConcept extends React.Component {
   handleStartGame = () => {
     //creates an instance of a game with the user's ID referenced and generates the coordinates.
     const randomDistance = Math.random() * (0.0002 - 0.0001) + 0.0001;
-    
+
     navigator.geolocation.getCurrentPosition(
       position => {
         let markers = [
@@ -61,7 +59,7 @@ class StoryConcept extends React.Component {
             id: 3,
             unlock: 'Shovel'
           }
-        ]
+        ];
         let bomb = [
           {
             latitude: randomDistance + position.coords.latitude,
@@ -72,7 +70,7 @@ class StoryConcept extends React.Component {
             id: 4,
             unlock: 'Note'
           }
-        ]
+        ];
 
         db.collection('games').add({
           open: true,
@@ -80,45 +78,52 @@ class StoryConcept extends React.Component {
           markers,
           time: 60,
           bomb
-        })
+        });
       },
       error => console.log({ error: error.message }),
       { enableHighAccuracy: true, timeout: 2000, maximumAge: 2000 }
-    )
+    );
 
-    this.props.navigation.navigate('StoryConcept2');
-  }
+    this.props.navigation.navigate('Map');
+  };
 
   render() {
     return (
-      <View style={styles.parentContainer}>
-        <View justifyContent="space-between" alignItems="stretch" flex={1}>
-          <View marginTop={10} flex={1}>
-            {this.renderImage()}
-          </View>
-          <View flex={2}>
-            <View flex={1} flexDirection="column">
-              <Text style={styles.StoryHeader}>Mission</Text>
-              <Text style={styles.StoryHeader}>Critical...</Text>
-            </View>
-          </View>
+      <View style={styles.StoryContainer}>
+        <View alignItems="center">
+          <Text style={styles.StoryHeader}>Mission Details</Text>
         </View>
-        <View flex={3}>
-          <Text flex={2} style={styles.StoryText}>
-            There is a ticking bomb nearby and you have to disarm it before it
-            explodes! Luckily, the tools needed to defuse the bomb are scattered
-            nearby.
+        <View flex={1} flexDirection="row">
+          <View left={0}>
+            <Image left={0} style={{ width: 50, height: 50 }} source={marker} />
+          </View>
+          <Text flex="right" style={styles.StoryText}>
+            Visit all the markers
           </Text>
-          {this.renderImage()}
         </View>
-        <Text style={styles.medText}>Do you accept the mission?</Text>
-        <View>
-          <Button
-            title="Yes! I am ready to be a hero."
-            onPress={this.handleStartGame}
-          />
+        <View flex={1} flexDirection="row">
+          <Image left={0} style={{ width: 50, height: 50 }} source={tap} />
+          <Text flex="right" style={styles.StoryText}>
+            Tap the marker when in range to collect an item
+          </Text>
         </View>
-        <View>
+        <View flex={1} flexDirection="row">
+          <Image style={{ width: 50, height: 50 }} source={backpack} />
+          <Text style={styles.StoryText}>Check your inventory</Text>
+        </View>
+        <View flex={1} flexDirection="row">
+          <Image style={{ width: 50, height: 50 }} source={order} />
+          <Text style={styles.StoryText}>
+            Get your items in a specific order
+          </Text>
+        </View>
+
+        <View flex={1} flexDirection="row">
+          <Image style={{ width: 50, height: 50 }} source={time} />
+          <Text style={styles.StoryText}>Hurry, the clock is ticking</Text>
+        </View>
+
+        <View alignItems="center">
           <AwesomeButton
             style={styles.HomeButton}
             onPress={this.handleStartGame}
@@ -128,7 +133,7 @@ class StoryConcept extends React.Component {
             width={200}
             textSize={20}
           >
-            Mission Details
+            Accept Mission
           </AwesomeButton>
         </View>
       </View>

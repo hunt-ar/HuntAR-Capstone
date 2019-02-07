@@ -9,6 +9,7 @@ import { addItem, setCode } from '../store/inventory';
 import ObjectLoader from '../utils/ObjectLoader';
 import WoodChest from '../../assets/ARWoodChest/chest';
 import AwesomeButton from 'react-native-really-awesome-button';
+const item1 = require('../../assets/ItemPics/shovel.png');
 
 class ARClue2 extends React.Component {
   constructor() {
@@ -16,7 +17,8 @@ class ARClue2 extends React.Component {
     this.state = {
       chest: {
         name: 'Wooden Chest',
-        description: ''
+        description: '',
+        img: item1
       }
     };
     this.onButtonPress = this.onButtonPress.bind(this);
@@ -64,10 +66,11 @@ class ARClue2 extends React.Component {
           style={{
             flex: 1,
             flexDirection: 'row',
-            justifyContent: 'center',
+            justifyContent: 'flex-end',
             position: 'absolute',
             bottom: 25,
-            alignItems: 'center'
+            alignItems: 'center',
+            marginLeft: 85
           }}
         >
           <View>

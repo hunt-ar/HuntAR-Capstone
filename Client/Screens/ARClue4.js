@@ -48,10 +48,11 @@ export default class ARBombToDefuse extends React.Component {
           style={{
             flex: 1,
             flexDirection: 'row',
-            justifyContent: 'center',
+            justifyContent: 'flex-end',
             position: 'absolute',
             bottom: 25,
-            alignItems: 'center'
+            alignItems: 'center',
+            marginLeft: 85
           }}
         >
           <AwesomeButton
@@ -60,7 +61,7 @@ export default class ARBombToDefuse extends React.Component {
             backgroundColor="#c64747"
             backgroundActive="#595757"
             springRelease={true}
-            width={150}
+            width={200}
           >
             Disarm
           </AwesomeButton>

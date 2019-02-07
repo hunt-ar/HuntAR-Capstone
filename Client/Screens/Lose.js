@@ -32,10 +32,10 @@ class Lose extends React.Component {
       onResponderRelease={() => Keyboard.dismiss()}
     >
       <View style={styles.header}>
-        {this.renderImage()}
         <RkText style={styles.headerText} rkType="light h1">
           You failed your mission!
         </RkText>
+        {this.renderImage()}
       </View>
       <View style={styles.content}>
         <View>
@@ -70,25 +70,25 @@ export default connect(
 
 const styles = RkStyleSheet.create(theme => ({
   screen: {
-    padding: scaleVertical(16),
+    //padding: scaleVertical(10),
     flex: 1,
     justifyContent: 'space-between',
-    backgroundColor: theme.colors.screen.base
+    backgroundColor: '#333333'
   },
   image: {
     height: scaleVertical(200),
     resizeMode: 'contain'
   },
   header: {
-    paddingBottom: scaleVertical(10),
+    //paddingBottom: scaleVertical(10),
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1
   },
   headerText: {
-    marginTop: 15,
-    fontSize: 30,
-    fontWeight: 'bold'
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: 'white'
   },
   content: {
     justifyContent: 'space-between'

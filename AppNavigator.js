@@ -1,7 +1,6 @@
 import {
   Home,
   StoryConcept,
-  StoryConcept2,
   Map,
   Win,
   Inventory,
@@ -26,7 +25,6 @@ const RootStack = createStackNavigator(
   {
     Home,
     StoryConcept,
-    StoryConcept2,
     Map,
     Inventory,
     Win,
