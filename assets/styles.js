@@ -17,6 +17,14 @@ export const styles = StyleSheet.create({
     backgroundColor: '#004466',
     justifyContent: 'space-between'
   },
+  DisarmContainer: {
+    flex: 1,
+    alignItems: 'center',
+    padding: 30,
+    flexDirection: 'column',
+    backgroundColor: '#004466',
+    //justifyContent: 'space-between'
+  },
   ItemContainer: {
     flex: 1,
     //alignItems: 'center',
@@ -75,6 +83,9 @@ export const styles = StyleSheet.create({
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 15
+  },
+  textInput: {
+    padding: 40,
   },
   InventoryHeaderText: {
     fontSize: 50,
@@ -256,6 +267,10 @@ export const styles = StyleSheet.create({
   },
   quitButton: {
     left: 0
+  },
+  disarmButton: {
+    left: 0,
+    margin: 10
   },
   solveButton: {
     bottom: 0,

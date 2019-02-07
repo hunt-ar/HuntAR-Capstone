@@ -38,16 +38,22 @@ class Disarm extends Component {
     }
   }
 
+  // async onGoBack() {
+  //   await this.props.navigation.navigate('Map');
+  // }
+
   render() {
     return (
-      <View style={styles.parentContainer}>
-        <Text style={styles.headerText}>Enter Code</Text>
+      <View style={styles.DisarmContainer}>
+        <Text style={styles.SeeTimesHeader}>Enter the code here</Text>
+        <View style style = {styles.textInput}>
         <TextInput
           style={{
             height: 40,
             borderColor: 'gray',
             borderWidth: 1,
-            width: 200
+            width: 200,
+            backgroundColor: 'white'
           }}
           placeholder="* * * * *"
           returnKeyLabel="Disarm"
@@ -56,15 +62,28 @@ class Disarm extends Component {
           onChangeText={text => this.setState({ text })}
           value={this.state.text}
         />
+        </View>
         <AwesomeButton
-          style={styles.quitButton}
+          style={styles.disarmButton}
           onPress={this.onDisarmSubmit}
           backgroundColor="#c64747"
           backgroundActive="#595757"
           springRelease={true}
           width={150}
         >
-          Disarm
+          Disarm the Bomb
+        </AwesomeButton>
+        <AwesomeButton
+          style={styles.disarmButton}
+          onPress={() => {
+            this.props.navigation.navigate('Map')}}
+
+          backgroundColor="#c64747"
+          backgroundActive="#595757"
+          springRelease={true}
+          width={150}
+        >
+          Back to Map
         </AwesomeButton>
       </View>
     )
