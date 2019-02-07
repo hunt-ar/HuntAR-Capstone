@@ -64,7 +64,7 @@ class ARClue1 extends React.Component {
             width={200}
             textSize={20}
           >
-            Pick up item
+            Pick up shovel
           </AwesomeButton>
         </View>
       </View>
