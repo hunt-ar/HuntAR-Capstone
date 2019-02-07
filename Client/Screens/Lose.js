@@ -6,8 +6,13 @@ import { clearInventoryAction } from '../store/inventory';
 import { thunk_resetTimer } from '../store/timer';
 import { scaleVertical } from '../utils/scale';
 import NavigationType from '../../config/navigation/propTypes';
+import AwesomeButton from 'react-native-really-awesome-button';
 
-const loseImage = require('../../assets/lose.gif');
+const loseImages = [
+  require('../../assets/loseImages/lose.gif'),
+  require('../../assets/loseImages/boom.gif'),
+  require('../../assets/loseImages/boom2.gif'),
+];
 
 class Lose extends React.Component {
   static propTypes = {
@@ -17,7 +22,14 @@ class Lose extends React.Component {
     header: null
   };
 
-  renderImage = () => <Image style={styles.image} source={loseImage} />;
+  getRandomImage = () => loseImages[Math.floor(Math.random() * loseImages.length)];
+
+  renderImage = () => (
+    <Image
+      style={styles.image}
+      source={this.getRandomImage()}
+    />
+  );
 
   onNewGameButtonPressed = () => {
     this.props.clearInventory();
@@ -38,12 +50,26 @@ class Lose extends React.Component {
         {this.renderImage()}
       </View>
       <View style={styles.content}>
-        <View>
-          <Button
-            title="Try Again"
+        <View
+          alignItems="center"
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            marginBottom: 30
+          }}
+        >
+          <AwesomeButton
+            style={styles.HomeButton}
             onPress={this.onNewGameButtonPressed}
-            style={styles.save}
-          />
+            backgroundColor="#004466"
+            backgroundActive="#660000"
+            springRelease={true}
+            width={200}
+            textSize={20}
+          >
+            Try Again
+          </AwesomeButton>
         </View>
       </View>
     </RkAvoidKeyboard>

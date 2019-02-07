@@ -1,5 +1,12 @@
 import React from 'react';
-import { Alert, Image, Text, View, Modal, ActivityIndicator } from 'react-native';
+import {
+  Alert,
+  Image,
+  Text,
+  View,
+  Modal,
+  ActivityIndicator
+} from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Inventory, Timer } from './index';
@@ -15,6 +22,7 @@ import {
 } from "../store/timer";
 import firebase from 'firebase'
 import { db } from "../store";
+import { Audio } from 'expo'
 
 //get within range of marker to be able to render AR
 const inRange = 10;
@@ -46,27 +54,40 @@ class Map extends React.Component {
     this.distanceToMarker = this.distanceToMarker.bind(this);
   }
 
-  handleQuit(id) {
-    console.log("QUIT-ID", id)
-    this.props.stopTimer(id);
+  playSound = async () => {
+    const explodeSound = new Audio.Sound();
+    try {
+      await explodeSound.loadAsync(require('../../assets/sounds/explosion.mp3'));
+      await explodeSound.playAsync();
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
+  handleQuit(id) {
+    this.props.stopTimer(id);
+    //explosion sound!
+    this.playSound();
     //updates the game state to closed. User has quit game.
     if (this.state.uid) {
       db.collection('games')
         .where('users', 'array-contains', this.state.uid)
         .where('open', '==', true)
         .get()
-        .then(function (querySnapshot) {
-          querySnapshot.forEach(function (doc) {
-            db.collection('games').doc(doc.id).update({
-              open: false,
-              time: 0
-            })
-          })
-        })
+        .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+            db.collection('games')
+              .doc(doc.id)
+              .update({
+                open: false,
+                time: 0
+              });
+          });
+        });
     }
 
     this.props.navigation.navigate("Lose");
+
   }
 
   onBackPackPress() {
@@ -112,9 +133,11 @@ class Map extends React.Component {
           <Timer />
           {this.state.markers.map(marker => (
             <Marker
+              //image={marker.img}
               key={marker.id}
               coordinate={marker}
-              //image={require('../../assets/location.png')}
+              //height={100}
+              //image={require('../../assets/instructionPics/placeholder.png')}
               onPress={() => {
                 const clueUnlocked = this.props.inventory.find(
                   item => item.name === `${marker.unlock}`
@@ -133,7 +156,7 @@ class Map extends React.Component {
                 ) {
                   Alert.alert(`${marker.lockedMessage}`);
                 } else {
-                  Alert.alert(`${marker.unlockedMessage}`)
+                  Alert.alert(`${marker.unlockedMessage}`);
                   this.props.navigation.navigate(`ARClue${marker.id}`);
                 }
               }}
@@ -171,19 +194,12 @@ class Map extends React.Component {
     );
   };
 
-
   renderLoading = () => (
     <View style={styles.loadingContainer}>
+      <Text>Fetching Clues...</Text>
       <Image style={styles.image} source={loadImage} />
     </View>
-  )
-
-  // renderLoading = () => (
-  //   <View style={styles.loadingContainer}>
-  //     <Text>Fetching Clues...</Text>
-  //     <ActivityIndicator size="large" />
-  //   </View>
-  // );
+  );
 
   componentDidMount() {
     const randomDistance = Math.random() * (0.0002 - 0.0001) + 0.0001;
@@ -199,7 +215,7 @@ class Map extends React.Component {
           },
           markers: [
             {
-              latitude: randomDistance + position.coords.latitude,
+              latitude: 0.0002 + position.coords.latitude,
               longitude:
                 Math.random() * (0.0004 - 0.0002) +
                 0.0002 +
@@ -208,19 +224,18 @@ class Map extends React.Component {
               unlockedMessage: 'You found a shovel.'
             },
             {
-              latitude: randomDistance + 0.0002 + position.coords.latitude,
-              longitude:
-                Math.random() * (0.0004 - 0.0002) +
-                0.0002 +
-                position.coords.longitude,
+              latitude: 0.0003 + position.coords.latitude,
+              longitude: position.coords.longitude - 0.0003,
               id: 2,
               unlock: 'Key',
-              lockedMessage: 'You found a chest! But it\s locked and you can\'t open it.',
-              unlockedMessage: 'You open the chest! Inside is a crumpled up note with a message scribbled on it. Looks like a code.'
+              lockedMessage:
+                "You found a chest! But its locked and you can't open it.",
+              unlockedMessage:
+                'You open the chest! Inside is a crumpled up note with a message scribbled on it. Looks like a code.'
             },
             {
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
+              latitude: position.coords.latitude - 0.0002,
+              longitude: position.coords.longitude - 0.0002,
               // latitude: randomDistance + 0.0004 + position.coords.latitude,
               // longitude:
               //   position.coords.longitude +
@@ -228,8 +243,9 @@ class Map extends React.Component {
               //   0.0002,
               id: 3,
               unlock: 'Shovel',
-              lockedMessage: 'Looks like something\'s buried here.',
-              unlockedMessage: 'You use the shovel to dig up a tarnished old key.'
+              lockedMessage: "Looks like something's buried here.",
+              unlockedMessage:
+                'You use the shovel to dig up a tarnished old key.'
             }
           ]
         });
@@ -242,9 +258,7 @@ class Map extends React.Component {
     }
   }
 
-
   async componentDidUpdate(id) {
-
     //Time has gone to zero. User loses and is directed to the lose screen.
     if (this.props.timeRemaining === 0 && this.props.id !== 0) {
       if (this.state.BackPackVisible) {
@@ -253,8 +267,9 @@ class Map extends React.Component {
         });
       }
       await this.props.stopTimer(id);
+      this.playSound();
       await this.props.resetTimer();
-      this.props.navigation.navigate("Lose");
+      this.props.navigation.navigate('Lose');
 
       //updates the game state to closed. User is a loser.
       if (this.state.uid) {
@@ -262,14 +277,16 @@ class Map extends React.Component {
           .where('users', 'array-contains', this.state.uid)
           .where('open', '==', true)
           .get()
-          .then(function (querySnapshot) {
-            querySnapshot.forEach(function (doc) {
-              db.collection('games').doc(doc.id).update({
-                open: false,
-                time: 0
-              })
-            })
-          })
+          .then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+              db.collection('games')
+                .doc(doc.id)
+                .update({
+                  open: false,
+                  time: 0
+                });
+            });
+          });
       }
     }
 
@@ -288,7 +305,6 @@ class Map extends React.Component {
       this.setState({
         markers: bombMarker
       });
-
     }
   }
 
@@ -297,8 +313,8 @@ class Map extends React.Component {
     return this.state.initialRegion.latitude ? (
       <React.Fragment>{this.renderMap(id)}</React.Fragment>
     ) : (
-        <React.Fragment>{this.renderLoading()}</React.Fragment>
-      );
+      <React.Fragment>{this.renderLoading()}</React.Fragment>
+    );
   }
 }
 
