@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Text, View, Modal, ActivityIndicator } from 'react-native';
+import { Alert, Image, Text, View, Modal, ActivityIndicator } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Inventory, Timer } from './index';
@@ -19,6 +19,7 @@ import { db } from "../store";
 //get within range of marker to be able to render AR
 const inRange = 100;
 const startTime = 60;
+const loadImage = require('../../assets/loading.gif');
 
 class Map extends React.Component {
   constructor() {
@@ -50,20 +51,20 @@ class Map extends React.Component {
     this.props.stopTimer(id);
 
     //updates the game state to closed. User has quit game.
-    if (this.state.uid){
+    if (this.state.uid) {
       db.collection('games')
         .where('users', 'array-contains', this.state.uid)
         .where('open', '==', true)
         .get()
-        .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
             db.collection('games').doc(doc.id).update({
               open: false,
               time: 0
             })
           })
         })
-    } 
+    }
 
     this.props.navigation.navigate("Lose");
   }
@@ -170,12 +171,19 @@ class Map extends React.Component {
     );
   };
 
+
   renderLoading = () => (
     <View style={styles.loadingContainer}>
-      <Text>Fetching Clues...</Text>
-      <ActivityIndicator size="large" />
+      <Image style={styles.image} source={loadImage} />
     </View>
-  );
+  )
+
+  // renderLoading = () => (
+  //   <View style={styles.loadingContainer}>
+  //     <Text>Fetching Clues...</Text>
+  //     <ActivityIndicator size="large" />
+  //   </View>
+  // );
 
   componentDidMount() {
     const randomDistance = Math.random() * (0.0002 - 0.0001) + 0.0001;
@@ -233,10 +241,10 @@ class Map extends React.Component {
       this.props.beginTimer(startTime);
     }
   }
-  
+
 
   async componentDidUpdate(id) {
- 
+
     //Time has gone to zero. User loses and is directed to the lose screen.
     if (this.props.timeRemaining === 0 && this.props.id !== 0) {
       if (this.state.BackPackVisible) {
@@ -248,21 +256,21 @@ class Map extends React.Component {
       await this.props.resetTimer();
       this.props.navigation.navigate("Lose");
 
-    //updates the game state to closed. User is a loser.
-    if (this.state.uid){
-      db.collection('games')
-      .where('users', 'array-contains', this.state.uid)
-      .where('open', '==', true)
-      .get()
-      .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-          db.collection('games').doc(doc.id).update({
-            open: false,
-            time: 0
+      //updates the game state to closed. User is a loser.
+      if (this.state.uid) {
+        db.collection('games')
+          .where('users', 'array-contains', this.state.uid)
+          .where('open', '==', true)
+          .get()
+          .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+              db.collection('games').doc(doc.id).update({
+                open: false,
+                time: 0
+              })
+            })
           })
-        })
-      })
-    }
+      }
     }
 
     //Bomb renders because user has accessed all three clues
@@ -289,8 +297,8 @@ class Map extends React.Component {
     return this.state.initialRegion.latitude ? (
       <React.Fragment>{this.renderMap(id)}</React.Fragment>
     ) : (
-      <React.Fragment>{this.renderLoading()}</React.Fragment>
-    );
+        <React.Fragment>{this.renderLoading()}</React.Fragment>
+      );
   }
 }
 
