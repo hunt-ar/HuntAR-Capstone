@@ -8,8 +8,8 @@ import AwesomeButton from 'react-native-really-awesome-button';
 
 const time = require('../../assets/instructionPics/alarm-clock.png');
 const backpack = require('../../assets/instructionPics/briefcase.png');
-const tap = require('../../assets/instructionPics/tap.png');
-const marker = require('../../assets/instructionPics/location-pin.png');
+const tap = require('../../assets/instructionPics/question.png');
+const marker = require('../../assets/instructionPics/placeholder.png');
 const order = require('../../assets/instructionPics/choice.png');
 
 class StoryConcept extends React.Component {

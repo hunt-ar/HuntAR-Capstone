@@ -87,7 +87,7 @@ export const styles = StyleSheet.create({
     textShadowRadius: 15
   },
   HomeImage: {
-    //marginTop: '10%'
+    marginRight: '8%'
   },
   HomeButtons: {
     marginBottom: '3%'
@@ -99,7 +99,7 @@ export const styles = StyleSheet.create({
     marginTop: '2%'
   },
   StoryHeader: {
-    fontSize: 40,
+    fontSize: 45,
     fontWeight: 'bold',
     color: '#ffffff',
     textShadowColor: 'rgba(0, 0, 0, 0.75)',

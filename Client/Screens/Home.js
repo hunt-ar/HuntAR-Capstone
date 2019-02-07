@@ -7,7 +7,7 @@ const bombImage = require('../../assets/bomb.png');
 const bombTrial = require('../../assets/bombTrial.png');
 
 export default class Home extends React.Component {
-  renderImage = () => <Image style={styles.image} source={bombTrial} />;
+  renderImage = () => <Image style={styles.image} source={bombImage} />;
 
   render() {
     return (
