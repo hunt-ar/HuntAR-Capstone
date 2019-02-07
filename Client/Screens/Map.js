@@ -12,7 +12,9 @@ import {
   thunk_beganTimer,
   thunk_stoppedTimer,
   thunk_resetTimer
-} from '../store/timer';
+} from "../store/timer";
+import firebase from 'firebase'
+import { db } from "../store";
 
 //get within range of marker to be able to render AR
 const inRange = 100;
@@ -34,12 +36,35 @@ class Map extends React.Component {
         longitude: 0,
         error: null
       },
-      markers: []
+      markers: [],
+      user: firebase.auth().currentUser
     };
     this.onBackPackPress = this.onBackPackPress.bind(this);
     this.onBackPackClose = this.onBackPackClose.bind(this);
     this.setUserLocation.bind(this);
     this.distanceToMarker = this.distanceToMarker.bind(this);
+  }
+
+  handleQuit(id) {
+    this.props.stopTimer(id);
+
+    //updates the game state to closed. User has quit game.
+    if (this.state.uid){
+      db.collection('games')
+        .where('users', 'array-contains', this.state.uid)
+        .where('open', '==', true)
+        .get()
+        .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+            db.collection('games').doc(doc.id).update({
+              open: false,
+              time: 0
+            })
+          })
+        })
+    } 
+
+    this.props.navigation.navigate("Lose");
   }
 
   onBackPackPress() {
@@ -104,8 +129,9 @@ class Map extends React.Component {
                   marker.id !== 4 &&
                   !clueUnlocked
                 ) {
-                  Alert.alert('Access Denied');
+                  Alert.alert(`${marker.lockedMessage}`);
                 } else {
+                  Alert.alert(`${marker.unlockedMessage}`)
                   this.props.navigation.navigate(`ARClue${marker.id}`);
                 }
               }}
@@ -116,10 +142,7 @@ class Map extends React.Component {
           <View marginLeft={5} style={styles.quitButtonContainer}>
             <AwesomeButton
               style={styles.quitButton}
-              onPress={() => {
-                this.props.stopTimer(id);
-                this.props.navigation.navigate('Lose');
-              }}
+              onPress={() => this.handleQuit(id)}
               backgroundColor="#c64747"
               backgroundActive="#595757"
               springRelease={true}
@@ -172,7 +195,8 @@ class Map extends React.Component {
                 Math.random() * (0.0004 - 0.0002) +
                 0.0002 +
                 position.coords.longitude,
-              id: 1
+              id: 1,
+              unlockedMessage: 'You found a shovel.'
             },
             {
               latitude: randomDistance + 0.0002 + position.coords.latitude,
@@ -181,7 +205,9 @@ class Map extends React.Component {
                 0.0002 +
                 position.coords.longitude,
               id: 2,
-              unlock: 'Key'
+              unlock: 'Key',
+              lockedMessage: 'You found a chest! But it\s locked and you can\'t open it.',
+              unlockedMessage: 'You open the chest! Inside is a crumpled up note with a message scribbled on it. Looks like a code.'
             },
             {
               latitude: position.coords.latitude,
@@ -192,7 +218,9 @@ class Map extends React.Component {
               //   Math.random() * (0.0004 - 0.0002) +
               //   0.0002,
               id: 3,
-              unlock: 'Shovel'
+              unlock: 'Shovel',
+              lockedMessage: 'Looks like something\'s buried here.',
+              unlockedMessage: 'You use the shovel to dig up a tarnished old key.'
             }
           ]
         });
@@ -204,8 +232,11 @@ class Map extends React.Component {
       this.props.beginTimer(startTime);
     }
   }
+  
 
   async componentDidUpdate(id) {
+ 
+    //Time has gone to zero. User loses and is directed to the lose screen.
     if (this.props.timeRemaining === 0 && this.props.id !== 0) {
       if (this.state.BackPackVisible) {
         this.setState({
@@ -214,24 +245,41 @@ class Map extends React.Component {
       }
       await this.props.stopTimer(id);
       await this.props.resetTimer();
-      this.props.navigation.navigate('Lose');
+      this.props.navigation.navigate("Lose");
+
+    //updates the game state to closed. User is a loser.
+    if (this.state.uid){
+      db.collection('games')
+      .where('users', 'array-contains', this.state.uid)
+      .where('open', '==', true)
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          db.collection('games').doc(doc.id).update({
+            open: false,
+            time: 0
+          })
+        })
+      })
     }
+    }
+
+    //Bomb renders because user has accessed all three clues
     if (this.props.inventory.length === 3 && this.state.markers.length === 3) {
-      Alert.alert(
-        'You found a crumpled up piece of paper in the chest with a message scribbled on it. Looks like a code to something.'
-      );
       const lat = this.state.userLocation.latitude + 0.0003;
       const lon = this.state.userLocation.longitude + 0.0003;
       let bombMarker = [
         {
           latitude: lat,
           longitude: lon,
-          id: 4
+          id: 4,
+          unlockedMessage: 'You found the bomb!'
         }
       ];
       this.setState({
         markers: bombMarker
       });
+
     }
   }
 
