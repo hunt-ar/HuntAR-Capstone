@@ -12,7 +12,9 @@ import {
   thunk_beganTimer,
   thunk_stoppedTimer,
   thunk_resetTimer
-} from '../store/timer';
+} from "../store/timer";
+import firebase from 'firebase'
+import { db } from "../store";
 
 //get within range of marker to be able to render AR
 const inRange = 100;
@@ -34,12 +36,34 @@ class Map extends React.Component {
         longitude: 0,
         error: null
       },
-      markers: []
+      markers: [],
+      user: firebase.auth().currentUser
     };
     this.onBackPackPress = this.onBackPackPress.bind(this);
     this.onBackPackClose = this.onBackPackClose.bind(this);
     this.setUserLocation.bind(this);
     this.distanceToMarker = this.distanceToMarker.bind(this);
+  }
+
+  handleQuit(id) {
+    this.props.stopTimer(id);
+
+    //updates the game state to closed. User has quit game.
+    const { user } = this.state
+    db.collection('games')
+      .where('users', 'array-contains', user.uid)
+      .where('open', '==', true)
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          db.collection('games').doc(doc.id).update({
+            open: false,
+            time: 0
+          })
+        })
+      })
+
+    this.props.navigation.navigate("Lose");
   }
 
   onBackPackPress() {
@@ -117,10 +141,7 @@ class Map extends React.Component {
           <View style={styles.quitButtonContainer}>
             <AwesomeButton
               style={styles.quitButton}
-              onPress={() => {
-                this.props.stopTimer(id);
-                this.props.navigation.navigate('Lose');
-              }}
+              onPress={() => this.handleQuit(id)}
               backgroundColor="#c64747"
               backgroundActive="#595757"
               springRelease={true}
@@ -209,8 +230,11 @@ class Map extends React.Component {
       this.props.beginTimer(startTime);
     }
   }
+  
 
   async componentDidUpdate(id) {
+ 
+    //Time has gone to zero. User loses and is directed to the lose screen.
     if (this.props.timeRemaining === 0 && this.props.id !== 0) {
       if (this.state.BackPackVisible) {
         this.setState({
@@ -219,8 +243,26 @@ class Map extends React.Component {
       }
       await this.props.stopTimer(id);
       await this.props.resetTimer();
-      this.props.navigation.navigate('Lose');
+      this.props.navigation.navigate("Lose");
+
+    //updates the game state to closed. User is a loser.
+    const { user } = this.state
+    db.collection('games')
+      .where('users', 'array-contains', user.uid)
+      .where('open', '==', true)
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          db.collection('games').doc(doc.id).update({
+            open: false,
+            time: 0
+          })
+        })
+      })
+  
     }
+
+    //Bomb renders because user has accessed all three clues
     if (this.props.inventory.length === 3 && this.state.markers.length === 3) {
       const lat = this.state.userLocation.latitude + 0.0003;
       const lon = this.state.userLocation.longitude + 0.0003;
@@ -235,6 +277,20 @@ class Map extends React.Component {
       this.setState({
         markers: bombMarker
       });
+
+    //updates the game state to record the bomb location in Firestore
+    const { user } = this.state
+    db.collection('games')
+      .where('users', 'array-contains', user.uid)
+      .where('open', '==', true)
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          db.collection('games').doc(doc.id).update({
+            bomb: bombMarker
+          })
+        })
+      })
     }
   }
 
