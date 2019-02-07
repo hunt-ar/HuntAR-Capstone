@@ -29,12 +29,64 @@ class StoryConcept extends React.Component {
   };
 
   handleStartGame = () => {
-    //creates an instance of a game with the user's ID referenced
-    db.collection('games').add({
-      open: true,
-      users: [this.state.uid]
-    })
-    this.props.navigation.navigate('Map');
+    //creates an instance of a game with the user's ID referenced and generates the coordinates.
+    const randomDistance = Math.random() * (0.0002 - 0.0001) + 0.0001;
+    
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        let markers = [
+          {
+            latitude: randomDistance + position.coords.latitude,
+            longitude:
+              Math.random() * (0.0004 - 0.0002) +
+              0.0002 +
+              position.coords.longitude,
+            id: 1
+          },
+          {
+            latitude: randomDistance + position.coords.latitude,
+            longitude:
+              Math.random() * (0.0004 - 0.0002) +
+              0.0002 +
+              position.coords.longitude,
+            id: 2,
+            unlock: 'Key'
+          },
+          {
+            latitude: randomDistance + position.coords.latitude,
+            longitude:
+              Math.random() * (0.0004 - 0.0002) +
+              0.0002 +
+              position.coords.longitude,
+            id: 3,
+            unlock: 'Shovel'
+          }
+        ]
+        let bomb = [
+          {
+            latitude: randomDistance + position.coords.latitude,
+            longitude:
+              Math.random() * (0.0004 - 0.0002) +
+              0.0002 +
+              position.coords.longitude,
+            id: 4,
+            unlock: 'Note'
+          }
+        ]
+
+        db.collection('games').add({
+          open: true,
+          users: [this.state.uid],
+          markers,
+          time: 60,
+          bomb
+        })
+      },
+      error => console.log({ error: error.message }),
+      { enableHighAccuracy: true, timeout: 2000, maximumAge: 2000 }
+    )
+
+    this.props.navigation.navigate('StoryConcept2');
   }
 
   render() {
@@ -69,9 +121,7 @@ class StoryConcept extends React.Component {
         <View>
           <AwesomeButton
             style={styles.HomeButton}
-            onPress={() => {
-              this.props.navigation.navigate('StoryConcept2');
-            }}
+            onPress={this.handleStartGame}
             backgroundColor="#ff4d4d"
             backgroundActive="#660000"
             springRelease={true}
