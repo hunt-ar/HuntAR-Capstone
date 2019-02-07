@@ -1,4 +1,4 @@
-# HuntAR-Capstone (revised game name: disARm)
+#disARm - Fullstack Academy Capstone Project
 
 DisARM is a mobile augmented reality game in which players search for tools to help them disarm a ticking bomb before time runs out.
 
