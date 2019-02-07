@@ -209,7 +209,7 @@ class Map extends React.Component {
           },
           markers: [
             {
-              latitude: randomDistance + position.coords.latitude,
+              latitude: 0.0002 + position.coords.latitude,
               longitude:
                 Math.random() * (0.0004 - 0.0002) +
                 0.0002 +
@@ -218,11 +218,8 @@ class Map extends React.Component {
               unlockedMessage: 'You found a shovel.'
             },
             {
-              latitude: randomDistance + 0.0002 + position.coords.latitude,
-              longitude:
-                Math.random() * (0.0004 - 0.0002) +
-                0.0002 +
-                position.coords.longitude,
+              latitude: 0.0003 + position.coords.latitude,
+              longitude: position.coords.longitude - 0.0003,
               id: 2,
               unlock: 'Key',
               lockedMessage:
@@ -231,8 +228,8 @@ class Map extends React.Component {
                 'You open the chest! Inside is a crumpled up note with a message scribbled on it. Looks like a code.'
             },
             {
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
+              latitude: position.coords.latitude - 0.0002,
+              longitude: position.coords.longitude - 0.0002,
               // latitude: randomDistance + 0.0004 + position.coords.latitude,
               // longitude:
               //   position.coords.longitude +
