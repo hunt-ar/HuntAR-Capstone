@@ -71,7 +71,7 @@ class ARClue2 extends React.Component {
             position: 'absolute',
             bottom: 25,
             alignItems: 'center',
-            marginLeft: 85
+            marginLeft: 60
           }}
         >
           <View>
