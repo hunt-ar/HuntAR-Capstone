@@ -1,13 +1,13 @@
-import React from "react";
-import { Alert, Text, View, Modal, ActivityIndicator } from "react-native";
-import AwesomeButton from "react-native-really-awesome-button";
-import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import { Inventory, Timer } from "./index";
-import MapStyle from "../../assets/mapStyle";
-import { styles } from "../../assets/styles";
-import { MaterialCommunityIcons as Icon } from "react-native-vector-icons";
-import geolib from "geolib";
-import { connect } from "react-redux";
+import React from 'react';
+import { Alert, Text, View, Modal, ActivityIndicator } from 'react-native';
+import AwesomeButton from 'react-native-really-awesome-button';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import { Inventory, Timer } from './index';
+import MapStyle from '../../assets/mapStyle';
+import { styles } from '../../assets/styles';
+import { MaterialCommunityIcons as Icon } from 'react-native-vector-icons';
+import geolib from 'geolib';
+import { connect } from 'react-redux';
 import {
   thunk_beganTimer,
   thunk_stoppedTimer,
@@ -90,16 +90,26 @@ class Map extends React.Component {
             <Marker
               key={marker.id}
               coordinate={marker}
+              //image={require('../../assets/location.png')}
               onPress={() => {
+                const clueUnlocked = this.props.inventory.find(
+                  item => item.name === `${marker.unlock}`
+                );
                 if (
                   this.distanceToMarker(this.state.userLocation, {
                     latitude: marker.latitude,
                     longitude: marker.longitude
-                  }) < inRange
+                  }) > inRange
                 ) {
-                  this.props.navigation.navigate(`ARClue${marker.id}`);
+                  Alert.alert('Not close enough!');
+                } else if (
+                  marker.id !== 1 &&
+                  marker.id !== 4 &&
+                  !clueUnlocked
+                ) {
+                  Alert.alert('Access Denied');
                 } else {
-                  Alert.alert("Not close enough!");
+                  this.props.navigation.navigate(`ARClue${marker.id}`);
                 }
               }}
             />
@@ -111,7 +121,7 @@ class Map extends React.Component {
               style={styles.quitButton}
               onPress={() => {
                 this.props.stopTimer(id);
-                this.props.navigation.navigate("Lose");
+                this.props.navigation.navigate('Lose');
               }}
               backgroundColor="#c64747"
               backgroundActive="#595757"
@@ -172,7 +182,8 @@ class Map extends React.Component {
                 Math.random() * (0.0004 - 0.0002) +
                 0.0002 +
                 position.coords.longitude,
-              id: 2
+              id: 2,
+              unlock: 'Key'
             },
             {
               latitude: position.coords.latitude,
@@ -182,7 +193,8 @@ class Map extends React.Component {
               //   position.coords.longitude +
               //   Math.random() * (0.0004 - 0.0002) +
               //   0.0002,
-              id: 3
+              id: 3,
+              unlock: 'Shovel'
             }
           ]
         });
@@ -237,11 +249,14 @@ class Map extends React.Component {
           })
         })
       })
+  
     }
 
     //Bomb renders because user has accessed all three clues
     if (this.props.inventory.length === 3 && this.state.markers.length === 3) {
-      Alert.alert("You have everything you need. Go disarm the bomb!");
+      Alert.alert(
+        'You found a crumpled up piece of paper in the chest with a message scribbled on it. Looks like a code to something.'
+      );
       const lat = this.state.userLocation.latitude + 0.0003;
       const lon = this.state.userLocation.longitude + 0.0003;
       let bombMarker = [

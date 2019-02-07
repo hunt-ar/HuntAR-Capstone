@@ -2,40 +2,16 @@ import React from 'react';
 import { Text, View, Button, Image } from 'react-native';
 import { styles } from '../../assets/styles';
 import { connect } from 'react-redux';
-import firebase from 'firebase'
-import { db } from '../store'
 import AwesomeButton from 'react-native-really-awesome-button';
 
 const explodeImage = require('../../assets/explode.png');
 const defaultAvatar = require('../../assets/godfather.png');
 
 class StoryConcept extends React.Component {
-
-  constructor(){
-    super()
-    this.state = firebase.auth().currentUser
-  }
-
-  componentDidMount() {
-    console.log('***Confirm UserID***', this.state.uid)
-  }
-
-  renderImage = () => (
-    <Image style={{ width: 60, height: 60 }} source={explodeImage} />
-  );
   renderImage = () => <Image height={20} width={20} source={defaultAvatar} />;
   static navigationOptions = {
     title: 'StoryConcept'
   };
-
-  handleStartGame = () => {
-    //creates an instance of a game with the user's ID referenced
-    db.collection('games').add({
-      open: true,
-      users: [this.state.uid]
-    })
-    this.props.navigation.navigate('Map');
-  }
 
   render() {
     return (
@@ -51,26 +27,18 @@ class StoryConcept extends React.Component {
             </View>
           </View>
         </View>
-        <View flex={3}>
+        <View flex={4}>
           <Text flex={2} style={styles.StoryText}>
-            There is a ticking bomb nearby and you have to disarm it before it
-            explodes! Luckily, the tools needed to defuse the bomb are scattered
-            nearby.
+            We've marked the locations of the tools you will need on a map.
+            Once you're close to a marker, tap it to reveal the tool. Collect all the tools -- in the right order -- and then use them
+            to disarm the bomb. Please hurry, time is running out!
           </Text>
-          {this.renderImage()}
-        </View>
-        <Text style={styles.medText}>Do you accept the mission?</Text>
-        <View>
-          <Button
-            title="Yes! I am ready to be a hero."
-            onPress={this.handleStartGame}
-          />
         </View>
         <View>
           <AwesomeButton
             style={styles.HomeButton}
             onPress={() => {
-              this.props.navigation.navigate('StoryConcept2');
+              this.props.navigation.navigate('Map');
             }}
             backgroundColor="#ff4d4d"
             backgroundActive="#660000"
@@ -78,7 +46,7 @@ class StoryConcept extends React.Component {
             width={200}
             textSize={20}
           >
-            Mission Details
+            Start Mission
           </AwesomeButton>
         </View>
       </View>

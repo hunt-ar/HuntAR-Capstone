@@ -13,7 +13,7 @@ import {
 } from 'react-native-ui-kitten';
 import { connect } from 'react-redux';
 import { db } from '../store'
-import { setFinalTime, thunk_stoppedTimer, thunk_resetTimer } from '../store/timer'
+import { thunk_resetTimer } from '../store/timer'
 import { clearInventoryAction } from '../store/inventory';
 import { scaleVertical } from '../utils/scale';
 import NavigationType from '../../config/navigation/propTypes';
@@ -48,9 +48,6 @@ class Win extends React.Component {
     />
   );
   onSeeTimesButtonPressed = () => {
-  const finalTime = this.props.timeRemaining;
-  this.props.setFinalTime(finalTime);
-  this.props.stopTimer(this.id)
     this.props.clearInventory();
     //Alert.alert(`Final time logged as ${finalTime}`)
       this.props.navigation.navigate('SeeTimes');
@@ -62,7 +59,6 @@ class Win extends React.Component {
   };
 
   render () {
-    console.log(this.props)
     return (
     <RkAvoidKeyboard
       style={styles.screen}
