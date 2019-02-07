@@ -112,8 +112,8 @@ class Map extends React.Component {
             />
           ))}
         </MapView>
-        <View flexDirection="row" padding={15}>
-          <View style={styles.quitButtonContainer}>
+        <View justifyContent="space-between" flexDirection="row" padding={1}>
+          <View marginLeft={5} style={styles.quitButtonContainer}>
             <AwesomeButton
               style={styles.quitButton}
               onPress={() => {
@@ -135,6 +135,7 @@ class Map extends React.Component {
               onPress={this.onBackPackPress}
               backgroundColor="transparent"
               size={50}
+              color="black"
             />
           </View>
         </View>

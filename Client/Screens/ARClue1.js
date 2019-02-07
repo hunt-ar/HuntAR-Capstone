@@ -47,12 +47,9 @@ class ARClue1 extends React.Component {
         />
         <View
           style={{
-            flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'center',
-            position: 'absolute',
-            bottom: 25,
-            alignItems: 'center'
+            backgroundColor: 'transparent',
+            alignItems: 'center',
+            justifyContent: 'flex-end'
           }}
         >
           <AwesomeButton

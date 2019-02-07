@@ -7,21 +7,33 @@ import { connect } from 'react-redux';
 class Inventory extends Component {
   render() {
     return (
-      <View style={styles.parentContainer}>
-        <Text style={styles.headerText}>INVENTORY</Text>
+      <View style={styles.InventoryContainer}>
+        <View alignItems="center">
+          <Text style={styles.InventoryHeaderText}>INVENTORY</Text>
+        </View>
         <View flex={3}>
           {this.props.inventory.map((item, index) => {
             return (
               <View key={index}>
-                <Text style={styles.medText}>{item.name}</Text>
-                <Text>{item.description}</Text>
+                <View position="absolute" left={0}>
+                  <Text style={styles.InventoryNameText}>{item.name}</Text>
+                </View>
+                <View>
+                  <Text>{item.description}</Text>
+                </View>
               </View>
             );
           })}
         </View>
-        <View flex={1}>
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            marginBottom: 30
+          }}
+        >
           <AwesomeButton
-            style={styles.quitButton}
             onPress={this.props.onBackPackClose}
             backgroundColor="#c64747"
             backgroundActive="#595757"

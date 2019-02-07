@@ -4,8 +4,11 @@ import { styles } from '../../assets/styles';
 import { connect } from 'react-redux';
 import AwesomeButton from 'react-native-really-awesome-button';
 
-const explodeImage = require('../../assets/explode.png');
-const defaultAvatar = require('../../assets/godfather.png');
+const time = require('../../assets/instructionPics/alarm-clock.png');
+const backpack = require('../../assets/instructionPics/briefcase.png');
+const tap = require('../../assets/instructionPics/tap.png');
+const marker = require('../../assets/instructionPics/location-pin.png');
+const order = require('../../assets/instructionPics/choice.png');
 
 class StoryConcept extends React.Component {
   renderImage = () => <Image height={20} width={20} source={defaultAvatar} />;
@@ -15,30 +18,44 @@ class StoryConcept extends React.Component {
 
   render() {
     return (
-      <View style={styles.parentContainer}>
-        <View justifyContent="space-between" alignItems="stretch" flex={1}>
-          <View marginTop={10} flex={1}>
-            {this.renderImage()}
-          </View>
-          <View flex={2}>
-            <View flex={1} flexDirection="column">
-              <Text style={styles.StoryHeader}>Mission</Text>
-              <Text style={styles.StoryHeader}>Critical...</Text>
-            </View>
-          </View>
+      <View style={styles.StoryContainer}>
+        <View alignItems="center">
+          <Text style={styles.StoryHeader}>Mission Details...</Text>
         </View>
-        <View flex={3}>
-          <Text flex={2} style={styles.StoryText}>
-            There is a ticking bomb nearby and you have to disarm it before it
-            explodes! Luckily, the tools needed to defuse the bomb are scattered
-            nearby.
+        <View flex={1} flexDirection="row">
+          <View left={0}>
+            <Image left={0} style={styles.image} source={marker} />
+          </View>
+          <Text flex="right" style={styles.StoryText}>
+            Visit all the markers
           </Text>
         </View>
-        <View>
+        <View flex={1} flexDirection="row">
+          <Image left={0} style={styles.image} source={tap} />
+          <Text flex="right" style={styles.StoryText}>
+            Tap the marker when in range to collect an item
+          </Text>
+        </View>
+        <View flex={1} flexDirection="row">
+          <Image style={styles.image} source={backpack} />
+          <Text style={styles.StoryText}>Check your inventory</Text>
+        </View>
+        <View flex={1} flexDirection="row">
+          <Image style={styles.image} source={order} />
+          <Text style={styles.StoryText}>
+            Get your items in a specific order
+          </Text>
+        </View>
+        <View flex={1} flexDirection="row">
+          <Image style={styles.image} source={time} />
+          <Text style={styles.StoryText}>Hurry, the clock is ticking</Text>
+        </View>
+
+        <View alignItems="center">
           <AwesomeButton
             style={styles.HomeButton}
             onPress={() => {
-              this.props.navigation.navigate('StoryConcept2');
+              this.props.navigation.navigate('Map');
             }}
             backgroundColor="#ff4d4d"
             backgroundActive="#660000"
@@ -46,7 +63,7 @@ class StoryConcept extends React.Component {
             width={200}
             textSize={20}
           >
-            Mission Details
+            Accept Mission
           </AwesomeButton>
         </View>
       </View>

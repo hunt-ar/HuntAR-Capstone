@@ -1,10 +1,25 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  parentContainer: {
+  HomeContainer: {
     flex: 1,
     alignItems: 'center',
-    padding: 20,
+    padding: 15,
+    flexDirection: 'column',
+    backgroundColor: '#004466',
+    justifyContent: 'space-between'
+  },
+  StoryContainer: {
+    flex: 1,
+    padding: 15,
+    flexDirection: 'column',
+    backgroundColor: '#004466',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap'
+  },
+  InventoryContainer: {
+    flex: 1,
+    padding: 15,
     flexDirection: 'column',
     backgroundColor: '#004466',
     justifyContent: 'space-between'
@@ -16,17 +31,33 @@ export const styles = StyleSheet.create({
     backgroundColor: 'transparent'
   },
   largeText: {
-    fontSize: 40,
-    fontWeight: 'bold'
+    fontSize: 35,
+    // fontWeight: 'bold',
+    color: 'white'
+  },
+  InventoryNameText: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: 'white'
   },
   HomeHeader: {
     fontSize: 60,
     fontWeight: 'bold',
     color: '#ffffff',
     marginTop: '10%',
-    textShadowColor: 'rgba(0, 0, 0, 1)',
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: -1, height: 1 },
-    textShadowRadius: 30
+    textShadowRadius: 15
+  },
+  InventoryHeaderText: {
+    fontSize: 50,
+    fontWeight: 'bold',
+    color: '#ffffff',
+    marginTop: '10%',
+    marginBottom: '5%',
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 15
   },
   HomeImage: {
     //marginTop: '10%'
@@ -38,18 +69,20 @@ export const styles = StyleSheet.create({
     marginTop: '2%'
   },
   StoryHeader: {
-    fontSize: 35,
+    fontSize: 40,
     fontWeight: 'bold',
     color: '#ffffff',
-    marginLeft: 138,
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: -1, height: 1 },
-    textShadowRadius: 10
+    textShadowRadius: 10,
+    marginBottom: 15,
+    marginTop: 15
   },
   StoryText: {
-    fontSize: 25,
+    fontSize: 20,
     color: '#ffffff',
-    marginTop: '20%'
+    fontWeight: 'bold'
+    // marginTop: '20%'
   },
   titleText: {
     fontSize: 30,
@@ -58,6 +91,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: 15,
     padding: 5
+  },
+  backPackButton: {
+    color: 'black'
   },
   medText: {
     fontSize: 23,
@@ -177,7 +213,8 @@ export const styles = StyleSheet.create({
     right: 0
   },
   quitButtonContainer: {
-    left: 0
+    left: 0,
+    bottom: 0
   },
   headerText: {
     marginTop: 15,

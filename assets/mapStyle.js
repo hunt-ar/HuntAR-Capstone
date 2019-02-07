@@ -1,9 +1,17 @@
-export default [
+[
   {
     elementType: 'geometry',
     stylers: [
       {
-        color: '#1d2c4d'
+        color: '#f5f5f5'
+      }
+    ]
+  },
+  {
+    elementType: 'labels.icon',
+    stylers: [
+      {
+        visibility: 'off'
       }
     ]
   },
@@ -11,7 +19,7 @@ export default [
     elementType: 'labels.text.fill',
     stylers: [
       {
-        color: '#8ec3b9'
+        color: '#616161'
       }
     ]
   },
@@ -19,16 +27,7 @@ export default [
     elementType: 'labels.text.stroke',
     stylers: [
       {
-        color: '#1a3646'
-      }
-    ]
-  },
-  {
-    featureType: 'administrative.country',
-    elementType: 'geometry.stroke',
-    stylers: [
-      {
-        color: '#4b6878'
+        color: '#f5f5f5'
       }
     ]
   },
@@ -37,34 +36,7 @@ export default [
     elementType: 'labels.text.fill',
     stylers: [
       {
-        color: '#64779e'
-      }
-    ]
-  },
-  {
-    featureType: 'administrative.province',
-    elementType: 'geometry.stroke',
-    stylers: [
-      {
-        color: '#4b6878'
-      }
-    ]
-  },
-  {
-    featureType: 'landscape.man_made',
-    elementType: 'geometry.stroke',
-    stylers: [
-      {
-        color: '#334e87'
-      }
-    ]
-  },
-  {
-    featureType: 'landscape.natural',
-    elementType: 'geometry',
-    stylers: [
-      {
-        color: '#023e58'
+        color: '#bdbdbd'
       }
     ]
   },
@@ -73,7 +45,7 @@ export default [
     elementType: 'geometry',
     stylers: [
       {
-        color: '#283d6a'
+        color: '#eeeeee'
       }
     ]
   },
@@ -82,25 +54,16 @@ export default [
     elementType: 'labels.text.fill',
     stylers: [
       {
-        color: '#6f9ba5'
-      }
-    ]
-  },
-  {
-    featureType: 'poi',
-    elementType: 'labels.text.stroke',
-    stylers: [
-      {
-        color: '#1d2c4d'
+        color: '#757575'
       }
     ]
   },
   {
     featureType: 'poi.park',
-    elementType: 'geometry.fill',
+    elementType: 'geometry',
     stylers: [
       {
-        color: '#023e58'
+        color: '#e5e5e5'
       }
     ]
   },
@@ -109,7 +72,7 @@ export default [
     elementType: 'labels.text.fill',
     stylers: [
       {
-        color: '#3C7680'
+        color: '#9e9e9e'
       }
     ]
   },
@@ -118,25 +81,16 @@ export default [
     elementType: 'geometry',
     stylers: [
       {
-        color: '#304a7d'
+        color: '#ffffff'
       }
     ]
   },
   {
-    featureType: 'road',
+    featureType: 'road.arterial',
     elementType: 'labels.text.fill',
     stylers: [
       {
-        color: '#98a5be'
-      }
-    ]
-  },
-  {
-    featureType: 'road',
-    elementType: 'labels.text.stroke',
-    stylers: [
-      {
-        color: '#1d2c4d'
+        color: '#757575'
       }
     ]
   },
@@ -145,16 +99,7 @@ export default [
     elementType: 'geometry',
     stylers: [
       {
-        color: '#2c6675'
-      }
-    ]
-  },
-  {
-    featureType: 'road.highway',
-    elementType: 'geometry.stroke',
-    stylers: [
-      {
-        color: '#255763'
+        color: '#dadada'
       }
     ]
   },
@@ -163,43 +108,25 @@ export default [
     elementType: 'labels.text.fill',
     stylers: [
       {
-        color: '#b0d5ce'
+        color: '#616161'
       }
     ]
   },
   {
-    featureType: 'road.highway',
-    elementType: 'labels.text.stroke',
-    stylers: [
-      {
-        color: '#023e58'
-      }
-    ]
-  },
-  {
-    featureType: 'transit',
+    featureType: 'road.local',
     elementType: 'labels.text.fill',
     stylers: [
       {
-        color: '#98a5be'
-      }
-    ]
-  },
-  {
-    featureType: 'transit',
-    elementType: 'labels.text.stroke',
-    stylers: [
-      {
-        color: '#1d2c4d'
+        color: '#9e9e9e'
       }
     ]
   },
   {
     featureType: 'transit.line',
-    elementType: 'geometry.fill',
+    elementType: 'geometry',
     stylers: [
       {
-        color: '#283d6a'
+        color: '#e5e5e5'
       }
     ]
   },
@@ -208,7 +135,7 @@ export default [
     elementType: 'geometry',
     stylers: [
       {
-        color: '#3a4762'
+        color: '#eeeeee'
       }
     ]
   },
@@ -217,7 +144,7 @@ export default [
     elementType: 'geometry',
     stylers: [
       {
-        color: '#0e1626'
+        color: '#c9c9c9'
       }
     ]
   },
@@ -226,7 +153,7 @@ export default [
     elementType: 'labels.text.fill',
     stylers: [
       {
-        color: '#4e6d70'
+        color: '#9e9e9e'
       }
     ]
   }
