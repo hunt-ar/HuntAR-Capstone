@@ -22,15 +22,18 @@ class Disarm extends Component {
     header: null,
   };
 
-  onDisarmSubmit() {
+  async onDisarmSubmit() {
+    console.log("ID:", this.props.id)
     if (this.props.code === this.state.text) {
       const finalTime = this.props.timeRemaining;
       this.props.setFinalTime(finalTime);
-      this.props.stopTimer(this.id)
-      this.props.resetTimer();
+      await this.props.stopTimer(this.props.id)
+      await this.props.resetTimer();
         //Alert.alert(`Final time logged as ${finalTime}`)
       this.props.navigation.navigate('Win')
     } else {
+      await this.props.stopTimer(this.props.id)
+      await this.props.resetTimer();
       this.props.navigation.navigate('Lose');
     }
   }

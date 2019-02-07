@@ -46,6 +46,7 @@ class Map extends React.Component {
   }
 
   handleQuit(id) {
+    console.log("QUIT-ID", id)
     this.props.stopTimer(id);
 
     //updates the game state to closed. User has quit game.
