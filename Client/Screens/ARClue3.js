@@ -9,7 +9,7 @@ import { addItem } from '../store/inventory';
 import ObjectLoader from '../utils/ObjectLoader';
 import Key from '../../assets/ARKey/key';
 import AwesomeButton from 'react-native-really-awesome-button';
-const item2 = require('../../assets/ItemPics/key.png');
+const item3 = require('../../assets/ItemPics/key.png');
 
 class ARClue3 extends React.Component {
   constructor() {
@@ -18,7 +18,7 @@ class ARClue3 extends React.Component {
       key: {
         name: 'Key',
         description: 'Looks like a key, maybe it unlocks something nearby',
-        img: item2
+        img: item3
       }
     };
     this.onButtonPress = this.onButtonPress.bind(this);

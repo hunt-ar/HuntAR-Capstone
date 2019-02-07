@@ -252,5 +252,9 @@ export const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     color: 'red'
-  }
+  },
+  image: {
+    // height: scaleVertical(200),
+    resizeMode: 'contain'
+  },
 });

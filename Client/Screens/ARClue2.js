@@ -9,7 +9,7 @@ import { addItem, setCode } from '../store/inventory';
 import ObjectLoader from '../utils/ObjectLoader';
 import WoodChest from '../../assets/ARWoodChest/chest';
 import AwesomeButton from 'react-native-really-awesome-button';
-const item1 = require('../../assets/ItemPics/shovel.png');
+const item2 = require('../../assets/ItemPics/scroll.png');
 
 class ARClue2 extends React.Component {
   constructor() {
@@ -18,7 +18,7 @@ class ARClue2 extends React.Component {
       chest: {
         name: 'Wooden Chest',
         description: '',
-        img: item1
+        img: item2
       }
     };
     this.onButtonPress = this.onButtonPress.bind(this);
@@ -34,7 +34,8 @@ class ARClue2 extends React.Component {
     this.setState({
       chest: {
         description: `Crumpled up note with the numbers ${code} written on it.`,
-        name: 'Crumpled Note'
+        name: 'Crumpled Note',
+        img: item2
       }
     });
   }

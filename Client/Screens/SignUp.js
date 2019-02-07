@@ -4,11 +4,12 @@ import {
   Image,
   Keyboard,
   StyleSheet,
-  Text, 
-  TextInput, 
+  Text,
+  TextInput,
   Button,
   ActivityIndicator,
-  Alert
+  Alert,
+  ScrollView
 } from 'react-native';
 import {
   RkButton,
@@ -41,7 +42,7 @@ export class SignUp extends React.Component {
 
     this.setState({ loading: true });
 
-    firebase.auth().onAuthStateChanged(function(user){
+    firebase.auth().onAuthStateChanged(function (user) {
       db.collection('users').doc(user.uid).set({
         username,
         email
@@ -49,9 +50,9 @@ export class SignUp extends React.Component {
     })
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then( () => { this.setState({loading: false}); })
-      .then( () => {this.props.navigation.navigate('Welcome'); })
-      .catch( (error) => {
+      .then(() => { this.setState({ loading: false }); })
+      .then(() => { this.props.navigation.navigate('Welcome'); })
+      .catch((error) => {
         //Login was not successful.
         this.setState({ loading: false })
         Alert.alert(`We are unable to process your request at this time. ${error}`);
@@ -68,64 +69,68 @@ export class SignUp extends React.Component {
 
   render() {
     return this.state.loading === false ? (
-    <RkAvoidKeyboard
-      style={styles.screen}
-      onStartShouldSetResponder={() => true}
-      onResponderRelease={() => Keyboard.dismiss()}>
-      <View style={{ alignItems: 'center' }}>
-        {this.renderImage()}
-        <RkText rkType='h1'>Registration</RkText>
-      </View>
-      <View style={styles.content}>
-        <View>
-          <RkTextInput rkType='rounded' placeholder='Username' onChangeText={username => this.setState({username})} value={this.state.username} />
+      <ScrollView>
 
-          <RkTextInput rkType='rounded' placeholder='Email' onChangeText={email => this.setState({email})} value={this.state.email} />
 
-          <RkTextInput rkType='rounded' placeholder='Password' secureTextEntry onChangeText={password => this.setState({password})} value={this.state.password} />
-          
-          <Button
-            style={styles.save}
-            title='SIGN UP'
-            onPress={this.handleSignUp}
-          />
-        </View>
-
-        <View style={styles.footer}>
-          <View style={styles.textRow}>
-            <RkText rkType='primary3'>Already have an account?</RkText>
+        <RkAvoidKeyboard
+          style={styles.screen}
+          onStartShouldSetResponder={() => true}
+          onResponderRelease={() => Keyboard.dismiss()}>
+          <View style={{ alignItems: 'center' }}>
+            {this.renderImage()}
+            <RkText rkType='h1'>Registration</RkText>
           </View>
-          <View>
-            <Button
-              onPress={() => {
-                this.props.navigation.navigate('Login');
-              }}
-              title="Sign In"
-              style={styles.save}
-            />
-          </View>
-        </View>
+          <View style={styles.content}>
+            <View>
+              <RkTextInput rkType='rounded' placeholder='Username' onChangeText={username => this.setState({ username })} value={this.state.username} />
 
-        <View style={styles.footer}>
-          <View>
-            <Button
-              onPress={() => {
-                this.props.navigation.navigate('Home');
-              }}
-              title="Go Back"
-              style={styles.save}
-            />
-          </View>
-        </View>
+              <RkTextInput rkType='rounded' placeholder='Email' onChangeText={email => this.setState({ email })} value={this.state.email} />
 
-      </View>
-    </RkAvoidKeyboard>
-  ) : (
-    <View style={styles.loadingContainer}>
-      <Text>Loading</Text>
-      <ActivityIndicator size="large" />
-    </View>
-  )}
+              <RkTextInput rkType='rounded' placeholder='Password' secureTextEntry onChangeText={password => this.setState({ password })} value={this.state.password} />
+
+              <Button
+                style={styles.save}
+                title='SIGN UP'
+                onPress={this.handleSignUp}
+              />
+            </View>
+
+            <View style={styles.footer}>
+              <View style={styles.textRow}>
+                <RkText rkType='primary3'>Already have an account?</RkText>
+              </View>
+              <View>
+                <Button
+                  onPress={() => {
+                    this.props.navigation.navigate('Login');
+                  }}
+                  title="Sign In"
+                  style={styles.save}
+                />
+              </View>
+            </View>
+
+            <View style={styles.footer}>
+              <View>
+                <Button
+                  onPress={() => {
+                    this.props.navigation.navigate('Home');
+                  }}
+                  title="Go Back"
+                  style={styles.save}
+                />
+              </View>
+            </View>
+          </View>
+        </RkAvoidKeyboard>
+      </ScrollView>
+    ) : (
+        <View style={styles.loadingContainer}>
+          <Text>Loading</Text>
+          <ActivityIndicator size="large" />
+        </View>
+      )
+  }
 }
 
 const styles = RkStyleSheet.create(theme => ({
