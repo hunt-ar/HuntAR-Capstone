@@ -1,6 +1,5 @@
 import Home from './Home';
 import StoryConcept from './StoryConcept';
-import StoryConcept2 from './StoryConcept2';
 import Win from './Win';
 import Map from './Map';
 import Inventory from './Inventory';
@@ -21,7 +20,6 @@ export {
   Map,
   Win,
   StoryConcept,
-  StoryConcept2,
   Home,
   Inventory,
   Login,

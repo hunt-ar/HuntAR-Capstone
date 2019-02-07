@@ -135,7 +135,7 @@ class Map extends React.Component {
               onPress={this.onBackPackPress}
               backgroundColor="transparent"
               size={50}
-              color="black"
+              color="#333333"
             />
           </View>
         </View>

@@ -20,34 +20,34 @@ class StoryConcept extends React.Component {
     return (
       <View style={styles.StoryContainer}>
         <View alignItems="center">
-          <Text style={styles.StoryHeader}>Mission Details...</Text>
+          <Text style={styles.StoryHeader}>Mission Details</Text>
         </View>
         <View flex={1} flexDirection="row">
           <View left={0}>
-            <Image left={0} style={styles.image} source={marker} />
+            <Image left={0} style={{ width: 50, height: 50 }} source={marker} />
           </View>
           <Text flex="right" style={styles.StoryText}>
             Visit all the markers
           </Text>
         </View>
         <View flex={1} flexDirection="row">
-          <Image left={0} style={styles.image} source={tap} />
+          <Image left={0} style={{ width: 50, height: 50 }} source={tap} />
           <Text flex="right" style={styles.StoryText}>
             Tap the marker when in range to collect an item
           </Text>
         </View>
         <View flex={1} flexDirection="row">
-          <Image style={styles.image} source={backpack} />
+          <Image style={{ width: 50, height: 50 }} source={backpack} />
           <Text style={styles.StoryText}>Check your inventory</Text>
         </View>
         <View flex={1} flexDirection="row">
-          <Image style={styles.image} source={order} />
+          <Image style={{ width: 50, height: 50 }} source={order} />
           <Text style={styles.StoryText}>
             Get your items in a specific order
           </Text>
         </View>
         <View flex={1} flexDirection="row">
-          <Image style={styles.image} source={time} />
+          <Image style={{ width: 50, height: 50 }} source={time} />
           <Text style={styles.StoryText}>Hurry, the clock is ticking</Text>
         </View>
 

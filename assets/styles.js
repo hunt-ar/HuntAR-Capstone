@@ -9,6 +9,15 @@ export const styles = StyleSheet.create({
     backgroundColor: '#004466',
     justifyContent: 'space-between'
   },
+  ItemContainer: {
+    flex: 1,
+    //alignItems: 'center',
+    padding: 15,
+    flexDirection: 'row',
+    backgroundColor: '#004466',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap'
+  },
   StoryContainer: {
     flex: 1,
     padding: 15,
@@ -21,8 +30,8 @@ export const styles = StyleSheet.create({
     flex: 1,
     padding: 15,
     flexDirection: 'column',
-    backgroundColor: '#004466',
-    justifyContent: 'space-between'
+    backgroundColor: '#004466'
+    //justifyContent: 'space-between'
   },
   storyParentContainer: {
     flex: 1,
@@ -32,8 +41,8 @@ export const styles = StyleSheet.create({
   },
   largeText: {
     fontSize: 35,
-    // fontWeight: 'bold',
-    color: 'white'
+    fontWeight: 'bold',
+    color: 'black'
   },
   InventoryNameText: {
     fontSize: 25,
@@ -75,13 +84,16 @@ export const styles = StyleSheet.create({
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10,
-    marginBottom: 15,
-    marginTop: 15
+    marginBottom: 35,
+    marginTop: 20
   },
   StoryText: {
     fontSize: 20,
     color: '#ffffff',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    flex: 1,
+    flexWrap: 'wrap',
+    marginLeft: 25
     // marginTop: '20%'
   },
   titleText: {
@@ -233,7 +245,7 @@ export const styles = StyleSheet.create({
     padding: 20,
     fontSize: 30,
     fontWeight: 'bold',
-    color: 'white'
+    color: 'black'
   },
   timeAlmostUpStyle: {
     padding: 20,
