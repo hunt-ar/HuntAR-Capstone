@@ -17,8 +17,8 @@ import firebase from 'firebase'
 import { db } from "../store";
 
 //get within range of marker to be able to render AR
-const inRange = 100;
-const startTime = 60;
+const inRange = 10;
+const startTime = 370;
 const loadImage = require('../../assets/loading.gif');
 
 class Map extends React.Component {
