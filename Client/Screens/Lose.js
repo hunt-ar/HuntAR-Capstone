@@ -7,7 +7,11 @@ import { thunk_resetTimer } from '../store/timer';
 import { scaleVertical } from '../utils/scale';
 import NavigationType from '../../config/navigation/propTypes';
 
-const loseImage = require('../../assets/lose.gif');
+const loseImages = [
+  require('../../assets/loseImages/lose.gif'),
+  require('../../assets/loseImages/boom.gif'),
+  require('../../assets/loseImages/boom2.gif'),
+];
 
 class Lose extends React.Component {
   static propTypes = {
@@ -17,7 +21,14 @@ class Lose extends React.Component {
     header: null
   };
 
-  renderImage = () => <Image style={styles.image} source={loseImage} />;
+  getRandomImage = () => loseImages[Math.floor(Math.random() * loseImages.length)];
+
+  renderImage = () => (
+    <Image
+      style={styles.image}
+      source={this.getRandomImage()}
+    />
+  );
 
   onNewGameButtonPressed = () => {
     this.props.clearInventory();
