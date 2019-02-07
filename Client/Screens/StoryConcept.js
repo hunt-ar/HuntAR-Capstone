@@ -55,7 +55,8 @@ class StoryConcept extends React.Component {
               Math.random() * (0.0004 - 0.0002) +
               0.0002 +
               position.coords.longitude,
-            id: 2
+            id: 2,
+            unlock: 'Key'
           },
           {
             latitude: randomDistance + position.coords.latitude,
@@ -63,14 +64,28 @@ class StoryConcept extends React.Component {
               Math.random() * (0.0004 - 0.0002) +
               0.0002 +
               position.coords.longitude,
-            id: 3
+            id: 3,
+            unlock: 'Shovel'
           }
         ]
+        let bomb = [
+          {
+            latitude: randomDistance + position.coords.latitude,
+            longitude:
+              Math.random() * (0.0004 - 0.0002) +
+              0.0002 +
+              position.coords.longitude,
+            id: 4,
+            unlock: 'Note'
+          }
+        ]
+
         db.collection('games').add({
           open: true,
           users: [this.state.uid],
           markers,
-          initialRegion
+          initialRegion,
+          bomb
         })
       },
       error => console.log({ error: error.message }),

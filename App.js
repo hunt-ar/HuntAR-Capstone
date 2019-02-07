@@ -7,7 +7,8 @@ import { Provider } from 'react-redux'
 // import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore' // <- needed if using firestore
-import { store, rrfProps } from './Client/store'
+import { store, rrfConfig, rrfProps } from './Client/store'
+import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
 
 const initialState = {
   count: 0,
@@ -52,7 +53,9 @@ class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
+        <ReactReduxFirebaseProvider {...rrfProps}>
           <AppNavigator />
+        </ReactReduxFirebaseProvider>
       </Provider>
     )
   }
