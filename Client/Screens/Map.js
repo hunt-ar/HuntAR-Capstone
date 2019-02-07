@@ -19,9 +19,10 @@ import {
   thunk_beganTimer,
   thunk_stoppedTimer,
   thunk_resetTimer
-} from '../store/timer';
-import firebase from 'firebase';
-import { db } from '../store';
+} from "../store/timer";
+import firebase from 'firebase'
+import { db } from "../store";
+import { Audio } from 'expo'
 
 //get within range of marker to be able to render AR
 const inRange = 100;
@@ -53,10 +54,20 @@ class Map extends React.Component {
     this.distanceToMarker = this.distanceToMarker.bind(this);
   }
 
-  handleQuit(id) {
-    console.log('QUIT-ID', id);
-    this.props.stopTimer(id);
+  playSound = async () => {
+    const explodeSound = new Audio.Sound();
+    try {
+      await explodeSound.loadAsync(require('../../assets/sounds/explosion.mp3'));
+      await explodeSound.playAsync();
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
+  handleQuit(id) {
+    this.props.stopTimer(id);
+    //explosion sound!
+    this.playSound();
     //updates the game state to closed. User has quit game.
     if (this.state.uid) {
       db.collection('games')
@@ -75,7 +86,8 @@ class Map extends React.Component {
         });
     }
 
-    this.props.navigation.navigate('Lose');
+    this.props.navigation.navigate("Lose");
+
   }
 
   onBackPackPress() {
@@ -184,16 +196,10 @@ class Map extends React.Component {
 
   renderLoading = () => (
     <View style={styles.loadingContainer}>
+      <Text>Fetching Clues...</Text>
       <Image style={styles.image} source={loadImage} />
     </View>
   );
-
-  // renderLoading = () => (
-  //   <View style={styles.loadingContainer}>
-  //     <Text>Fetching Clues...</Text>
-  //     <ActivityIndicator size="large" />
-  //   </View>
-  // );
 
   componentDidMount() {
     const randomDistance = Math.random() * (0.0002 - 0.0001) + 0.0001;
@@ -261,6 +267,7 @@ class Map extends React.Component {
         });
       }
       await this.props.stopTimer(id);
+      this.playSound();
       await this.props.resetTimer();
       this.props.navigation.navigate('Lose');
 

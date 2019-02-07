@@ -73,11 +73,7 @@ export const thunk_beganTimer = (time) => {
     dispatch(setTimeAction(time))
     const id = setInterval(() => {
       dispatch(decrementTimeAction());
-      if (time < 11) {
-        playDouble();
-      } else {
-        playSound();
-      }
+      playSound();
     }, 1000);
     dispatch(registerIntervalAction(id));
   }
