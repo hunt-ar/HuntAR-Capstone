@@ -1,0 +1,178 @@
+redux: state.firestore Object {
+   "composite": undefined,
+   "data": Object {
+     "games": Object {
+       "1kADyWx18JmmBowHmhN3": Object {  //CLOSED GAME
+         "bomb": Array [
+           Object {
+             "id": 4,
+             "latitude": 34.935280125504235,
+             "longitude": -120.46186370523354,
+             "unlock": "Note",
+           },
+         ],
+         "markers": Array [
+           Object {
+             "id": 1,
+             "latitude": 34.935280125504235,
+             "longitude": -120.4618047231381,
+           },
+           Object {
+             "id": 2,
+             "latitude": 34.935280125504235,
+             "longitude": -120.46185388258085,
+             "unlock": "Key",
+           },
+           Object {
+             "id": 3,
+             "latitude": 34.935280125504235,
+             "longitude": -120.46176326345477,
+             "unlock": "Shovel",
+           },
+         ],
+         "open": false,
+         "startTime": 60,
+         "time": 0,
+         "users": Array [
+           "5HxG9T0AuvRLawtnc8ODHjNkZ0G2",
+         ],
+       },
+       "FCSzsydst6N7F6HbN5NL": Object {  //OPEN GAME
+         "bomb": Array [
+           Object {
+             "id": 4,
+             "latitude": 34.9352681765923,
+             "longitude": -120.46172765633635,
+             "unlock": "Note",
+           },
+         ],
+         "markers": Array [
+           Object {
+             "id": 1,
+             "latitude": 34.9352681765923,
+             "longitude": -120.46179584398286,
+           },
+           Object {
+             "id": 2,
+             "latitude": 34.9352681765923,
+             "longitude": -120.4617869759938,
+             "unlock": "Key",
+           },
+           Object {
+             "id": 3,
+             "latitude": 34.9352681765923,
+             "longitude": -120.4617976549837,
+             "unlock": "Shovel",
+           },
+         ],
+         "open": true,
+         "startTime": 60,
+         "users": Array [
+           "5HxG9T0AuvRLawtnc8ODHjNkZ0G2",
+         ],
+       },
+     },
+   },
+   "errors": Object {
+     "allIds": Array [],
+     "byQuery": Object {},
+   },
+   "listeners": Object {
+     "allIds": Array [
+       "games",
+     ],
+     "byId": Object {
+       "games": Object {
+         "name": "games",
+         "path": undefined,
+       },
+     },
+   },
+   "ordered": Object {
+     "games": Array [
+       Object {
+         "bomb": Array [
+           Object {
+             "id": 4,
+             "latitude": 34.935280125504235,
+             "longitude": -120.46186370523354,
+             "unlock": "Note",
+           },
+         ],
+         "id": "1kADyWx18JmmBowHmhN3",
+         "markers": Array [
+           Object {
+             "id": 1,
+             "latitude": 34.935280125504235,
+             "longitude": -120.4618047231381,
+           },
+           Object {
+             "id": 2,
+             "latitude": 34.935280125504235,
+             "longitude": -120.46185388258085,
+             "unlock": "Key",
+           },
+           Object {
+             "id": 3,
+             "latitude": 34.935280125504235,
+             "longitude": -120.46176326345477,
+             "unlock": "Shovel",
+           },
+         ],
+         "open": false,
+         "startTime": 60,
+         "time": 0,
+         "users": Array [
+           "5HxG9T0AuvRLawtnc8ODHjNkZ0G2",
+         ],
+       },
+       Object {
+         "bomb": Array [
+           Object {
+             "id": 4,
+             "latitude": 34.9352681765923,
+             "longitude": -120.46172765633635,
+             "unlock": "Note",
+           },
+         ],
+         "id": "FCSzsydst6N7F6HbN5NL",
+         "markers": Array [
+           Object {
+             "id": 1,
+             "latitude": 34.9352681765923,
+             "longitude": -120.46179584398286,
+           },
+           Object {
+             "id": 2,
+             "latitude": 34.9352681765923,
+             "longitude": -120.4617869759938,
+             "unlock": "Key",
+           },
+           Object {
+             "id": 3,
+             "latitude": 34.9352681765923,
+             "longitude": -120.4617976549837,
+             "unlock": "Shovel",
+           },
+         ],
+         "open": true,
+         "startTime": 60,
+         "users": Array [
+           "5HxG9T0AuvRLawtnc8ODHjNkZ0G2",
+         ],
+       },
+     ],
+   },
+   "queries": Object {},
+   "status": Object {
+     "requested": Object {
+       "games": true,
+     },
+     "requesting": Object {
+       "games": false,
+     },
+     "timestamps": Object {
+       "games": 1549513847640,
+     },
+   },
+ }

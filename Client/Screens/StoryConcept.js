@@ -33,13 +33,6 @@ class StoryConcept extends React.Component {
     // console.log('random markers before', randomMarkers)
     navigator.geolocation.getCurrentPosition(
       position => {
-        let initialRegion = {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-          latitudeDelta: 0.001,
-          longitudeDelta: 0.001,
-          error: null
-        }
         let markers = [
           {
             latitude: randomDistance + position.coords.latitude,
@@ -80,11 +73,11 @@ class StoryConcept extends React.Component {
           }
         ]
 
-        db.collection('games').add({
+        db.collection('games').doc(this.state.uid).set({
           open: true,
           users: [this.state.uid],
           markers,
-          initialRegion,
+          startTime: 60,
           bomb
         })
       },

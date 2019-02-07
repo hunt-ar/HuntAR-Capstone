@@ -2,7 +2,7 @@ import React from "react";
 import { Alert, Text, View, Modal, ActivityIndicator } from "react-native";
 import AwesomeButton from "react-native-really-awesome-button";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import { Inventory, Timer } from "./index";
+import { Inventory, Timer } from "../../Client/Screens/index";
 import MapStyle from "../../assets/mapStyle";
 import { styles } from "../../assets/styles";
 import { MaterialCommunityIcons as Icon } from "react-native-vector-icons";
@@ -14,9 +14,9 @@ import {
   thunk_beganTimer,
   thunk_stoppedTimer,
   thunk_resetTimer
-} from "../store/timer";
+} from "../../Client/store/timer";
 import firebase from 'firebase'
-import { db } from "../store";
+import { db } from "../../Client/store";
 
 //get within range of marker to be able to render AR
 const inRange = 100;
@@ -40,7 +40,7 @@ class Map extends React.Component {
         error: null
       },
       markers: [],
-      user: firebase.auth().currentUser,
+      user: firebase.auth().currentUser
     };
     this.onBackPackPress = this.onBackPackPress.bind(this);
     this.onBackPackClose = this.onBackPackClose.bind(this);
@@ -97,6 +97,7 @@ class Map extends React.Component {
     }
   }
   renderMap = id => {
+    console.log('*****GAME*****', this.props.game);
     return (
       <View style={styles.mapContainer}>
         <MapView
@@ -168,7 +169,6 @@ class Map extends React.Component {
 
   componentDidMount() {
     //sets current location for map render.
-    const randomDistance = Math.random() * (0.0002 - 0.0001) + 0.0001;
     navigator.geolocation.getCurrentPosition(
       position => {
         this.setState({
@@ -178,35 +178,7 @@ class Map extends React.Component {
             latitudeDelta: 0.001,
             longitudeDelta: 0.001,
             error: null
-          },
-        markers: [
-          {
-            latitude: randomDistance + position.coords.latitude,
-            longitude:
-              Math.random() * (0.0004 - 0.0002) +
-              0.0002 +
-              position.coords.longitude,
-            id: 1
-          },
-          {
-            latitude: randomDistance + 0.0002 + position.coords.latitude,
-            longitude:
-              Math.random() * (0.0004 - 0.0002) +
-              0.0002 +
-              position.coords.longitude,
-            id: 2
-          },
-          {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            // latitude: randomDistance + 0.0004 + position.coords.latitude,
-            // longitude:
-            //   position.coords.longitude +
-            //   Math.random() * (0.0004 - 0.0002) +
-            //   0.0002,
-            id: 3
           }
-        ]
         });
       },
       error => this.setState({ error: error.message }),
@@ -216,35 +188,9 @@ class Map extends React.Component {
       this.props.beginTimer(startTime);
     }
 
-    db.collection('games')
-      .where('users', 'array-contains', user.uid)
-      .where('open', '==', true)
-      .get()
-      .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-          db.collection('games').doc(doc.id).update({
-            updated: true
-          })
-        })
-      })
-
-    db.collection('games').doc(user.uid)
-      .get()
-      .then(function(game) {
-        if (game.exists){
-          console.log("Document data:", game.data());
-          console.log("Game Info", game.data().bomb)
-
-          return this.setState({
-            bomb: game.data().bomb,
-            markers: game.data().markers
-          })
-        } else {
-          console.log("No such document!");
-        }
-      }).catch(function(error) {
-        console.log("Error getting document:", error)
-      });
+    this.setState({
+      markers: this.props.game.markers
+    })
   }
   
 
@@ -311,7 +257,6 @@ class Map extends React.Component {
   }
 
   render() {
-    console.log('**GAME INFO**', this.state.gameInfo)
     const id = this.props.id;
     return this.state.initialRegion.latitude ? (
       <React.Fragment>{this.renderMap(id)}</React.Fragment>
@@ -322,11 +267,15 @@ class Map extends React.Component {
 }
 
 const mapStateToProps = state => {
+  console.log('STATE.FIRESTORE', state.firestore);
+  //ISSUE: DO NOT KNOW HOW TO ACCESS GAME ID
+  const games = state.firestore.data.games
+  const game = games ? games[gameId] : null
   return {
   inventory: state.inventory.inventory,
   timeRemaining: state.timer.timeRemaining,
   id: state.timer.id,
-  // game: game
+  game: game
   }
 }
 
@@ -338,7 +287,14 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Map);
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(Map);
+
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  firestoreConnect([
+    { collection: 'games'}
+  ])
+)(Map)

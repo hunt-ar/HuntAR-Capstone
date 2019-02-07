@@ -40,7 +40,9 @@ class Map extends React.Component {
         error: null
       },
       markers: [],
+      bomb: [],
       user: firebase.auth().currentUser,
+      gameInfo: {}
     };
     this.onBackPackPress = this.onBackPackPress.bind(this);
     this.onBackPackClose = this.onBackPackClose.bind(this);
@@ -168,7 +170,6 @@ class Map extends React.Component {
 
   componentDidMount() {
     //sets current location for map render.
-    const randomDistance = Math.random() * (0.0002 - 0.0001) + 0.0001;
     navigator.geolocation.getCurrentPosition(
       position => {
         this.setState({
@@ -178,35 +179,7 @@ class Map extends React.Component {
             latitudeDelta: 0.001,
             longitudeDelta: 0.001,
             error: null
-          },
-        markers: [
-          {
-            latitude: randomDistance + position.coords.latitude,
-            longitude:
-              Math.random() * (0.0004 - 0.0002) +
-              0.0002 +
-              position.coords.longitude,
-            id: 1
-          },
-          {
-            latitude: randomDistance + 0.0002 + position.coords.latitude,
-            longitude:
-              Math.random() * (0.0004 - 0.0002) +
-              0.0002 +
-              position.coords.longitude,
-            id: 2
-          },
-          {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            // latitude: randomDistance + 0.0004 + position.coords.latitude,
-            // longitude:
-            //   position.coords.longitude +
-            //   Math.random() * (0.0004 - 0.0002) +
-            //   0.0002,
-            id: 3
           }
-        ]
         });
       },
       error => this.setState({ error: error.message }),
@@ -215,6 +188,21 @@ class Map extends React.Component {
     if (!this.props.timeRemaining) {
       this.props.beginTimer(startTime);
     }
+
+    const { user } = this.state
+    // db.collection('games')
+    //   .where('users', 'array-contains', user.uid)
+    //   .where('open', '==', true)
+    //   .get()
+    //   .then(function(doc) {
+    //     if (doc.exists) {
+    //       console.log("Document data:", doc.data());
+    //     } else {
+    //       console.log("No such document")
+    //     }
+    //   }).catch(function(error) {
+    //     console.log("Error getting document:", error)
+    //   });
 
     db.collection('games')
       .where('users', 'array-contains', user.uid)
@@ -227,6 +215,20 @@ class Map extends React.Component {
           })
         })
       })
+
+    // db.collection('games')
+    //   .where('users', 'array-contains', user.uid)
+    //   .where('open', '==', true)
+    //   .get()
+    //   .then(function(documentSnapshot) {
+    //     if (documentSnapshot.exists){
+    //       console.log('GOT IT')
+    //     } else {
+    //       console.log('FML')
+    //     }
+    //   }).catch(function(error) {
+    //     console.log("Error getting document:", error)
+    //   });
 
     db.collection('games').doc(user.uid)
       .get()
@@ -245,6 +247,11 @@ class Map extends React.Component {
       }).catch(function(error) {
         console.log("Error getting document:", error)
       });
+
+
+    // this.setState({
+    //   markers: this.props.game.markers
+    // })
   }
   
 
@@ -321,7 +328,10 @@ class Map extends React.Component {
   }
 }
 
+//currently disconnected firestore from redux
 const mapStateToProps = state => {
+  // const games = state.firestore.data.games
+  // const game = games ? games[user.uid] : null
   return {
   inventory: state.inventory.inventory,
   timeRemaining: state.timer.timeRemaining,
@@ -342,3 +352,11 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Map);
+
+/*currently disconnected firestore from redux*/
+// export default compose(
+//   connect(mapStateToProps, mapDispatchToProps),
+//   firestoreConnect([
+//     { collection: 'games'}
+//   ])
+// )(Map)
