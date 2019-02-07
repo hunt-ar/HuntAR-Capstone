@@ -1,0 +1,71 @@
+{
+  "name": "assets/6lbeSNZH5SN",
+  "displayName": "Mossy Rock - stump",
+  "authorName": "Don Whitaker",
+  "description": "A low-poly rock with a detailed, realistic texture. Textured with photos taken in Oregon, USA.",
+  "createTime": "2017-12-01T22:11:15.807673Z",
+  "updateTime": "2019-02-06T03:40:18.793991Z",
+  "formats": [
+    {
+      "root": {
+        "relativePath": "Mossy Rock - stump.OBJ",
+        "url": "https://poly.googleapis.com/downloads/6lbeSNZH5SN/4aAI3h993Ui/Mossy%20Rock%20-%20stump.OBJ",
+        "contentType": "text/plain"
+      },
+      "resources": [
+        {
+          "relativePath": "Mossy Rock - stump.mtl",
+          "url": "https://poly.googleapis.com/downloads/6lbeSNZH5SN/4aAI3h993Ui/Mossy%20Rock%20-%20stump.mtl",
+          "contentType": "text/plain"
+        },
+        {
+          "relativePath": "MossyRock-stump.jpg",
+          "url": "https://poly.googleapis.com/downloads/6lbeSNZH5SN/4aAI3h993Ui/MossyRock-stump.jpg",
+          "contentType": "image/jpeg"
+        }
+      ],
+      "formatComplexity": {
+        "triangleCount": "196"
+      },
+      "formatType": "OBJ"
+    },
+    {
+      "root": {
+        "relativePath": "Mossy Rock - stump.gltf",
+        "url": "https://poly.googleapis.com/downloads/6lbeSNZH5SN/3hVmfc8x0fK/Mossy%20Rock%20-%20stump.gltf",
+        "contentType": "model/gltf+json"
+      },
+      "resources": [
+        {
+          "relativePath": "Mossy Rock - stump.bin",
+          "url": "https://poly.googleapis.com/downloads/6lbeSNZH5SN/3hVmfc8x0fK/Mossy%20Rock%20-%20stump.bin",
+          "contentType": "application/octet-stream"
+        },
+        {
+          "relativePath": "MossyRock-stump.jpg",
+          "url": "https://poly.googleapis.com/downloads/6lbeSNZH5SN/3hVmfc8x0fK/MossyRock-stump.jpg",
+          "contentType": "image/jpeg"
+        }
+      ],
+      "formatComplexity": {
+        "triangleCount": "196"
+      },
+      "formatType": "GLTF2"
+    }
+  ],
+  "thumbnail": {
+    "relativePath": "6lbeSNZH5SN.png",
+    "url": "https://lh3.googleusercontent.com/cTO1d5koFJTsF_n363YQLHjp1pTfJU52OfH0ojTZDLKNp5hizFM-Avwx6O4blL8YpA",
+    "contentType": "image/png"
+  },
+  "license": "CREATIVE_COMMONS_BY",
+  "visibility": "PUBLIC",
+  "isCurated": true,
+  "presentationParams": {
+    "orientingRotation": {
+      "w": 1
+    },
+    "colorSpace": "LINEAR",
+    "backgroundColor": "#3e2723"
+  }
+}

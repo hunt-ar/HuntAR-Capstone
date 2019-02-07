@@ -80,7 +80,7 @@ class ARClue2 extends React.Component {
               width={200}
               textSize={20}
             >
-              Pick up item
+              Pick up note
             </AwesomeButton>
           </View>
         </View>

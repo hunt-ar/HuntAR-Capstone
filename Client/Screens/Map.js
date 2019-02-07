@@ -107,8 +107,9 @@ class Map extends React.Component {
                   marker.id !== 4 &&
                   !clueUnlocked
                 ) {
-                  Alert.alert('Access Denied');
+                  Alert.alert(`${marker.lockedMessage}`);
                 } else {
+                  Alert.alert(`${marker.unlockedMessage}`)
                   this.props.navigation.navigate(`ARClue${marker.id}`);
                 }
               }}
@@ -174,7 +175,8 @@ class Map extends React.Component {
                 Math.random() * (0.0004 - 0.0002) +
                 0.0002 +
                 position.coords.longitude,
-              id: 1
+              id: 1,
+              unlockedMessage: 'You found a shovel.'
             },
             {
               latitude: randomDistance + 0.0002 + position.coords.latitude,
@@ -183,7 +185,9 @@ class Map extends React.Component {
                 0.0002 +
                 position.coords.longitude,
               id: 2,
-              unlock: 'Key'
+              unlock: 'Key',
+              lockedMessage: 'You found a chest! But it\s locked and you can\'t open it.',
+              unlockedMessage: 'You open the chest! Inside is a crumpled up note with a message scribbled on it. Looks like a code.'
             },
             {
               latitude: position.coords.latitude,
@@ -194,7 +198,9 @@ class Map extends React.Component {
               //   Math.random() * (0.0004 - 0.0002) +
               //   0.0002,
               id: 3,
-              unlock: 'Shovel'
+              unlock: 'Shovel',
+              lockedMessage: 'Looks like something\'s buried here.',
+              unlockedMessage: 'You use the shovel to dig up a tarnished old key.'
             }
           ]
         });
@@ -254,16 +260,14 @@ class Map extends React.Component {
 
     //Bomb renders because user has accessed all three clues
     if (this.props.inventory.length === 3 && this.state.markers.length === 3) {
-      Alert.alert(
-        'You found a crumpled up piece of paper in the chest with a message scribbled on it. Looks like a code to something.'
-      );
       const lat = this.state.userLocation.latitude + 0.0003;
       const lon = this.state.userLocation.longitude + 0.0003;
       let bombMarker = [
         {
           latitude: lat,
           longitude: lon,
-          id: 4
+          id: 4,
+          unlockedMessage: 'You found the bomb!'
         }
       ];
       this.setState({

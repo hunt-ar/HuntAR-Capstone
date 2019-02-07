@@ -66,7 +66,7 @@ class Win extends React.Component {
       onResponderRelease={() => Keyboard.dismiss()}>
       <View style={styles.header}>
         {this.renderImage()}
-        <RkText style={styles.headerText} rkType='light h1'>You're my hero!!</RkText>
+        <RkText style={styles.headerText} rkType='light h1'>You did it!!</RkText>
       </View>
       <View style={styles.content}>
         <View>

@@ -1,8 +1,21 @@
+import { Audio } from 'expo'
+
 const initialState = {
   timeRemaining: 0,
   id: 0,
   finalTime: 0
 };
+
+const playSound = async () => {
+  const tickSound = new Audio.Sound();
+  try {
+    await tickSound.loadAsync(require('../../assets/sounds/tick.mp3'));
+    await tickSound.playAsync();
+    // Your sound is playing!
+  } catch (error) {
+    // An error occurred!
+  }
+}
 
 //Action Types
 const SET_TIME = 'SET_TIME;'
@@ -11,6 +24,7 @@ const REGISTER_INTERVAL = 'REGISTER_INTERVAL';
 const CLEAR_INTERVAL = 'CLEAR_INTERVAL'
 const RESET_TIMER = 'RESET_TIMER'
 const SET_FINAL_TIME = 'SET_FINAL_TIME'
+const PLAY_TICK_SOUND = 'PLAY_TICK_SOUND'
 
 //Action Creators
 export const setTimeAction = (time) => {
@@ -22,6 +36,11 @@ export const setTimeAction = (time) => {
 export const decrementTimeAction = () => {
   return {
     type: DECREMENT_TIME
+  }
+};
+export const playTickAction = () => {
+  return {
+    type: PLAY_TICK_SOUND
   }
 };
 export const registerIntervalAction = (id) => {
@@ -53,7 +72,12 @@ export const thunk_beganTimer = (time) => {
   return dispatch => {
     dispatch(setTimeAction(time))
     const id = setInterval(() => {
-      dispatch(decrementTimeAction())
+      dispatch(decrementTimeAction());
+      if (time < 11) {
+        playDouble();
+      } else {
+        playSound();
+      }
     }, 1000);
     dispatch(registerIntervalAction(id));
   }
@@ -65,16 +89,15 @@ export const thunk_stoppedTimer = (id) => {
   }
 }
 export const thunk_resetTimer = () => {
-  return dispatch =>{
+  return dispatch => {
     dispatch(resetTimerAction());
-    }
+  }
 }
 
 //Sub-Reducer
 export default function (state = initialState, action) {
   switch (action.type) {
     case SET_TIME:
-      console.log('timer has started!');
       return { ...state, timeRemaining: action.time }
     case DECREMENT_TIME:
       let currentTime = state.timeRemaining;
@@ -92,7 +115,7 @@ export default function (state = initialState, action) {
       return { ...state, id: 0 }
     case RESET_TIMER:
       return { ...state, timeRemaining: 0, id: 0 }
-      case SET_FINAL_TIME:
+    case SET_FINAL_TIME:
       return { ...state, finalTime: action.time };
     default:
       return state;
