@@ -8,6 +8,7 @@ import { View as GraphicsView } from 'expo-graphics';
 import { addItem, setCode } from '../store/inventory';
 import ObjectLoader from '../utils/ObjectLoader';
 import WoodChest from '../../assets/ARWoodChest/chest';
+import AwesomeButton from 'react-native-really-awesome-button';
 
 class ARClue2 extends React.Component {
   constructor() {
@@ -30,8 +31,8 @@ class ARClue2 extends React.Component {
     this.props.setCode(code);
     this.setState({
       chest: {
-        description: `Dirty old wooden chest, with a withered paper inside. Has the numbers ${code} written on it.`,
-        name: 'Wooden Chest'
+        description: `Crumpled up note with the numbers ${code} written on it.`,
+        name: 'Crumpled Note'
       }
     });
   }
@@ -63,16 +64,24 @@ class ARClue2 extends React.Component {
           style={{
             flex: 1,
             flexDirection: 'row',
-            justifyContent: 'space-between',
-            position: 'absolute'
+            justifyContent: 'center',
+            position: 'absolute',
+            bottom: 25,
+            alignItems: 'center'
           }}
         >
-          <View style={styles.parentContainer}>
-            <Button
+          <View>
+            <AwesomeButton
+              style={styles.HomeButton}
               onPress={this.onButtonPress}
-              backgroundColor="transparent"
-              title="Pick up item"
-            />
+              backgroundColor="#004466"
+              backgroundActive="#293d3d"
+              springRelease={true}
+              width={200}
+              textSize={20}
+            >
+              Pick up note
+            </AwesomeButton>
           </View>
         </View>
       </View>

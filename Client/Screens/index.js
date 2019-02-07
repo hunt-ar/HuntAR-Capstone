@@ -1,5 +1,6 @@
 import Home from './Home';
 import StoryConcept from './StoryConcept';
+import StoryConcept2 from './StoryConcept2';
 import Win from './Win';
 import Map from './Map';
 import Inventory from './Inventory';
@@ -15,11 +16,12 @@ import Welcome from './Welcome';
 import ARClue4 from './ARClue4';
 import Lose from './Lose';
 import Disarm from './Disarm';
-import SeeTimes from './SeeTimes'
+import SeeTimes from './SeeTimes';
 export {
   Map,
   Win,
   StoryConcept,
+  StoryConcept2,
   Home,
   Inventory,
   Login,

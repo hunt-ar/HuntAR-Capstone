@@ -1,6 +1,7 @@
 import {
   Home,
   StoryConcept,
+  StoryConcept2,
   Map,
   Win,
   Inventory,
@@ -19,12 +20,13 @@ import {
   Disarm
 } from './Client/Screens';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-console.log('Our component:', ForgotPW)
+console.log('Our component:', ForgotPW);
 //when I load the app with this, whatever is first shows up
 const RootStack = createStackNavigator(
   {
     Home,
     StoryConcept,
+    StoryConcept2,
     Map,
     Inventory,
     Win,
