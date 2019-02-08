@@ -117,6 +117,7 @@ class Map extends React.Component {
     }
   }
   renderMap = id => {
+    console.log('this.state.markers', this.state.markers)
     return (
       <View style={styles.mapContainer}>
         <MapView
@@ -157,6 +158,7 @@ class Map extends React.Component {
                 } else {
                   Alert.alert(`${marker.unlockedMessage}`);
                   this.props.navigation.navigate(`ARClue${marker.id}`);
+                  this.state.markers.shift()
                 }
               }}
             />
