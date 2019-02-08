@@ -109,7 +109,7 @@ class ARClue2 extends React.Component {
     ObjectLoader.getThreeModel(
       WoodChest,
       function(object) {
-        object.scale.set(0.15, 0.15, 0.15);
+        object.scale.set(0.35, 0.35, 0.35);
         object.position.z = -1;
         this.scene.add(object);
       }.bind(this),
