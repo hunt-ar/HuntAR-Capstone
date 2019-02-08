@@ -25,8 +25,8 @@ import { db } from "../store";
 import { Audio } from 'expo'
 
 //get within range of marker to be able to render AR
-const inRange = 10;
-const startTime = 370;
+const inRange = 100;
+const startTime = 60;
 const loadImage = require('../../assets/loading.gif');
 
 class Map extends React.Component {
@@ -74,8 +74,8 @@ class Map extends React.Component {
         .where('users', 'array-contains', this.state.uid)
         .where('open', '==', true)
         .get()
-        .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
             db.collection('games')
               .doc(doc.id)
               .update({
@@ -156,8 +156,22 @@ class Map extends React.Component {
                 ) {
                   Alert.alert(`${marker.lockedMessage}`);
                 } else {
-                  Alert.alert(`${marker.unlockedMessage}`);
-                  this.props.navigation.navigate(`ARClue${marker.id}`);
+                  Alert.alert(
+                    `${marker.unlockedMessage}`,
+                    null,
+                    [
+                      {
+                        text: `View ${marker.name}`, onPress: () => {
+                          this.props.navigation.navigate(`ARClue${marker.id}`);
+                        }
+                      }
+                    ]
+                  )
+
+                  // Alert.alert(`${marker.unlockedMessage}`);
+                  // this.props.navigation.navigate(`ARClue${marker.id}`);
+
+
                 }
               }}
             />
@@ -215,6 +229,7 @@ class Map extends React.Component {
           },
           markers: [
             {
+              name: 'Shovel',
               latitude: 0.0002 + position.coords.latitude,
               longitude:
                 Math.random() * (0.0004 - 0.0002) +
@@ -224,6 +239,7 @@ class Map extends React.Component {
               unlockedMessage: 'You found a shovel.'
             },
             {
+              name: 'Chest',
               latitude: 0.0003 + position.coords.latitude,
               longitude: position.coords.longitude - 0.0003,
               id: 2,
@@ -231,9 +247,11 @@ class Map extends React.Component {
               lockedMessage:
                 "You found a chest! But its locked and you can't open it.",
               unlockedMessage:
-                'You open the chest! Inside is a crumpled up note with a message scribbled on it. Looks like a code.'
+                'You found a chest! Maybe this key will open it.'
+                // Inside is a crumpled up note with a message scribbled on it. Looks like a code.
             },
             {
+              name: 'Key',
               latitude: position.coords.latitude - 0.0002,
               longitude: position.coords.longitude - 0.0002,
               // latitude: randomDistance + 0.0004 + position.coords.latitude,
@@ -277,8 +295,8 @@ class Map extends React.Component {
           .where('users', 'array-contains', this.state.uid)
           .where('open', '==', true)
           .get()
-          .then(function(querySnapshot) {
-            querySnapshot.forEach(function(doc) {
+          .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
               db.collection('games')
                 .doc(doc.id)
                 .update({
@@ -296,6 +314,7 @@ class Map extends React.Component {
       const lon = this.state.userLocation.longitude + 0.0003;
       let bombMarker = [
         {
+          name: 'Bomb',
           latitude: lat,
           longitude: lon,
           id: 4,
@@ -313,8 +332,8 @@ class Map extends React.Component {
     return this.state.initialRegion.latitude ? (
       <React.Fragment>{this.renderMap(id)}</React.Fragment>
     ) : (
-      <React.Fragment>{this.renderLoading()}</React.Fragment>
-    );
+        <React.Fragment>{this.renderLoading()}</React.Fragment>
+      );
   }
 }
 
