@@ -88,7 +88,7 @@ export default class ARBombToDefuse extends React.Component {
     ObjectLoader.getThreeModel(
       Bomb,
       function(object) {
-        object.scale.set(0.08, 0.08, 0.08);
+        object.scale.set(0.15, 0.15, 0.15);
         object.position.z = -0.9;
         object.rotateX(90);
         object.rotateY(90);
