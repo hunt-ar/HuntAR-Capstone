@@ -103,29 +103,29 @@ class StoryConcept extends React.Component {
             <Image left={0} style={{ width: 50, height: 50 }} source={marker} />
           </View>
           <Text flex="right" style={styles.StoryText}>
-            Visit all the markers
+            VISIT all the markers in the correct order
           </Text>
         </View>
         <View flex={1} flexDirection="row">
           <Image left={0} style={{ width: 50, height: 50 }} source={tap} />
           <Text flex="right" style={styles.StoryText}>
-            Tap the marker when in range to collect an item
+            TAP the marker to collect an item
           </Text>
         </View>
         <View flex={1} flexDirection="row">
           <Image style={{ width: 50, height: 50 }} source={backpack} />
-          <Text style={styles.StoryText}>Check your inventory</Text>
+          <Text style={styles.StoryText}>CHECK your briefcase to help you disarm the bomb</Text>
         </View>
-        <View flex={1} flexDirection="row">
+        {/* <View flex={1} flexDirection="row">
           <Image style={{ width: 50, height: 50 }} source={order} />
           <Text style={styles.StoryText}>
             Get your items in a specific order
           </Text>
-        </View>
+        </View> */}
 
         <View flex={1} flexDirection="row">
           <Image style={{ width: 50, height: 50 }} source={time} />
-          <Text style={styles.StoryText}>Hurry, the clock is ticking</Text>
+          <Text style={styles.StoryText}>HURRY, the clock is ticking!</Text>
         </View>
 
         <View alignItems="center">

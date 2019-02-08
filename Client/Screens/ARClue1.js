@@ -91,8 +91,8 @@ class ARClue1 extends React.Component {
     ObjectLoader.getThreeModel(
       Shovel,
       function(object) {
-        object.scale.set(0.2, 0.15, 0.2);
-        object.position.z = -0.9;
+        object.scale.set(0.6, 0.45, 0.6);
+        object.position.z = -1.4;
         object.rotateX(90);
         object.rotateY(90);
         object.rotateZ(90);
