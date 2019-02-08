@@ -96,6 +96,7 @@ export default class Home extends React.Component {
                 backgroundColor="#ff4d4d"
                 backgroundActive="#660000"
                 springRelease={true}
+                height={40}
                 width={200}
                 textSize={20}
               >
