@@ -37,7 +37,7 @@ class Map extends React.Component {
         error: null
       },
       markers: [],
-      user: firebase.auth().currentUser
+      user: {}
     };
     this.onBackPackPress = this.onBackPackPress.bind(this);
     this.onBackPackClose = this.onBackPackClose.bind(this);
@@ -46,24 +46,22 @@ class Map extends React.Component {
   }
 
   handleQuit(id) {
-    console.log("QUIT-ID", id)
     this.props.stopTimer(id);
 
     //updates the game state to closed. User has quit game.
-    if (this.state.uid){
-      db.collection('games')
-        .where('users', 'array-contains', this.state.uid)
-        .where('open', '==', true)
-        .get()
-        .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
-            db.collection('games').doc(doc.id).update({
-              open: false,
-              time: 0
-            })
+    
+    db.collection('games')
+      .where('users', 'array-contains', this.state.user.uid)
+      .where('open', '==', true)
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          db.collection('games').doc(doc.id).update({
+            open: false,
+            time: 0
           })
         })
-    } 
+      }) 
 
     this.props.navigation.navigate("Lose");
   }
@@ -229,6 +227,11 @@ class Map extends React.Component {
       error => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 2000, maximumAge: 2000 }
     );
+
+    if (firebase.auth().currentUser){
+      this.setState({ user: firebase.auth().currentUser })
+    }
+
     if (!this.props.timeRemaining) {
       this.props.beginTimer(startTime);
     }
@@ -249,20 +252,19 @@ class Map extends React.Component {
       this.props.navigation.navigate("Lose");
 
     //updates the game state to closed. User is a loser.
-    if (this.state.uid){
-      db.collection('games')
-      .where('users', 'array-contains', this.state.uid)
-      .where('open', '==', true)
-      .get()
-      .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-          db.collection('games').doc(doc.id).update({
-            open: false,
-            time: 0
-          })
+    db.collection('games')
+    .where('users', 'array-contains', this.state.user.uid)
+    .where('open', '==', true)
+    .get()
+    .then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+        db.collection('games').doc(doc.id).update({
+          open: false,
+          time: 0
         })
       })
-    }
+    })
+    
     }
 
     //Bomb renders because user has accessed all three clues
@@ -281,6 +283,18 @@ class Map extends React.Component {
         markers: bombMarker
       });
 
+      //updates the game state for the bomb location
+      db.collection('games')
+        .where('users', 'array-contains', this.state.user.uid)
+        .where('open', '==', true)
+        .get()
+        .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+            db.collection('games').doc(doc.id).update({
+              bomb: bombMarker
+            })
+          })
+        })
     }
   }
 

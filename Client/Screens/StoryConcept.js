@@ -15,11 +15,15 @@ const order = require('../../assets/instructionPics/choice.png');
 class StoryConcept extends React.Component {
   constructor() {
     super();
-    this.state = firebase.auth().currentUser;
+    this.state = {
+      user: {}
+    }
   }
 
   componentDidMount() {
-    // console.log('***Confirm UserID***', this.state.uid)
+    if (firebase.auth().currentUser){
+      this.setState({ user: firebase.auth().currentUser })
+    }
   }
 
   static navigationOptions = {
@@ -71,14 +75,15 @@ class StoryConcept extends React.Component {
             unlock: 'Note'
           }
         ];
-
+        
         db.collection('games').add({
           open: true,
-          users: [this.state.uid],
+          users: [this.state.user.uid],
           markers,
           time: 60,
           bomb
         });
+
       },
       error => console.log({ error: error.message }),
       { enableHighAccuracy: true, timeout: 2000, maximumAge: 2000 }

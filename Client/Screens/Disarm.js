@@ -23,7 +23,6 @@ class Disarm extends Component {
   };
 
   async onDisarmSubmit() {
-    console.log("ID:", this.props.id)
     if (this.props.code === this.state.text) {
       const finalTime = this.props.timeRemaining;
       this.props.setFinalTime(finalTime);
