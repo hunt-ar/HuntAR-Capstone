@@ -16,7 +16,8 @@ import {
   Lose,
   Timer,
   SeeTimes,
-  Disarm
+  Disarm,
+  Signout
 } from './Client/Screens';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 console.log('Our component:', ForgotPW);
@@ -40,7 +41,8 @@ const RootStack = createStackNavigator(
     Lose,
     Timer,
     SeeTimes,
-    Disarm
+    Disarm,
+    Signout
   },
   { headerMode: 'none' }
 );

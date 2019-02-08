@@ -16,6 +16,7 @@ import ARClue4 from './ARClue4';
 import Lose from './Lose';
 import Disarm from './Disarm';
 import SeeTimes from './SeeTimes';
+import Signout from './Signout';
 export {
   Map,
   Win,
@@ -34,5 +35,6 @@ export {
   ARClue4,
   Lose,
   SeeTimes,
-  Disarm
+  Disarm,
+  Signout
 };

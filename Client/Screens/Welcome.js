@@ -16,18 +16,6 @@ export default class Welcome extends React.Component {
     }
   }
   
-  onSignOutButtonPressed = () => {
-    this.setState({ loading: true })
-    firebase.auth().signOut()
-      .then( () => {this.setState({loading:false})} )
-      .then( () => {Alert.alert('You have been signed out')} )
-      .then( () => {this.props.navigation.navigate('Home'); })
-      .catch( (error) => {
-        this.setState({ loading: false })
-        Alert.alert(`We are unable to process your request at this time. ${error}`);
-      })
-  }
-  
   renderImage = () => (
     <Image
       style = {styles.userImage}
@@ -38,7 +26,7 @@ export default class Welcome extends React.Component {
 
   render() {
 		const { user, image } = this.state
-    return this.state.loading === false ? (
+    return (
 			<View style={styles.parentContainer}>
         <View>
           {this.renderImage()}
@@ -99,18 +87,6 @@ export default class Welcome extends React.Component {
           />
         </View>
 
-        <View>
-          <Button
-            title="Sign Out"
-            onPress={this.onSignOutButtonPressed}
-          />
-        </View>
-
 			</View>
-    ) : (
-      <View style={styles.loadingContainer}>
-        <Text>Loading</Text>
-        <ActivityIndicator size="large" />
-      </View>
     )}
 }
