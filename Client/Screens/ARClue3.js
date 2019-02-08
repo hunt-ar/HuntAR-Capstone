@@ -1,6 +1,6 @@
 import React from 'react';
 import { AR } from 'expo';
-import { View, Button } from 'react-native';
+import { Alert, View, Button } from 'react-native';
 import { connect } from 'react-redux';
 import { styles } from '../../assets/styles';
 import ExpoTHREE, { AR as ThreeAR, THREE } from 'expo-three';
@@ -31,6 +31,7 @@ class ARClue3 extends React.Component {
 
   onButtonPress() {
     this.props.addItem(this.state.key);
+    Alert.alert('A key has been added to your inventory.');
     this.props.navigation.navigate('Map');
   }
 

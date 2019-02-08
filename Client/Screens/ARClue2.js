@@ -1,6 +1,6 @@
 import React from 'react';
 import { AR } from 'expo';
-import { View, Button } from 'react-native';
+import { Alert, View, Button } from 'react-native';
 import { connect } from 'react-redux';
 import { styles } from '../../assets/styles';
 import ExpoTHREE, { AR as ThreeAR, THREE } from 'expo-three';
@@ -48,7 +48,19 @@ class ARClue2 extends React.Component {
 
   onButtonPress() {
     this.props.addItem(this.state.chest);
-    this.props.navigation.navigate('Map');
+    Alert.alert(
+      'Inside the chest is a crumpled note with a message. It looks like a code.',
+      null,
+      [
+        {
+          text: 'Add note to inventory', onPress: () => {
+            this.props.navigation.navigate('Map');
+          }
+        }
+      ]
+    )
+    // Alert.alert('Inside the chest is a crumpled note with a message. It looks like a code.');
+    // this.props.navigation.navigate('Map');
   }
 
   render() {
@@ -84,7 +96,7 @@ class ARClue2 extends React.Component {
               width={200}
               textSize={20}
             >
-              Pick up note
+              Open chest
             </AwesomeButton>
           </View>
         </View>
