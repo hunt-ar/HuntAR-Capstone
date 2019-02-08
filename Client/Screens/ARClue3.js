@@ -90,8 +90,9 @@ class ARClue3 extends React.Component {
     ObjectLoader.getThreeModel(
       Key,
       function(object) {
-        object.scale.set(0.08, 0.08, 0.08);
+        object.scale.set(0.14, 0.14, 0.14);
         object.position.z = -1;
+        object.rotateZ(45);
         this.scene.add(object);
       }.bind(this),
       function(error) {
