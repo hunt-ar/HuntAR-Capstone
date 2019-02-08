@@ -22,6 +22,7 @@ class StoryConcept extends React.Component {
 
   componentDidMount() {
     if (firebase.auth().currentUser){
+      console.log(firebase.auth().currentUser)
       this.setState({ user: firebase.auth().currentUser })
     }
   }
@@ -80,7 +81,6 @@ class StoryConcept extends React.Component {
           open: true,
           users: [this.state.user.uid],
           markers,
-          time: 60,
           bomb
         });
 

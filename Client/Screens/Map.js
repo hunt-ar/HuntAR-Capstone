@@ -21,7 +21,7 @@ import {
   thunk_resetTimer
 } from "../store/timer";
 import firebase from 'firebase'
-import { db } from "../store";
+import { db } from '../store';
 import { Audio } from 'expo'
 
 //get within range of marker to be able to render AR
@@ -68,8 +68,9 @@ class Map extends React.Component {
     this.props.stopTimer(id);
     //explosion sound!
     this.playSound();
-    //updates the game state to closed. User has quit game.
     
+    //updates the game state to closed. User has quit game.
+    const finalTime = this.props.timeRemaining
     db.collection('games')
       .where('users', 'array-contains', this.state.user.uid)
       .where('open', '==', true)
@@ -78,7 +79,8 @@ class Map extends React.Component {
         querySnapshot.forEach(function(doc) {
           db.collection('games').doc(doc.id).update({
             open: false,
-            time: 0
+            time: finalTime,
+            win: false
           })
         })
       }) 
@@ -274,19 +276,20 @@ class Map extends React.Component {
       this.props.navigation.navigate('Lose');
 
     //updates the game state to closed. User is a loser.
+    const finalTime = this.props.timeRemaining
     db.collection('games')
-    .where('users', 'array-contains', this.state.user.uid)
-    .where('open', '==', true)
-    .get()
-    .then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc) {
-        db.collection('games').doc(doc.id).update({
-          open: false,
-          time: 0
+      .where('users', 'array-contains', this.state.user.uid)
+      .where('open', '==', true)
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          db.collection('games').doc(doc.id).update({
+            open: false,
+            time: finalTime,
+            win: false
+          })
         })
       })
-    })
-    
     }
 
     //Bomb renders because user has accessed all three clues
