@@ -204,15 +204,14 @@ class Map extends React.Component {
     const randomDistance = Math.random() * (0.0002 - 0.0001) + 0.0001;
     navigator.geolocation.getCurrentPosition(
       position => {
-        this.setState({
-          initialRegion: {
+          let initialRegion = {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
             latitudeDelta: 0.001,
             longitudeDelta: 0.001,
             error: null
-          },
-          markers: [
+          }
+          let markers = [
             {
               latitude: 0.0002 + position.coords.latitude,
               longitude:
@@ -223,7 +222,10 @@ class Map extends React.Component {
               unlockedMessage: 'You found a shovel.'
             },
             {
-              latitude: 0.0003 + position.coords.latitude,
+              // latitude: 0.0003 + position.coords.latitude,
+              // longitude: position.coords.longitude - 0.0003,
+              latitude: Math.random() * (0.0004 - 0.0002) +
+              0.0002 + position.coords.latitude,
               longitude: position.coords.longitude - 0.0003,
               id: 2,
               unlock: 'Key',
@@ -233,21 +235,27 @@ class Map extends React.Component {
                 'You open the chest! Inside is a crumpled up note with a message scribbled on it. Looks like a code.'
             },
             {
-              latitude: position.coords.latitude - 0.0002,
-              longitude: position.coords.longitude - 0.0002,
-              // latitude: randomDistance + 0.0004 + position.coords.latitude,
-              // longitude:
-              //   position.coords.longitude +
-              //   Math.random() * (0.0004 - 0.0002) +
-              //   0.0002,
+              // latitude: position.coords.latitude - 0.0002,
+              // longitude: position.coords.longitude - 0.0002,
+              latitude: Math.random() * (0.0004 - 0.0002) -
+              0.0002 + position.coords.latitude,
+              longitude:
+                position.coords.longitude +
+                Math.random() * (0.0004 - 0.0002) +
+                0.0002,
               id: 3,
               unlock: 'Shovel',
               lockedMessage: "Looks like something's buried here.",
               unlockedMessage:
                 'You use the shovel to dig up a tarnished old key.'
             }
-          ]
-        });
+          ];
+        
+        this.setState({
+          initialRegion,
+          markers
+        })
+        
       },
       error => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 2000, maximumAge: 2000 }
