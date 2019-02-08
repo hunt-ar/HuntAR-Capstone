@@ -5,7 +5,6 @@ import {
   Text,
   View,
   Modal,
-  ActivityIndicator
 } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
@@ -25,8 +24,8 @@ import { db } from "../store";
 import { Audio } from 'expo'
 
 //get within range of marker to be able to render AR
-const inRange = 100;
-const startTime = 60;
+const inRange = 1000;
+const startTime = 80;
 const loadImage = require('../../assets/loading.gif');
 
 class Map extends React.Component {
@@ -69,19 +68,19 @@ class Map extends React.Component {
     //explosion sound!
     this.playSound();
     //updates the game state to closed. User has quit game.
-    
+
     db.collection('games')
       .where('users', 'array-contains', this.state.user.uid)
       .where('open', '==', true)
       .get()
-      .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
           db.collection('games').doc(doc.id).update({
             open: false,
             time: 0
           })
         })
-      }) 
+      })
 
     this.props.navigation.navigate("Lose");
 
@@ -128,51 +127,64 @@ class Map extends React.Component {
           }
         >
           <Timer />
-          {this.state.markers.map(marker => (
-            <Marker
-              //image={marker.img}
-              key={marker.id}
-              coordinate={marker}
-              //height={100}
-              //image={require('../../assets/instructionPics/placeholder.png')}
-              onPress={() => {
-                const clueUnlocked = this.props.inventory.find(
-                  item => item.name === `${marker.unlock}`
-                );
-                if (
-                  this.distanceToMarker(this.state.userLocation, {
-                    latitude: marker.latitude,
-                    longitude: marker.longitude
-                  }) > inRange
-                ) {
-                  Alert.alert('Not close enough!');
-                } else if (
-                  marker.id !== 1 &&
-                  marker.id !== 4 &&
-                  !clueUnlocked
-                ) {
-                  Alert.alert(`${marker.lockedMessage}`);
-                } else {
-                  Alert.alert(
-                    `${marker.unlockedMessage}`,
-                    null,
-                    [
-                      {
-                        text: `View ${marker.name}`, onPress: () => {
-                          this.props.navigation.navigate(`ARClue${marker.id}`);
+          {this.state.markers.map(marker => {
+            let count = {};
+            let count1 = 0;
+            let count2 = 0;
+            let count3 = 0;
+            return (
+              // return `count${marker.id}` === 0 ? (
+              <Marker
+                //image={marker.img}
+                key={marker.id}
+                coordinate={marker}
+                //height={100}
+                //image={require('../../assets/instructionPics/placeholder.png')}
+                onPress={() => {
+                  const clueUnlocked = this.props.inventory.find(
+                    item => item.name === `${marker.unlock}`
+                  );
+                  if (
+                    this.distanceToMarker(this.state.userLocation, {
+                      latitude: marker.latitude,
+                      longitude: marker.longitude
+                    }) > inRange
+                  ) {
+                    Alert.alert('Not close enough!');
+                  } else if (
+                    marker.id !== 1 &&
+                    marker.id !== 4 &&
+                    !clueUnlocked
+                  ) {
+                    Alert.alert(`${marker.lockedMessage}`);
+                    // this could be used to avoid alert race condition w/timer
+                    // } else if (marker.id === 4) {
+                    //   Alert.alert(`${marker.unlockedMessage}`);
+                  } else {
+                    Alert.alert(
+                      `${marker.unlockedMessage}`,
+                      null,
+                      [
+                        {
+                          text: `View ${marker.name}`, onPress: () => {
+                            //trying to increment count so marker will no longer render
+                            // `count${marker.id}`
+                            this.props.navigation.navigate(`ARClue${marker.id}`);
+                          }
                         }
-                      }
-                    ]
-                  )
+                      ]
+                    )
+                    // Alert.alert(`${marker.unlockedMessage}`);
+                    // this.props.navigation.navigate(`ARClue${marker.id}`);
+                  }
+                }}
+              />
+              // ) : null;
+            )
 
-                  // Alert.alert(`${marker.unlockedMessage}`);
-                  // this.props.navigation.navigate(`ARClue${marker.id}`);
 
-
-                }
-              }}
-            />
-          ))}
+          }
+          )}
         </MapView>
         <View justifyContent="space-between" flexDirection="row" padding={1}>
           <View marginLeft={5} style={styles.quitButtonContainer}>
@@ -233,7 +245,8 @@ class Map extends React.Component {
                 0.0002 +
                 position.coords.longitude,
               id: 1,
-              unlockedMessage: 'You found a shovel.'
+              unlockedMessage: 'You found a shovel.',
+              markerVisible: true
             },
             {
               name: 'Chest',
@@ -244,8 +257,8 @@ class Map extends React.Component {
               lockedMessage:
                 "You found a chest! But its locked and you can't open it.",
               unlockedMessage:
-                'You found a chest! Maybe this key will open it.'
-                // Inside is a crumpled up note with a message scribbled on it. Looks like a code.
+                'You found a chest! Maybe this key will open it.',
+              markerVisible: true
             },
             {
               name: 'Key',
@@ -260,7 +273,8 @@ class Map extends React.Component {
               unlock: 'Shovel',
               lockedMessage: "Looks like something's buried here.",
               unlockedMessage:
-                'You use the shovel to dig up a tarnished old key.'
+                'You use the shovel to dig up a tarnished old key.',
+              markerVisible: true
             }
           ]
         });
@@ -269,7 +283,7 @@ class Map extends React.Component {
       { enableHighAccuracy: true, timeout: 2000, maximumAge: 2000 }
     );
 
-    if (firebase.auth().currentUser){
+    if (firebase.auth().currentUser) {
       this.setState({ user: firebase.auth().currentUser })
     }
 
@@ -291,24 +305,36 @@ class Map extends React.Component {
       await this.props.resetTimer();
       this.props.navigation.navigate('Lose');
 
-    //updates the game state to closed. User is a loser.
-    db.collection('games')
-    .where('users', 'array-contains', this.state.user.uid)
-    .where('open', '==', true)
-    .get()
-    .then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc) {
-        db.collection('games').doc(doc.id).update({
-          open: false,
-          time: 0
+      //updates the game state to closed. User is a loser.
+      db.collection('games')
+        .where('users', 'array-contains', this.state.user.uid)
+        .where('open', '==', true)
+        .get()
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            db.collection('games').doc(doc.id).update({
+              open: false,
+              time: 0
+            })
+          })
         })
-      })
-    })
-    
+
     }
 
     //Bomb renders because user has accessed all three clues
     if (this.props.inventory.length === 3 && this.state.markers.length === 3) {
+      //this is a double alert to the one in AR2 (Chest/Note!)
+      // Alert.alert(
+      //   'Inside the chest is a crumpled note with a message. It looks like a code.',
+      //   null,
+      //   [
+      //     {
+      //       text: 'View code', onPress: () => {
+      //         this.props.navigation.navigate('Inventory');
+      //       }
+      //     }
+      //   ]
+      // );
       const lat = this.state.userLocation.latitude + 0.0003;
       const lon = this.state.userLocation.longitude + 0.0003;
       let bombMarker = [
@@ -317,11 +343,13 @@ class Map extends React.Component {
           latitude: lat,
           longitude: lon,
           id: 4,
-          unlockedMessage: 'You found the bomb!'
+          unlockedMessage: 'You found the bomb! Do you remember the code to disarm it??',
+          markerVisible: true
         }
       ];
       this.setState({
-        markers: bombMarker
+        markers: bombMarker,
+        // markerVisible: true
       });
 
       //updates the game state for the bomb location
@@ -329,8 +357,8 @@ class Map extends React.Component {
         .where('users', 'array-contains', this.state.user.uid)
         .where('open', '==', true)
         .get()
-        .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
             db.collection('games').doc(doc.id).update({
               bomb: bombMarker
             })
