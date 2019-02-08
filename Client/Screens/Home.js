@@ -8,17 +8,33 @@ const bombImage = require('../../assets/bomb.png');
 const bombTrial = require('../../assets/bombTrial.png');
 
 export default class Home extends React.Component {
+  
+  constructor(){
+    super()
+    this.state = {
+      isAnonymous: true
+    }
+  }
+
   renderImage = () => <Image style={styles.image} source={bombImage} />;
+  
 
   componentDidMount(){
     //sign in user anon user if not already signed in
     firebase.auth().onAuthStateChanged( (user) => {
       if (user) {
         console.log('user is logged in')
+        console.log('isAnonymous', user.isAnonymous)
+        
       } else {
         console.log('there is no user')
         firebase.auth().signInAnonymously()
-          .then( )
+          .then((user) => {
+            this.setState({
+              isAnonymous: user.isAnonymous
+            })
+          })
+
           .catch(function(error) {
             Alert.alert(`An error occured. ${error}`);
           })
@@ -27,6 +43,7 @@ export default class Home extends React.Component {
   }
 
   render() {
+    console.log('state', this.state)
     return (
       <View style={styles.HomeContainer}>
         <Text style={styles.HomeHeader}>DisARm</Text>
