@@ -5,35 +5,53 @@ import { connect } from 'react-redux';
 import { styles } from '../../assets/styles';
 import ExpoTHREE, { AR as ThreeAR, THREE } from 'expo-three';
 import { View as GraphicsView } from 'expo-graphics';
-import { addItem } from '../store/inventory';
+import { addItem, setCode } from '../store/inventory';
 import ObjectLoader from '../utils/ObjectLoader';
-import Key from '../../assets/ARKey/key';
+import WoodChest from '../../assets/ARWoodChest/chest';
 import AwesomeButton from 'react-native-really-awesome-button';
-const item3 = require('../../assets/ItemPics/key.png');
+const item3 = require('../../assets/ItemPics/scroll.png');
 
 class ARClue3 extends React.Component {
   constructor() {
     super();
     this.state = {
-      key: {
-        name: 'Key',
-        description: 'Looks like a key, maybe it unlocks something nearby',
+      chest: {
+        name: 'Wooden Chest',
+        description: '',
         img: item3
       }
     };
     this.onButtonPress = this.onButtonPress.bind(this);
+    this.setCode = this.setCode.bind(this);
+  }
+
+  setCode() {
+    let code = '';
+    for (let i = 0; i < 5; i++) {
+      code += Math.floor(Math.random() * (9 - 0));
+    }
+    this.props.setCode(code);
+    this.setState({
+      chest: {
+        description: `Crumpled up note with the numbers ${code} written on it.`,
+        name: 'Crumpled Note',
+        img: item3
+      }
+    });
   }
 
   componentDidMount() {
     THREE.suppressExpoWarnings(true);
     ThreeAR.suppressWarnings();
+    this.setCode();
   }
 
   onButtonPress() {
-    this.props.addItem(this.state.key);
-    Alert.alert('A key has been added to your inventory.');
+    this.props.addItem(this.state.chest);
+    Alert.alert( 'Inside the chest is a crumpled note with a message. It looks like a code. Check your inventory!');
     this.props.navigation.navigate('Map');
   }
+
 
   render() {
     return (
@@ -58,17 +76,19 @@ class ARClue3 extends React.Component {
             marginLeft: 60
           }}
         >
-          <AwesomeButton
-            style={styles.HomeButton}
-            onPress={this.onButtonPress}
-            backgroundColor="#004466"
-            backgroundActive="#293d3d"
-            springRelease={true}
-            width={200}
-            textSize={20}
-          >
-            Pick up key
-          </AwesomeButton>
+          <View>
+            <AwesomeButton
+              style={styles.HomeButton}
+              onPress={this.onButtonPress}
+              backgroundColor="#004466"
+              backgroundActive="#293d3d"
+              springRelease={true}
+              width={200}
+              textSize={20}
+            >
+              Pick up note
+            </AwesomeButton>
+          </View>
         </View>
       </View>
     );
@@ -89,15 +109,14 @@ class ARClue3 extends React.Component {
     this.camera = new ThreeAR.Camera(width, height, 0.01, 1000);
 
     ObjectLoader.getThreeModel(
-      Key,
+      WoodChest,
       function(object) {
-        object.scale.set(0.14, 0.14, 0.14);
+        object.scale.set(0.35, 0.35, 0.35);
         object.position.z = -1;
-        object.rotateZ(45);
         this.scene.add(object);
       }.bind(this),
       function(error) {
-        console.log(error);
+        console.log('Error occured in ARClue3:', error);
       }
     );
 
@@ -120,7 +139,8 @@ class ARClue3 extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addItem: item => dispatch(addItem(item))
+  addItem: item => dispatch(addItem(item)),
+  setCode: code => dispatch(setCode(code))
 });
 
 export default connect(

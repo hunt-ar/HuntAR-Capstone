@@ -58,7 +58,8 @@ export const styles = StyleSheet.create({
   largeText: {
     fontSize: 35,
     fontWeight: 'bold',
-    color: 'black'
+    color: 'black',
+    marginTop: 25
   },
   InventoryNameText: {
     fontSize: 25,
@@ -167,11 +168,12 @@ export const styles = StyleSheet.create({
     padding: 5
   },
   medium: {
-    fontSize: 15,
+    fontSize: 20,
     fontWeight: 'bold',
     textAlignVertical: 'center',
     textAlign: 'center',
-    padding: 7
+    padding: 7,
+    color: '#ffffff'
   },
   introText: {
     fontSize: 17,
@@ -206,8 +208,8 @@ export const styles = StyleSheet.create({
     textAlign: 'center'
   },
   userImage: {
-    height: 300,
-    resizeMode: 'contain'
+    height: 250,
+    resizeMode: 'contain',
   },
   userImageTiny: {
     height: 100,
@@ -286,7 +288,8 @@ export const styles = StyleSheet.create({
   headerText: {
     marginTop: 15,
     fontSize: 30,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    // color: 
   },
   itemText: {
     fontSize: 20
@@ -311,5 +314,22 @@ export const styles = StyleSheet.create({
   image: {
     // height: scaleVertical(200),
     resizeMode: 'contain'
+  },
+  imageContainer: {
+    marginTop: -50,
+    flex: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  boldText: {
+    fontSize: 29,
+    color: '#ffffff',
+    textAlignVertical: 'center',
+    textAlign: 'center',
+    fontWeight: 'bold'
+  },
+  GameButtons: {
+    justifyContent: 'flex-end',
+    // marginBottom: '3%'
   },
 });

@@ -20,12 +20,12 @@ import {
   thunk_resetTimer
 } from "../store/timer";
 import firebase from 'firebase'
-import { db } from "../store";
+import { db } from '../store';
 import { Audio } from 'expo'
 
 //get within range of marker to be able to render AR
 const inRange = 1000;
-const startTime = 120;
+const startTime = 370;
 const loadImage = require('../../assets/loading.gif');
 
 class Map extends React.Component {
@@ -45,7 +45,7 @@ class Map extends React.Component {
         error: null
       },
       markers: [],
-      user: {}
+      user: firebase.auth().currentUser
     };
     this.onBackPackPress = this.onBackPackPress.bind(this);
     this.onBackPackClose = this.onBackPackClose.bind(this);
@@ -67,8 +67,9 @@ class Map extends React.Component {
     this.props.stopTimer(id);
     //explosion sound!
     this.playSound();
+    
     //updates the game state to closed. User has quit game.
-
+    const finalTime = this.props.timeRemaining
     db.collection('games')
       .where('users', 'array-contains', this.state.user.uid)
       .where('open', '==', true)
@@ -77,7 +78,8 @@ class Map extends React.Component {
         querySnapshot.forEach(function (doc) {
           db.collection('games').doc(doc.id).update({
             open: false,
-            time: 0
+            time: finalTime,
+            win: false
           })
         })
       })
@@ -157,6 +159,7 @@ class Map extends React.Component {
                         {
                           text: `View ${marker.name}`, onPress: () => {
                             this.props.navigation.navigate(`ARClue${marker.id}`);
+                            this.state.markers.shift()
                           }
                         }
                       ]
@@ -206,69 +209,39 @@ class Map extends React.Component {
     </View>
   );
 
-  componentDidMount() {
+  async componentDidMount() {
     const randomDistance = Math.random() * (0.0002 - 0.0001) + 0.0001;
     navigator.geolocation.getCurrentPosition(
       position => {
-        this.setState({
-          initialRegion: {
+          let initialRegion = {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
             latitudeDelta: 0.001,
             longitudeDelta: 0.001,
             error: null
-          },
-          markers: [
-            {
-              name: 'Shovel',
-              latitude: 0.0002 + position.coords.latitude,
-              longitude:
-                Math.random() * (0.0004 - 0.0002) +
-                0.0002 +
-                position.coords.longitude,
-              id: 1,
-              unlockedMessage: 'You found a shovel.',
-            },
-            {
-              name: 'Chest',
-              latitude: 0.0003 + position.coords.latitude,
-              longitude: position.coords.longitude - 0.0003,
-              id: 2,
-              unlock: 'Key',
-              lockedMessage:
-                "You found a chest! But its locked and you can't open it.",
-              unlockedMessage:
-                'You found a chest! Maybe the key you found will open it.',
-            },
-            {
-              name: 'Key',
-              latitude: position.coords.latitude - 0.0002,
-              longitude: position.coords.longitude - 0.0002,
-              // latitude: randomDistance + 0.0004 + position.coords.latitude,
-              // longitude:
-              //   position.coords.longitude +
-              //   Math.random() * (0.0004 - 0.0002) +
-              //   0.0002,
-              id: 3,
-              unlock: 'Shovel',
-              lockedMessage: "Looks like something's buried here.",
-              unlockedMessage:
-                'You use the shovel to dig up a tarnished old key.',
-            }
-          ]
-        });
+          }
+
+        this.setState({
+          initialRegion,
+        })
+        
       },
       error => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 2000, maximumAge: 2000 }
     );
 
-    if (firebase.auth().currentUser) {
-      this.setState({ user: firebase.auth().currentUser })
-    }
-
     if (!this.props.timeRemaining) {
       this.props.beginTimer(startTime);
     }
+
+    db.collection('games').where('users', 'array-contains', this.state.user.uid).where('open', '==', true).get().then((snapshot) => {
+      snapshot.docs.forEach(doc => {
+        this.setState({
+          markers: doc.data().markers
+        });
+      })
+    })
+    
   }
 
   async componentDidUpdate(id) {
@@ -284,52 +257,32 @@ class Map extends React.Component {
       await this.props.resetTimer();
       this.props.navigation.navigate('Lose');
 
-      //updates the game state to closed. User is a loser.
-      db.collection('games')
-        .where('users', 'array-contains', this.state.user.uid)
-        .where('open', '==', true)
-        .get()
-        .then(function (querySnapshot) {
-          querySnapshot.forEach(function (doc) {
-            db.collection('games').doc(doc.id).update({
-              open: false,
-              time: 0
-            })
+    //updates the game state to closed. User is a loser.
+    const finalTime = this.props.timeRemaining
+    db.collection('games')
+      .where('users', 'array-contains', this.state.user.uid)
+      .where('open', '==', true)
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          db.collection('games').doc(doc.id).update({
+            open: false,
+            time: finalTime,
+            win: false
           })
         })
+      })
     }
 
     //Bomb renders because user has accessed all three clues
-    if (this.props.inventory.length === 3 && this.state.markers.length === 3) {
-      const lat = this.state.userLocation.latitude + 0.0003;
-      const lon = this.state.userLocation.longitude + 0.0003;
-      let bombMarker = [
-        {
-          name: 'Bomb',
-          latitude: lat,
-          longitude: lon,
-          id: 4,
-          unlockedMessage: 'You found the bomb! Do you remember the code to disarm it??',
-          markerVisible: true
-        }
-      ];
-      this.setState({
-        markers: bombMarker,
-        // markerVisible: true
-      });
-
-      //updates the game state for the bomb location
-      db.collection('games')
-        .where('users', 'array-contains', this.state.user.uid)
-        .where('open', '==', true)
-        .get()
-        .then(function (querySnapshot) {
-          querySnapshot.forEach(function (doc) {
-            db.collection('games').doc(doc.id).update({
-              bomb: bombMarker
-            })
-          })
+    if (this.props.inventory.length === 3 && this.state.markers.length === 0) {
+      db.collection('games').where('users', 'array-contains', this.state.user.uid).where('open', '==', true).get().then((snapshot) => {
+        snapshot.docs.forEach(doc => {
+          this.setState({
+            markers: doc.data().bomb,
+          });
         })
+      })
     }
   }
 
