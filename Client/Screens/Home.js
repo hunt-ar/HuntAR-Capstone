@@ -39,7 +39,7 @@ export default class Home extends React.Component {
     console.log(this.state)
     return (
       <View style={styles.HomeContainer}>
-        <Text style={styles.HomeHeader}>DisARm</Text>
+        <Text style={styles.HomeHeader}>disARm</Text>
         <View style={styles.HomeImage}>{this.renderImage()}</View>
         <View style={styles.HomeButtons}>
           <AwesomeButton
