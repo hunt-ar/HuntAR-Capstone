@@ -43,10 +43,12 @@ export class SignUp extends React.Component {
     this.setState({ loading: true });
 
     firebase.auth().onAuthStateChanged(function (user) {
-      db.collection('users').doc(user.uid).set({
-        username,
-        email
-      })
+      if (user.isAnonymous === false){
+        db.collection('users').doc(user.uid).set({
+          username,
+          email
+        })
+      }
     })
 
     firebase.auth().createUserWithEmailAndPassword(email, password)

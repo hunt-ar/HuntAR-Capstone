@@ -26,9 +26,9 @@ export default class Home extends React.Component {
         this.setState({
           isAnonymous: user.isAnonymous
         })
+        console.log(user.uid)
         
       } else {
-        console.log('there is no user')
         firebase.auth().signInAnonymously()
           .catch(function(error) {
             Alert.alert(`An error occured. ${error}`);
@@ -38,6 +38,7 @@ export default class Home extends React.Component {
   }
 
   render() {
+    console.log(this.state)
     return (
       <View style={styles.HomeContainer}>
         <Text style={styles.HomeHeader}>DisARm</Text>
