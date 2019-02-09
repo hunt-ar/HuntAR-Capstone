@@ -149,9 +149,6 @@ class Map extends React.Component {
                     !clueUnlocked
                   ) {
                     Alert.alert(`${marker.lockedMessage}`);
-                    // this could be used to avoid alert race condition w/timer
-                    // } else if (marker.id === 4) {
-                    //   Alert.alert(`${marker.unlockedMessage}`);
                   } else {
                     Alert.alert(
                       `${marker.unlockedMessage}`,
