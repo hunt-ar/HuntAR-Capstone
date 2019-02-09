@@ -117,6 +117,7 @@ class Map extends React.Component {
     }
   }
   renderMap = id => {
+    console.log('length', this.props.inventory.length)
     console.log('this.state.markers', this.state.markers)
     return (
       <View style={styles.mapContainer}>
@@ -229,7 +230,7 @@ class Map extends React.Component {
               latitude: Math.random() * (0.0004 - 0.0002) +
               0.0002 + position.coords.latitude,
               longitude: position.coords.longitude - 0.0003,
-              id: 2,
+              id: 3,
               unlock: 'Shovel',
               lockedMessage: "Looks like something's buried here.",
               unlockedMessage:
@@ -244,7 +245,7 @@ class Map extends React.Component {
                 position.coords.longitude +
                 Math.random() * (0.0004 - 0.0002) +
                 0.0002,
-              id: 3,
+              id: 2,
               unlock: 'Key',
               lockedMessage:
               "You found a chest! But its locked and you can't open it.",
@@ -303,7 +304,7 @@ class Map extends React.Component {
     }
 
     //Bomb renders because user has accessed all three clues
-    if (this.props.inventory.length === 3 && this.state.markers === []) {
+    if (this.props.inventory.length === 3 && this.state.markers.length === 0) {
       const lat = this.state.userLocation.latitude + 0.0003;
       const lon = this.state.userLocation.longitude + 0.0003;
       let bombMarker = [
