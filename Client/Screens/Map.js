@@ -46,7 +46,6 @@ class Map extends React.Component {
         error: null
       },
       markers: [],
-      bomb: {},
       user: firebase.auth().currentUser
     };
     this.onBackPackPress = this.onBackPackPress.bind(this);
@@ -229,10 +228,8 @@ class Map extends React.Component {
 
     db.collection('games').where('users', 'array-contains', this.state.user.uid).where('open', '==', true).get().then((snapshot) => {
       snapshot.docs.forEach(doc => {
-        console.log('THIS DOCUMENT EXISTS:', doc.data())
         this.setState({
-          markers: doc.data().markers,
-          bomb: doc.data().bomb
+          markers: doc.data().markers
         });
       })
     })
@@ -271,29 +268,13 @@ class Map extends React.Component {
 
     //Bomb renders because user has accessed all three clues
     if (this.props.inventory.length === 3 && this.state.markers.length === 0) {
-      // const lat = this.state.userLocation.latitude + 0.0003;
-      // const lon = this.state.userLocation.longitude + 0.0003;
-      // let bombMarker = [
-      //   {
-      //     latitude: lat,
-      //     longitude: lon,
-      //     id: 4,
-      //     unlockedMessage: 'You found the bomb!'
-      //   }
-      // ];
-      // this.setState({
-      //   markers: bombMarker
-      // });
-
       db.collection('games').where('users', 'array-contains', this.state.user.uid).where('open', '==', true).get().then((snapshot) => {
         snapshot.docs.forEach(doc => {
-          console.log('THIS DOCUMENT EXISTS:', doc.data())
           this.setState({
             markers: doc.data().bomb,
           });
         })
       })
-
     }
   }
 
