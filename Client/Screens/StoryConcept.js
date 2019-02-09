@@ -22,7 +22,6 @@ class StoryConcept extends React.Component {
 
   componentDidMount() {
     if (firebase.auth().currentUser){
-      console.log(firebase.auth().currentUser)
       this.setState({ user: firebase.auth().currentUser })
     }
   }

@@ -36,7 +36,6 @@ export default class Home extends React.Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <View style={styles.HomeContainer}>
         <Text style={styles.HomeHeader}>disARm</Text>
