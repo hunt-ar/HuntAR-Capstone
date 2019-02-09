@@ -8,17 +8,26 @@ const bombImage = require('../../assets/bomb.png');
 const bombTrial = require('../../assets/bombTrial.png');
 
 export default class Home extends React.Component {
+  
+  constructor(){
+    super()
+    this.state = {
+      isAnonymous: false
+    }
+  }
+
   renderImage = () => <Image style={styles.image} source={bombImage} />;
+  
 
   componentDidMount(){
     //sign in user anon user if not already signed in
     firebase.auth().onAuthStateChanged( (user) => {
       if (user) {
-        console.log('user is logged in')
+        this.setState({
+          isAnonymous: user.isAnonymous
+        })
       } else {
-        console.log('there is no user')
         firebase.auth().signInAnonymously()
-          .then( )
           .catch(function(error) {
             Alert.alert(`An error occured. ${error}`);
           })
@@ -27,6 +36,7 @@ export default class Home extends React.Component {
   }
 
   render() {
+    console.log(this.state)
     return (
       <View style={styles.HomeContainer}>
         <Text style={styles.HomeHeader}>disARm</Text>
@@ -39,24 +49,60 @@ export default class Home extends React.Component {
             backgroundColor="#ff4d4d"
             backgroundActive="#660000"
             springRelease={true}
+            height={40}
             width={200}
             textSize={20}
           >
             New Game
           </AwesomeButton>
-          <AwesomeButton
-            style={styles.HomeButton}
-            onPress={() => {
-              this.props.navigation.navigate('Login');
-            }}
-            backgroundColor="#ff4d4d"
-            backgroundActive="#660000"
-            springRelease={true}
-            width={200}
-            textSize={20}
-          >
-            Log In
-          </AwesomeButton>
+          {this.state.isAnonymous === true ?
+            <AwesomeButton
+              style={styles.HomeButton}
+              onPress={() => {
+                this.props.navigation.navigate('Login');
+              }}
+              backgroundColor="#ff4d4d"
+              backgroundActive="#660000"
+              springRelease={true}
+              height={40}
+              width={200}
+              textSize={20}
+            >
+              Log In
+            </AwesomeButton>
+            :
+            <View>
+              <AwesomeButton
+                style={styles.HomeButton}
+                onPress={() => {
+                  this.props.navigation.navigate('Welcome');
+                }}
+                backgroundColor="#ff4d4d"
+                backgroundActive="#660000"
+                springRelease={true}
+                height={40}
+                width={200}
+                textSize={20}
+              >
+                My Account
+              </AwesomeButton>
+
+              <AwesomeButton
+                style={styles.HomeButton}
+                onPress={() => {
+                  this.props.navigation.navigate('Signout');
+                }}
+                backgroundColor="#ff4d4d"
+                backgroundActive="#660000"
+                springRelease={true}
+                height={40}
+                width={200}
+                textSize={20}
+              >
+                Sign Out
+              </AwesomeButton>
+            </View>
+          }
         </View>
       </View>
     );

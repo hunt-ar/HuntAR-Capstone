@@ -16,10 +16,10 @@ import {
   Lose,
   Timer,
   SeeTimes,
-  Disarm
+  Disarm,
+  Signout
 } from './Client/Screens';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-console.log('Our component:', ForgotPW);
 //when I load the app with this, whatever is first shows up
 const RootStack = createStackNavigator(
   {
@@ -40,7 +40,8 @@ const RootStack = createStackNavigator(
     Lose,
     Timer,
     SeeTimes,
-    Disarm
+    Disarm,
+    Signout
   },
   { headerMode: 'none' }
 );

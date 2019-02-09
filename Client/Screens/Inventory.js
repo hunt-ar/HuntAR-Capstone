@@ -4,9 +4,9 @@ import AwesomeButton from 'react-native-really-awesome-button';
 import { styles } from '../../assets/styles';
 import { connect } from 'react-redux';
 
-const item1 = require('../../assets/ItemPics/shovel.png');
-const item2 = require('../../assets/ItemPics/key.png');
-const item3 = require('../../assets/ItemPics/scroll.png');
+// const item1 = require('../../assets/ItemPics/shovel.png');
+// const item2 = require('../../assets/ItemPics/key.png');
+// const item3 = require('../../assets/ItemPics/scroll.png');
 
 class Inventory extends Component {
   render() {

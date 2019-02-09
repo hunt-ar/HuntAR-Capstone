@@ -41,23 +41,22 @@ export class SignUp extends React.Component {
 
     this.setState({ loading: true });
 
-    firebase.auth().onAuthStateChanged(function(user) {
-      db.collection("users")
-        .doc(user.uid)
-        .set({
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user.isAnonymous === false){
+        db.collection('users').doc(user.uid).set({
           username,
           email
-        });
-    });
+        })
+      }
+    })
 
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        this.setState({ loading: false });
-      })
-      .then(() => {
-        this.props.navigation.navigate("Welcome");
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(() => { this.setState({ loading: false }); })
+      .then(() => { this.props.navigation.navigate('Welcome'); })
+      .catch((error) => {
+        //Login was not successful.
+        this.setState({ loading: false })
+        Alert.alert(`We are unable to process your request at this time. ${error}`);
       })
       .catch(error => {
         //Login was not successful.
