@@ -38,41 +38,53 @@ class StoryConcept extends React.Component {
       position => {
         let markers = [
           {
-            latitude: randomDistance + position.coords.latitude,
+            latitude: 0.0002 + position.coords.latitude,
             longitude:
               Math.random() * (0.0004 - 0.0002) +
-              0.0002 +
+              0.0001 +
               position.coords.longitude,
-            id: 1
+            id: 1,
+            unlockedMessage: 'You found a shovel.'
           },
           {
-            latitude: randomDistance + position.coords.latitude,
-            longitude:
-              Math.random() * (0.0004 - 0.0002) +
-              0.0002 +
-              position.coords.longitude,
-            id: 2,
-            unlock: 'Key'
-          },
-          {
-            latitude: randomDistance + position.coords.latitude,
-            longitude:
-              Math.random() * (0.0004 - 0.0002) +
-              0.0002 +
-              position.coords.longitude,
+            // latitude: 0.0003 + position.coords.latitude,
+            // longitude: position.coords.longitude - 0.0003,
+            latitude: Math.random() * (0.0004 - 0.0002) +
+            0.0002 + position.coords.latitude,
+            longitude: position.coords.longitude - 0.0002,
             id: 3,
-            unlock: 'Shovel'
+            unlock: 'Shovel',
+            lockedMessage: "Looks like something's buried here.",
+            unlockedMessage:
+            'You use the shovel to dig up a tarnished old key.'
+          },
+          {
+            // latitude: position.coords.latitude - 0.0002,
+            // longitude: position.coords.longitude - 0.0002,
+            latitude: Math.random() * (0.0004 - 0.0002) -
+            0.0002 + position.coords.latitude,
+            longitude:
+              position.coords.longitude +
+              Math.random() * (0.0004 - 0.0002) -
+              0.0002,
+            id: 2,
+            unlock: 'Key',
+            lockedMessage:
+            "You found a chest! But its locked and you can't open it.",
+            unlockedMessage:
+            'You open the chest! Inside is a crumpled up note with a message scribbled on it. Looks like a code.'
           }
         ];
         let bomb = [
           {
-            latitude: randomDistance + position.coords.latitude,
+            latitude: Math.random() * (0.0004 - 0.0002) +
+            0.0002 + position.coords.latitude,
             longitude:
-              Math.random() * (0.0004 - 0.0002) +
+              Math.random() * (0.0004 - 0.0002) -
               0.0002 +
               position.coords.longitude,
             id: 4,
-            unlock: 'Note'
+            unlockedMessage: 'You found the bomb!'
           }
         ];
         
@@ -80,7 +92,6 @@ class StoryConcept extends React.Component {
           open: true,
           users: [this.state.user.uid],
           markers,
-          time: 60,
           bomb
         });
 

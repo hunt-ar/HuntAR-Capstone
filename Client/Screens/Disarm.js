@@ -10,14 +10,23 @@ import {
   thunk_resetTimer
 } from "../store/timer";
 import { Audio } from "expo";
+import firebase from 'firebase'
+import { db } from '../store';
 
 class Disarm extends Component {
   constructor() {
     super();
     this.state = {
-      text: ""
+      text: "",
+      user: {}
     };
     this.onDisarmSubmit = this.onDisarmSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    if (firebase.auth().currentUser){
+      this.setState({ user: firebase.auth().currentUser })
+    }
   }
 
   static propTypes = {
@@ -40,17 +49,49 @@ class Disarm extends Component {
   };
 
   async onDisarmSubmit() {
+    const finalTime = this.props.timeRemaining;
     if (this.props.code === this.state.text) {
-      const finalTime = this.props.timeRemaining;
       this.props.setFinalTime(finalTime);
       await this.props.stopTimer(this.props.id);
       await this.props.resetTimer();
+
+      //update db
+      db.collection('games')
+      .where('users', 'array-contains', this.state.user.uid)
+      .where('open', '==', true)
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          db.collection('games').doc(doc.id).update({
+            open: false,
+            time: finalTime,
+            win: true
+          })
+        })
+      }) 
+
       //Alert.alert(`Final time logged as ${finalTime}`)
       this.props.navigation.navigate("Win");
     } else {
       await this.props.stopTimer(this.props.id);
       this.playSound();
       await this.props.resetTimer();
+
+      //update db
+      db.collection('games')
+      .where('users', 'array-contains', this.state.user.uid)
+      .where('open', '==', true)
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          db.collection('games').doc(doc.id).update({
+            open: false,
+            time: finalTime,
+            win: false
+          })
+        })
+      }) 
+
       this.props.navigation.navigate("Lose");
     }
   }

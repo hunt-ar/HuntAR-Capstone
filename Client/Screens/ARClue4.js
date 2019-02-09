@@ -96,7 +96,7 @@ export default class ARBombToDefuse extends React.Component {
         this.scene.add(object);
       }.bind(this),
       function(error) {
-        console.log(error);
+        console.log('Error occured in ARClue4:', error);
       }
     );
 

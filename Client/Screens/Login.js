@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Button,
   View,
@@ -9,24 +9,27 @@ import {
   Text,
   ActivityIndicator,
   ScrollView
-} from 'react-native';
-import { WebView } from 'react-native-webview';
+} from "react-native";
+
+import { WebView } from "react-native-webview";
 import {
   RkText,
+  RkTheme,
   RkTextInput,
   RkAvoidKeyboard,
-  RkStyleSheet
-} from 'react-native-ui-kitten';
-import { FontAwesome } from '../../assets/icons';
-import { GradientButton } from '../Components';
-import { scaleVertical } from '../utils/scale';
-import firebase from 'firebase';
-import NavigationType from '../../config/navigation/propTypes';
+  RkStyleSheet,
+  RkButton
+} from "react-native-ui-kitten";
+import { FontAwesome } from "../../assets/icons";
+import { GradientButton } from "../Components";
+import { scaleVertical } from "../utils/scale";
+import firebase from "firebase";
+import NavigationType from "../../config/navigation/propTypes";
 
-const bombImage = require('../../assets/bomb.png');
+const bombImage = require("../../assets/bomb.png");
 
 export class Login extends React.Component {
-  state = { email: '', password: '', loading: false };
+  state = { email: "", password: "", loading: false };
 
   static propTypes = {
     navigation: NavigationType.isRequired
@@ -49,7 +52,7 @@ export class Login extends React.Component {
         this.setState({ loading: false });
       })
       .then(() => {
-        this.props.navigation.navigate('Welcome');
+        this.props.navigation.navigate("Welcome");
       })
       .catch(error => {
         //Login was not successful.
@@ -62,17 +65,17 @@ export class Login extends React.Component {
 
   //goes to sign up component
   onSignUpButtonPressed = () => {
-    this.props.navigation.navigate('SignUp');
+    this.props.navigation.navigate("SignUp");
   };
 
   //goes to forgot password component
   onForgotButtonPressed = () => {
-    this.props.navigation.navigate('ForgotPW');
+    this.props.navigation.navigate("ForgotPW");
   };
 
   componentDidMount() {
     //originally in a script tag
-    firebase.auth().onAuthStateChanged(function (user) {
+    firebase.auth().onAuthStateChanged(function(user) {
       window.user = user;
     });
     //If no user, sign in anonymously with firebase.auth().signInAnonymously()But if there is a user, log out out user details for potential debugging purposes.
@@ -95,52 +98,63 @@ export class Login extends React.Component {
             <View style={styles.content}>
               <View>
                 <RkTextInput
-                  rkType="rounded"
+                  rkType="frame"
                   placeholder="Email"
                   onChangeText={email => this.setState({ email })}
                   value={this.state.email}
                 />
 
                 <RkTextInput
-                  rkType="rounded"
+                  rkType="frame"
                   placeholder="Password"
                   secureTextEntry
                   onChangeText={password => this.setState({ password })}
                   value={this.state.password}
                 />
-
-                <Button
+                 <View style={styles.textRow}>
+                <RkButton
+                  style={{ backgroundColor: "#ff4d4d" }}
                   title="LOGIN"
                   onPress={this.handleLogin}
-                  style={styles.save}
-                />
+                >
+                  LOGIN
+                </RkButton>
+                </View>
               </View>
               <View style={styles.footer}>
                 <View style={styles.textRow}>
-                  <RkText rkType="title">Don’t have an account?</RkText>
+                  <RkText rkType="title"
+                  style={{ color: "#ff4d4d" }}
+                  >Don’t have an account?</RkText>
                 </View>
                 <View style={styles.textRow}>
-                  <Button
+                  <RkButton
+                    style={{ backgroundColor: "#004466", width: 150 } }
+                    
                     title="Sign Up Now!"
                     onPress={this.onSignUpButtonPressed}
-                    style={styles.save}
-                  />
+                  >
+                    Sign Up Now!
+                  </RkButton>
                 </View>
                 <View style={styles.textRow}>
-                  <Button
+                  <RkButton
+                    style={{ backgroundColor: "#004466", width: 150 }}
                     title="Forgot Password?"
                     onPress={this.onForgotButtonPressed}
-                    style={styles.save}
-                  />
+                  >
+                    Forgot Password?
+                  </RkButton>
                 </View>
               </View>
             </View>
 
-            <View style={styles.textRow}>
+            <View>
               <Button
+                backgroundColor="#ff4d4d"
                 title="Go Back"
                 onPress={() => {
-                  this.props.navigation.navigate('Home');
+                  this.props.navigation.navigate("Home");
                 }}
                 style={styles.save}
               />
@@ -149,70 +163,89 @@ export class Login extends React.Component {
         </RkAvoidKeyboard>
       </ScrollView>
     ) : (
-        <View style={styles.loadingContainer}>
-          <Text>Loading</Text>
-          <ActivityIndicator size="large" />
-        </View>
-      );
+      <View style={styles.loadingContainer}>
+        <Text>Loading</Text>
+        <ActivityIndicator size="large" />
+      </View>
+    );
   }
 }
+
+RkTheme.setType("RkTextInput", "frame", {
+  input: {
+    backgroundColor: "white",
+    marginLeft: 0,
+    marginHorizontal: 0,
+    borderRadius: 5
+  },
+  color: "gray",
+  backgroundColor: "white",
+  borderRadius: 10,
+  container: {
+    paddingHorizontal: 20
+  }
+});
 
 const styles = RkStyleSheet.create(theme => ({
   screen: {
     padding: scaleVertical(16),
     flex: 1,
-    justifyContent: 'space-between',
-    backgroundColor: theme.colors.screen.base
+    justifyContent: "space-between",
+    backgroundColor: "#004466"
   },
   image: {
     height: scaleVertical(150),
-    resizeMode: 'contain'
+    resizeMode: "contain"
   },
   header: {
     paddingBottom: scaleVertical(10),
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     flex: 1
   },
   content: {
-    justifyContent: 'space-between',
-    marginBottom: 25
+    justifyContent: "space-between",
+    marginBottom: 25,
+    backgroundColor: "004466",
+    color: "white"
   },
   save: {
-    marginVertical: 20
+    marginVertical: 20,
+    color: "white"
   },
   buttons: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginBottom: scaleVertical(24),
     marginHorizontal: 24,
-    justifyContent: 'space-around'
+    justifyContent: "space-around"
   },
   textRow: {
-    flexDirection: 'row',
-    justifyContent: 'center'
+    flexDirection: "row",
+    justifyContent: "center"
   },
   button: {
-    borderColor: theme.colors.border.solid
+    borderColor: "red",
+    color: "white"
   },
   footer: {
-    marginVertical: 75
+    marginVertical: 50
   },
   headerText: {
-    fontSize: 30,
-    color: 'black',
-    textAlignVertical: 'center',
-    textAlign: 'center',
-    fontWeight: 'bold'
+    fontSize: 40,
+    color: "white",
+    textAlignVertical: "center",
+    textAlign: "center",
+    fontWeight: "bold"
   },
   subHeader: {
     fontSize: 25,
-    color: 'black',
-    textAlignVertical: 'center',
-    textAlign: 'center'
+    color: "white",
+    textAlignVertical: "center",
+    textAlign: "center"
   },
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: "center",
+    alignItems: "center"
   }
 }));

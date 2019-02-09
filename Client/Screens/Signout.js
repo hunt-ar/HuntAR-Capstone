@@ -24,7 +24,6 @@ export default class Home extends React.Component {
   }
 
   render() {
-    console.log('state', this.state)
     return (
       <View style={styles.loadingContainer}>
 				<Text>Loading</Text>

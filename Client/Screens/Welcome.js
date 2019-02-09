@@ -2,8 +2,20 @@ import React from 'react'
 import { StyleSheet, Platform, Image, Text, View, Button, Alert, ActivityIndicator } from 'react-native'
 import firebase from 'firebase'
 import { styles } from '../../assets/styles';
+import AwesomeButton from 'react-native-really-awesome-button';
+import { db } from '../store';
 
-// const user = firebase.auth().currentUser
+const avatarImages = [
+  require('../../assets/avatars/bear.png'),
+  require('../../assets/avatars/cat.jpg'),
+  require('../../assets/avatars/deer.png'),
+  require('../../assets/avatars/girl.png'),
+  require('../../assets/avatars/girl2.png'),
+  require('../../assets/avatars/guy.png'),
+  require('../../assets/avatars/guy2.png'),
+  require('../../assets/avatars/werewolf.png'),
+  require('../../assets/avatars/zombie.png'),
+];
 
 export default class Welcome extends React.Component {
 
@@ -11,30 +23,43 @@ export default class Welcome extends React.Component {
     super()
     this.state = {
       user: firebase.auth().currentUser,
-      image : '',
-      loading: false
+      username: '',
+      email: ''
     }
   }
+
+  componentDidMount() {
+    const loggedIn = db.collection('users').doc(this.state.user.uid)
+    loggedIn.get().then((doc) => {
+      this.setState({
+        email: doc.data().email,
+        username: doc.data().username
+      })
+    }).catch(function(error) {
+      console.log('Error getting document', error)
+    })
+  }
+
+  getRandomImage = () => avatarImages[Math.floor(Math.random() * avatarImages.length)]
   
   renderImage = () => (
     <Image
       style = {styles.userImage}
-      source={require('../../assets/avatars/cat.jpg')
-      }
+      source={this.getRandomImage()}
     />
   );
 
   render() {
-		const { user, image } = this.state
+    const { user, email, username, image } = this.state
     return (
-			<View style={styles.parentContainer}>
-        <View>
+			<View style={styles.HomeContainer}>
+        <View style={styles.HomeImage}>
           {this.renderImage()}
         </View>
 
-        <View>
-				<Text style={styles.header}>
-					Hello {user.email}!
+        <View style={styles.GameButtons}>
+				<Text style={styles.boldText}>
+					Hello {username || email}!
 				</Text>
         <Text style={styles.medium}>
 					What do you want to do brave adventurer?
@@ -42,49 +67,84 @@ export default class Welcome extends React.Component {
         </View>
 
         <View>
-          <Button
-            title="Start New Game"
-            onPress={() => {
-              this.props.navigation.navigate('StoryConcept');
-            }}
-          />
-        </View>
+          <AwesomeButton
+            style={styles.HomeButton}
+            // onPress={this.startGame}
+            onPress={() => {this.props.navigation.navigate('StoryConcept');}}
+            backgroundColor="#ff4d4d"
+            backgroundActive="#660000"
+            springRelease={true}
+            height={40}
+            width={250}
+            textSize={18}
+          >
+            Start New Game
+          </AwesomeButton>
 
-        {/* THIS LOGIC WILL NEED TO BE ADDED AFTER MVP ESTABLISHED.*/}
-        <View>
-          <Button
-            title="Multiplayer Game"
+          {/* THIS LOGIC WILL NEED TO BE ADDED AFTER MVP ESTABLISHED.*/}
+          <AwesomeButton
+            style={styles.HomeButton}
+            // onPress={this.startGame}
             onPress={() => {
               Alert.alert('This feature is not yet available. Check back later.');
             }}
-          />
-        </View>
+            backgroundColor="#ff4d4d"
+            backgroundActive="#660000"
+            springRelease={true}
+            height={40}
+            width={250}
+            textSize={18}
+          >
+            Multiplayer Game
+          </AwesomeButton>
 
-        <View>
-          <Button
-            title="See My Stats"
+          <AwesomeButton
+            style={styles.HomeButton}
+            // onPress={this.startGame}
             onPress={() => {
               Alert.alert('This feature is not yet available. Check back later.');
             }}
-          />
-        </View>
+            backgroundColor="#ff4d4d"
+            backgroundActive="#660000"
+            springRelease={true}
+            height={40}
+            width={250}
+            textSize={18}
+          >
+            See My Stats
+          </AwesomeButton>
 
-        <View>
-          <Button
-            title="Select New Avatar"
+          <AwesomeButton
+            style={styles.HomeButton}
+            // onPress={this.startGame}
             onPress={() => {
               Alert.alert('This feature is not yet available. Check back later.');
             }}
-          />
-        </View>
+            backgroundColor="#ff4d4d"
+            backgroundActive="#660000"
+            springRelease={true}
+            height={40}
+            width={250}
+            textSize={18}
+          >
+            Change Avatar
+          </AwesomeButton>
 
-        <View>
-          <Button
-            title="Update My Information"
+          <AwesomeButton
+            style={styles.HomeButton}
+            // onPress={this.startGame}
             onPress={() => {
               Alert.alert('This feature is not yet available. Check back later.');
             }}
-          />
+            backgroundColor="#ff4d4d"
+            backgroundActive="#660000"
+            springRelease={true}
+            height={40}
+            width={250}
+            textSize={18}
+          >
+            Update My Information
+          </AwesomeButton>
         </View>
 
 			</View>

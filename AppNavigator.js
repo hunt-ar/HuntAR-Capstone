@@ -20,7 +20,6 @@ import {
   Signout
 } from './Client/Screens';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-console.log('Our component:', ForgotPW);
 //when I load the app with this, whatever is first shows up
 const RootStack = createStackNavigator(
   {
