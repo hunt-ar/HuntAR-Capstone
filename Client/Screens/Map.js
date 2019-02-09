@@ -46,7 +46,8 @@ class Map extends React.Component {
         error: null
       },
       markers: [],
-      user: {}
+      bomb: {},
+      user: firebase.auth().currentUser
     };
     this.onBackPackPress = this.onBackPackPress.bind(this);
     this.onBackPackClose = this.onBackPackClose.bind(this);
@@ -117,8 +118,6 @@ class Map extends React.Component {
     }
   }
   renderMap = id => {
-    console.log('length', this.props.inventory.length)
-    console.log('this.state.markers', this.state.markers)
     return (
       <View style={styles.mapContainer}>
         <MapView
@@ -203,7 +202,7 @@ class Map extends React.Component {
     </View>
   );
 
-  componentDidMount() {
+  async componentDidMount() {
     const randomDistance = Math.random() * (0.0002 - 0.0001) + 0.0001;
     navigator.geolocation.getCurrentPosition(
       position => {
@@ -214,49 +213,9 @@ class Map extends React.Component {
             longitudeDelta: 0.001,
             error: null
           }
-          let markers = [
-            {
-              latitude: 0.0002 + position.coords.latitude,
-              longitude:
-                Math.random() * (0.0004 - 0.0002) +
-                0.0002 +
-                position.coords.longitude,
-              id: 1,
-              unlockedMessage: 'You found a shovel.'
-            },
-            {
-              // latitude: 0.0003 + position.coords.latitude,
-              // longitude: position.coords.longitude - 0.0003,
-              latitude: Math.random() * (0.0004 - 0.0002) +
-              0.0002 + position.coords.latitude,
-              longitude: position.coords.longitude - 0.0003,
-              id: 3,
-              unlock: 'Shovel',
-              lockedMessage: "Looks like something's buried here.",
-              unlockedMessage:
-              'You use the shovel to dig up a tarnished old key.'
-            },
-            {
-              // latitude: position.coords.latitude - 0.0002,
-              // longitude: position.coords.longitude - 0.0002,
-              latitude: Math.random() * (0.0004 - 0.0002) -
-              0.0002 + position.coords.latitude,
-              longitude:
-                position.coords.longitude +
-                Math.random() * (0.0004 - 0.0002) +
-                0.0002,
-              id: 2,
-              unlock: 'Key',
-              lockedMessage:
-              "You found a chest! But its locked and you can't open it.",
-              unlockedMessage:
-              'You open the chest! Inside is a crumpled up note with a message scribbled on it. Looks like a code.'
-            }
-          ];
-        
+
         this.setState({
           initialRegion,
-          markers
         })
         
       },
@@ -264,13 +223,20 @@ class Map extends React.Component {
       { enableHighAccuracy: true, timeout: 2000, maximumAge: 2000 }
     );
 
-    if (firebase.auth().currentUser){
-      this.setState({ user: firebase.auth().currentUser })
-    }
-
     if (!this.props.timeRemaining) {
       this.props.beginTimer(startTime);
     }
+
+    db.collection('games').where('users', 'array-contains', this.state.user.uid).where('open', '==', true).get().then((snapshot) => {
+      snapshot.docs.forEach(doc => {
+        console.log('THIS DOCUMENT EXISTS:', doc.data())
+        this.setState({
+          markers: doc.data().markers,
+          bomb: doc.data().bomb
+        });
+      })
+    })
+    
   }
 
   async componentDidUpdate(id) {
@@ -305,32 +271,29 @@ class Map extends React.Component {
 
     //Bomb renders because user has accessed all three clues
     if (this.props.inventory.length === 3 && this.state.markers.length === 0) {
-      const lat = this.state.userLocation.latitude + 0.0003;
-      const lon = this.state.userLocation.longitude + 0.0003;
-      let bombMarker = [
-        {
-          latitude: lat,
-          longitude: lon,
-          id: 4,
-          unlockedMessage: 'You found the bomb!'
-        }
-      ];
-      this.setState({
-        markers: bombMarker
-      });
+      // const lat = this.state.userLocation.latitude + 0.0003;
+      // const lon = this.state.userLocation.longitude + 0.0003;
+      // let bombMarker = [
+      //   {
+      //     latitude: lat,
+      //     longitude: lon,
+      //     id: 4,
+      //     unlockedMessage: 'You found the bomb!'
+      //   }
+      // ];
+      // this.setState({
+      //   markers: bombMarker
+      // });
 
-      //updates the game state for the bomb location
-      db.collection('games')
-        .where('users', 'array-contains', this.state.user.uid)
-        .where('open', '==', true)
-        .get()
-        .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
-            db.collection('games').doc(doc.id).update({
-              bomb: bombMarker
-            })
-          })
+      db.collection('games').where('users', 'array-contains', this.state.user.uid).where('open', '==', true).get().then((snapshot) => {
+        snapshot.docs.forEach(doc => {
+          console.log('THIS DOCUMENT EXISTS:', doc.data())
+          this.setState({
+            markers: doc.data().bomb,
+          });
         })
+      })
+
     }
   }
 
