@@ -117,7 +117,9 @@ export default class Welcome extends React.Component {
           <AwesomeButton
             style={styles.HomeButton}
             // onPress={this.startGame}
-            onPress={this.getRandomImage}
+            onPress={() => {
+              Alert.alert('This feature is not yet available. Check back later.');
+            }}
             backgroundColor="#ff4d4d"
             backgroundActive="#660000"
             springRelease={true}
