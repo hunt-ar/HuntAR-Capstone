@@ -1,6 +1,6 @@
 import React from 'react';
 import { AR } from 'expo';
-import { View, Button, Modal, Text } from 'react-native';
+import { Alert, View, Button, Modal, Text } from 'react-native';
 import { styles } from '../../assets/styles';
 import ExpoTHREE, { AR as ThreeAR, THREE } from 'expo-three';
 import { View as GraphicsView } from 'expo-graphics';

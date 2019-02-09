@@ -32,6 +32,7 @@ class ARClue1 extends React.Component {
 
   onButtonPress() {
     this.props.addItem(this.state.shovel);
+    Alert.alert('A shovel has been added to your inventory.');
     this.props.navigation.navigate('Map');
   }
 

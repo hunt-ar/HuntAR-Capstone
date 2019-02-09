@@ -1,6 +1,6 @@
 import React from 'react';
 import { AR } from 'expo';
-import { View, Button } from 'react-native';
+import { Alert, View, Button } from 'react-native';
 import { connect } from 'react-redux';
 import { styles } from '../../assets/styles';
 import ExpoTHREE, { AR as ThreeAR, THREE } from 'expo-three';
@@ -31,7 +31,16 @@ class ARClue2 extends React.Component {
 
   onButtonPress() {
     this.props.addItem(this.state.key);
-    this.props.navigation.navigate('Map');
+    Alert.alert('A key has been added to your inventory.',
+      null,
+      [
+        {
+          text: 'Add key to inventory', onPress: () => {
+            this.props.navigation.navigate('Map');
+          }
+        }
+      ]
+    )
   }
 
   render() {
@@ -89,13 +98,13 @@ class ARClue2 extends React.Component {
 
     ObjectLoader.getThreeModel(
       Key,
-      function(object) {
+      function (object) {
         object.scale.set(0.14, 0.14, 0.14);
         object.position.z = -1;
         object.rotateZ(45);
         this.scene.add(object);
       }.bind(this),
-      function(error) {
+      function (error) {
         console.log('Error occured in ARClue2:', error);
       }
     );

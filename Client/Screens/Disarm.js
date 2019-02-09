@@ -113,7 +113,7 @@ class Disarm extends Component {
               width: 200,
               backgroundColor: "white"
             }}
-            placeholder="* * * * *"
+            placeholder="_ _ _ _ _"
             returnKeyLabel="Disarm"
             placeholderTextColor="red"
             maxLength={5}

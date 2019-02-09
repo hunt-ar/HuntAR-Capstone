@@ -6,12 +6,14 @@ const initialState = {
   finalTime: 0
 };
 
+let tickSound;
+
 const playSound = async () => {
-  const tickSound = new Audio.Sound();
   try {
-    await tickSound.loadAsync(require('../../assets/sounds/tick.mp3'));
-    await tickSound.playAsync();
-    // Your sound is playing!
+      tickSound = new Audio.Sound();
+      await tickSound.loadAsync(require('../../assets/sounds/tick.mp3'));
+      tickSound.playAsync();
+      tickSound.setIsLoopingAsync(true);
   } catch (error) {
     // An error occurred!
   }
@@ -71,9 +73,10 @@ export const setFinalTime = time => {
 export const thunk_beganTimer = (time) => {
   return dispatch => {
     dispatch(setTimeAction(time))
+    playSound();
+
     const id = setInterval(() => {
       dispatch(decrementTimeAction());
-      playSound();
     }, 1000);
     dispatch(registerIntervalAction(id));
   }
@@ -81,6 +84,7 @@ export const thunk_beganTimer = (time) => {
 
 export const thunk_stoppedTimer = (id) => {
   return dispatch => {
+    tickSound.stopAsync();
     dispatch(clearIntervalAction(id));
   }
 }

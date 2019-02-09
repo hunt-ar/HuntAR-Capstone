@@ -5,7 +5,6 @@ import {
   Text,
   View,
   Modal,
-  ActivityIndicator
 } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
@@ -75,18 +74,16 @@ class Map extends React.Component {
       .where('users', 'array-contains', this.state.user.uid)
       .where('open', '==', true)
       .get()
-      .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
           db.collection('games').doc(doc.id).update({
             open: false,
             time: finalTime,
             win: false
           })
         })
-      }) 
-
+      })
     this.props.navigation.navigate("Lose");
-
   }
 
   onBackPackPress() {
@@ -130,38 +127,49 @@ class Map extends React.Component {
           }
         >
           <Timer />
-          {this.state.markers.map(marker => (
-            <Marker
-              //image={marker.img}
-              key={marker.id}
-              coordinate={marker}
-              //height={100}
-              //image={require('../../assets/instructionPics/placeholder.png')}
-              onPress={() => {
-                const clueUnlocked = this.props.inventory.find(
-                  item => item.name === `${marker.unlock}`
-                );
-                if (
-                  this.distanceToMarker(this.state.userLocation, {
-                    latitude: marker.latitude,
-                    longitude: marker.longitude
-                  }) > inRange
-                ) {
-                  Alert.alert('Not close enough!');
-                } else if (
-                  marker.id !== 1 &&
-                  marker.id !== 4 &&
-                  !clueUnlocked
-                ) {
-                  Alert.alert(`${marker.lockedMessage}`);
-                } else {
-                  Alert.alert(`${marker.unlockedMessage}`);
-                  this.props.navigation.navigate(`ARClue${marker.id}`);
-                  this.state.markers.shift()
-                }
-              }}
-            />
-          ))}
+          {this.state.markers.map(marker => {
+            return (
+              <Marker
+                key={marker.id}
+                coordinate={marker}
+                //height={100}
+                //image={require('../../assets/instructionPics/placeholder.png')}
+                onPress={() => {
+                  const clueUnlocked = this.props.inventory.find(
+                    item => item.name === `${marker.unlock}`
+                  );
+                  if (
+                    this.distanceToMarker(this.state.userLocation, {
+                      latitude: marker.latitude,
+                      longitude: marker.longitude
+                    }) > inRange
+                  ) {
+                    Alert.alert('Not close enough!');
+                  } else if (
+                    marker.id !== 1 &&
+                    marker.id !== 4 &&
+                    !clueUnlocked
+                  ) {
+                    Alert.alert(`${marker.lockedMessage}`);
+                  } else {
+                    Alert.alert(
+                      `${marker.unlockedMessage}`,
+                      null,
+                      [
+                        {
+                          text: `View ${marker.name}`, onPress: () => {
+                            this.props.navigation.navigate(`ARClue${marker.id}`);
+                            this.state.markers.shift()
+                          }
+                        }
+                      ]
+                    )
+                  }
+                }}
+              />
+            )
+          }
+          )}
         </MapView>
         <View justifyContent="space-between" flexDirection="row" padding={1}>
           <View marginLeft={5} style={styles.quitButtonContainer}>
@@ -283,8 +291,8 @@ class Map extends React.Component {
     return this.state.initialRegion.latitude ? (
       <React.Fragment>{this.renderMap(id)}</React.Fragment>
     ) : (
-      <React.Fragment>{this.renderLoading()}</React.Fragment>
-    );
+        <React.Fragment>{this.renderLoading()}</React.Fragment>
+      );
   }
 }
 

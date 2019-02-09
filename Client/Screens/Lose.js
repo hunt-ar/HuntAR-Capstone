@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, View, Image, Keyboard } from 'react-native';
+import { View, Image, Keyboard } from 'react-native';
 import { RkText, RkAvoidKeyboard, RkStyleSheet } from 'react-native-ui-kitten';
 import { connect } from 'react-redux';
 import { clearInventoryAction } from '../store/inventory';
