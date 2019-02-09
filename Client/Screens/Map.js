@@ -25,7 +25,7 @@ import { Audio } from 'expo'
 
 //get within range of marker to be able to render AR
 const inRange = 1000;
-const startTime = 80;
+const startTime = 120;
 const loadImage = require('../../assets/loading.gif');
 
 class Map extends React.Component {
@@ -81,9 +81,7 @@ class Map extends React.Component {
           })
         })
       })
-
     this.props.navigation.navigate("Lose");
-
   }
 
   onBackPackPress() {
@@ -128,14 +126,8 @@ class Map extends React.Component {
         >
           <Timer />
           {this.state.markers.map(marker => {
-            let count = {};
-            let count1 = 0;
-            let count2 = 0;
-            let count3 = 0;
             return (
-              // return `count${marker.id}` === 0 ? (
               <Marker
-                //image={marker.img}
                 key={marker.id}
                 coordinate={marker}
                 //height={100}
@@ -167,22 +159,15 @@ class Map extends React.Component {
                       [
                         {
                           text: `View ${marker.name}`, onPress: () => {
-                            //trying to increment count so marker will no longer render
-                            // `count${marker.id}`
                             this.props.navigation.navigate(`ARClue${marker.id}`);
                           }
                         }
                       ]
                     )
-                    // Alert.alert(`${marker.unlockedMessage}`);
-                    // this.props.navigation.navigate(`ARClue${marker.id}`);
                   }
                 }}
               />
-              // ) : null;
             )
-
-
           }
           )}
         </MapView>
@@ -246,7 +231,6 @@ class Map extends React.Component {
                 position.coords.longitude,
               id: 1,
               unlockedMessage: 'You found a shovel.',
-              markerVisible: true
             },
             {
               name: 'Chest',
@@ -257,8 +241,7 @@ class Map extends React.Component {
               lockedMessage:
                 "You found a chest! But its locked and you can't open it.",
               unlockedMessage:
-                'You found a chest! Maybe this key will open it.',
-              markerVisible: true
+                'You found a chest! Maybe the key you found will open it.',
             },
             {
               name: 'Key',
@@ -274,7 +257,6 @@ class Map extends React.Component {
               lockedMessage: "Looks like something's buried here.",
               unlockedMessage:
                 'You use the shovel to dig up a tarnished old key.',
-              markerVisible: true
             }
           ]
         });
@@ -318,23 +300,10 @@ class Map extends React.Component {
             })
           })
         })
-
     }
 
     //Bomb renders because user has accessed all three clues
     if (this.props.inventory.length === 3 && this.state.markers.length === 3) {
-      //this is a double alert to the one in AR2 (Chest/Note!)
-      // Alert.alert(
-      //   'Inside the chest is a crumpled note with a message. It looks like a code.',
-      //   null,
-      //   [
-      //     {
-      //       text: 'View code', onPress: () => {
-      //         this.props.navigation.navigate('Inventory');
-      //       }
-      //     }
-      //   ]
-      // );
       const lat = this.state.userLocation.latitude + 0.0003;
       const lon = this.state.userLocation.longitude + 0.0003;
       let bombMarker = [

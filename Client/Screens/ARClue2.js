@@ -49,7 +49,7 @@ class ARClue2 extends React.Component {
   onButtonPress() {
     this.props.addItem(this.state.chest);
     Alert.alert(
-      'Inside the chest is a crumpled note with a message. It looks like a code.',
+      'Inside the chest is a crumpled note with a message. It looks like a code. Check your inventory!',
       null,
       [
         {
