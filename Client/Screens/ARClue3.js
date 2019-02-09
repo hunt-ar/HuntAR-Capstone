@@ -114,7 +114,7 @@ class ARClue3 extends React.Component {
         this.scene.add(object);
       }.bind(this),
       function(error) {
-        console.log(error);
+        console.log('Error occured in ARClue3:', error);
       }
     );
 

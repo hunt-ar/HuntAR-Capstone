@@ -100,7 +100,7 @@ class ARClue1 extends React.Component {
         this.scene.add(object);
       }.bind(this),
       function(error) {
-        console.log(error);
+        console.log('Error occured in ARClue1:', error);
       }
     );
 

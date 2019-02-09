@@ -26,8 +26,6 @@ export default class Home extends React.Component {
         this.setState({
           isAnonymous: user.isAnonymous
         })
-        console.log(user.uid)
-        
       } else {
         firebase.auth().signInAnonymously()
           .catch(function(error) {
