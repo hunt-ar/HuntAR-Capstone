@@ -38,6 +38,7 @@ class StoryConcept extends React.Component {
       position => {
         let markers = [
           {
+            name: 'Shovel',
             latitude: 0.0002 + position.coords.latitude,
             longitude:
               Math.random() * (0.0004 - 0.0002) +
@@ -49,6 +50,7 @@ class StoryConcept extends React.Component {
           {
             // latitude: 0.0003 + position.coords.latitude,
             // longitude: position.coords.longitude - 0.0003,
+            name: 'Key',
             latitude: Math.random() * (0.0004 - 0.0002) +
             0.0002 + position.coords.latitude,
             longitude: position.coords.longitude - 0.0002,
@@ -61,6 +63,7 @@ class StoryConcept extends React.Component {
           {
             // latitude: position.coords.latitude - 0.0002,
             // longitude: position.coords.longitude - 0.0002,
+            name: 'Chest',
             latitude: Math.random() * (0.0004 - 0.0002) -
             0.0002 + position.coords.latitude,
             longitude:
@@ -77,6 +80,7 @@ class StoryConcept extends React.Component {
         ];
         let bomb = [
           {
+            name: 'Bomb',
             latitude: Math.random() * (0.0004 - 0.0002) +
             0.0002 + position.coords.latitude,
             longitude:
