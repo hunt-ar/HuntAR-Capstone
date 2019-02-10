@@ -5,12 +5,12 @@ import { connect } from 'react-redux';
 import firebase from 'firebase';
 import { db } from '../store';
 import AwesomeButton from 'react-native-really-awesome-button';
+import geolib from 'geolib'
 
 const time = require('../../assets/instructionPics/alarm-clock.png');
 const backpack = require('../../assets/instructionPics/briefcase.png');
 const tap = require('../../assets/instructionPics/question.png');
 const marker = require('../../assets/instructionPics/placeholder.png');
-const order = require('../../assets/instructionPics/choice.png');
 
 class StoryConcept extends React.Component {
   constructor() {
@@ -21,7 +21,7 @@ class StoryConcept extends React.Component {
   }
 
   componentDidMount() {
-    if (firebase.auth().currentUser){
+    if (firebase.auth().currentUser) {
       this.setState({ user: firebase.auth().currentUser })
     }
   }
@@ -32,7 +32,6 @@ class StoryConcept extends React.Component {
 
   handleStartGame = () => {
     //creates an instance of a game with the user's ID referenced and generates the coordinates.
-    const randomDistance = Math.random() * (0.0002 - 0.0001) + 0.0001;
 
     navigator.geolocation.getCurrentPosition(
       position => {
@@ -41,57 +40,84 @@ class StoryConcept extends React.Component {
             name: 'Shovel',
             latitude: 0.0002 + position.coords.latitude,
             longitude:
-              Math.random() * (0.0004 - 0.0002) +
+              Math.random() * (0.0002) -
               0.0001 +
               position.coords.longitude,
             id: 1,
             unlockedMessage: 'You found a shovel.'
-          },
-          {
-            // latitude: 0.0003 + position.coords.latitude,
-            // longitude: position.coords.longitude - 0.0003,
-            name: 'Key',
-            latitude: Math.random() * (0.0004 - 0.0002) +
-            0.0002 + position.coords.latitude,
-            longitude: position.coords.longitude - 0.0002,
-            id: 3,
-            unlock: 'Shovel',
-            lockedMessage: "Looks like something's buried here.",
-            unlockedMessage:
-            'You use the shovel to dig up a tarnished old key.'
-          },
-          {
-            // latitude: position.coords.latitude - 0.0002,
-            // longitude: position.coords.longitude - 0.0002,
-            name: 'Chest',
-            latitude: Math.random() * (0.0004 - 0.0002) -
-            0.0002 + position.coords.latitude,
-            longitude:
-              position.coords.longitude +
-              Math.random() * (0.0004 - 0.0002) -
-              0.0002,
-            id: 2,
-            unlock: 'Key',
-            lockedMessage:
-            "You found a chest! But its locked and you can't open it.",
-            unlockedMessage:
-            'You open the chest! Inside is a crumpled up note with a message scribbled on it. Looks like a code.'
           }
         ];
+        while (markers.length < 3) {
+          let newCoordinate = {
+            latitude: Math.random() * (0.0012) - 0.0006 + position.coords.latitude,
+            longitude: Math.random() * (0.0012) - 0.0006 + position.coords.longitude
+          }
+          if (!markers.some(oneMarker => geolib.getDistance(newCoordinate, oneMarker, 1) < 20)) {
+            markers.push(newCoordinate);
+          }
+        }
+        Object.assign(markers[1], {
+          name: 'Key',
+          id: 3,
+          unlock: 'Shovel',
+          lockedMessage: "Looks like something's buried here.",
+          unlockedMessage: 'You use the shovel to dig up a tarnished old key.'
+        });
+        Object.assign(markers[2], {
+          name: 'Chest',
+          id: 2,
+          unlock: 'Key',
+          lockedMessage: "You found a chest! But its locked and you can't open it.",
+          unlockedMessage: 'You open the chest! Inside is a crumpled up note with a message scribbled on it. Looks like a code.'
+        });
+
+        //   },
+        //   {
+        //     // latitude: 0.0003 + position.coords.latitude,
+        //     // longitude: position.coords.longitude - 0.0003,
+        //     name: 'Key',
+        //     latitude: Math.random() * (0.0004 - 0.0002) +
+        //     0.0002 + position.coords.latitude,
+        //     longitude: position.coords.longitude - 0.0002,
+        //     id: 3,
+        //     unlock: 'Shovel',
+        //     lockedMessage: "Looks like something's buried here.",
+        //     unlockedMessage:
+        //     'You use the shovel to dig up a tarnished old key.'
+        //   },
+        //   {
+        //     // latitude: position.coords.latitude - 0.0002,
+        //     // longitude: position.coords.longitude - 0.0002,
+        //     name: 'Chest',
+        //     latitude: Math.random() * (0.0004 - 0.0002) -
+        //     0.0002 + position.coords.latitude,
+        //     longitude:
+        //       position.coords.longitude +
+        //       Math.random() * (0.0004 - 0.0002) -
+        //       0.0002,
+        //     id: 2,
+        //     unlock: 'Key',
+        //     lockedMessage:
+        //     "You found a chest! But its locked and you can't open it.",
+        //     unlockedMessage:
+        //     'You open the chest! Inside is a crumpled up note with a message scribbled on it. Looks like a code.'
+        //   }
+        // ];
+
         let bomb = [
           {
             name: 'Bomb',
             latitude: Math.random() * (0.0004 - 0.0002) +
-            0.0002 + position.coords.latitude,
+              0.0002 + position.coords.latitude,
             longitude:
-              Math.random() * (0.0004 - 0.0002) -
+              Math.random() * (0.0002) -
               0.0002 +
               position.coords.longitude,
             id: 4,
             unlockedMessage: 'You found the bomb!'
           }
         ];
-        
+
         db.collection('games').add({
           open: true,
           users: [this.state.user.uid],
@@ -103,7 +129,6 @@ class StoryConcept extends React.Component {
       error => console.log({ error: error.message }),
       { enableHighAccuracy: true, timeout: 2000, maximumAge: 2000 }
     );
-
     this.props.navigation.navigate('Map');
   };
 
