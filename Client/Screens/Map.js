@@ -8,7 +8,8 @@ import {
 } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
-import { Inventory, Timer } from './index';
+import Inventory from './Inventory';
+import Timer from './Timer';
 import MapStyle from '../../assets/mapStyle';
 import { styles } from '../../assets/styles';
 import { MaterialCommunityIcons as Icon } from 'react-native-vector-icons';
