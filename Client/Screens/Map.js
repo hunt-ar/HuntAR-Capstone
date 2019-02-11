@@ -25,8 +25,8 @@ import { db } from '../store';
 import { Audio } from 'expo'
 
 //get within range of marker to be able to render AR
-const inRange = 1000;
-const startTime = 370;
+const inRange = 15;
+const startTime = 250;
 const loadImage = require('../../assets/loading.gif');
 const bufferDistance = 18;
 
