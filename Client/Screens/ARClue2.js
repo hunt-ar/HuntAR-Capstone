@@ -35,7 +35,7 @@ class ARClue2 extends React.Component {
       null,
       [
         {
-          text: 'Add key to inventory', onPress: () => {
+          text: 'Ok', onPress: () => {
             this.props.navigation.navigate('Map');
           }
         }

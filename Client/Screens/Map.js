@@ -28,6 +28,7 @@ import { Audio } from 'expo'
 const inRange = 1000;
 const startTime = 370;
 const loadImage = require('../../assets/loading.gif');
+const bufferDistance = 18;
 
 class Map extends React.Component {
   constructor() {
@@ -68,7 +69,7 @@ class Map extends React.Component {
     this.props.stopTimer(id);
     //explosion sound!
     this.playSound();
-    
+
     //updates the game state to closed. User has quit game.
     const finalTime = this.props.timeRemaining
     db.collection('games')
@@ -214,18 +215,18 @@ class Map extends React.Component {
     const randomDistance = Math.random() * (0.0002 - 0.0001) + 0.0001;
     navigator.geolocation.getCurrentPosition(
       position => {
-          let initialRegion = {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            latitudeDelta: 0.001,
-            longitudeDelta: 0.001,
-            error: null
-          }
+        let initialRegion = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          latitudeDelta: 0.001,
+          longitudeDelta: 0.001,
+          error: null
+        }
 
         this.setState({
           initialRegion,
         })
-        
+
       },
       error => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 2000, maximumAge: 2000 }
@@ -242,11 +243,72 @@ class Map extends React.Component {
         });
       })
     })
-    
+
   }
 
   async componentDidUpdate(id) {
     //Time has gone to zero. User loses and is directed to the lose screen.
+    if (this.state.markers.length === 0 && this.props.inventory.length === 0) {
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          let markers = [
+            {
+              name: 'Shovel',
+              latitude:
+                Math.random() * (0.0002) - 0.0001 + position.coords.latitude,
+              longitude:
+                Math.random() * (0.0002) - 0.0001 + position.coords.longitude,
+              id: 1,
+              unlockedMessage: 'You found a shovel.'
+            }
+          ];
+          while (markers.length < 3) {
+            let newCoordinate = {
+              latitude: Math.random() * (0.001) - 0.0006 + position.coords.latitude,
+              longitude: Math.random() * (0.001) - 0.0006 + position.coords.longitude
+            }
+            if (!markers.some(oneMarker => geolib.getDistance(newCoordinate, oneMarker, 1) < bufferDistance)) {
+              markers.push(newCoordinate);
+            }
+          }
+          Object.assign(markers[1], {
+            name: 'Key',
+            id: 3,
+            unlock: 'Shovel',
+            lockedMessage: "Looks like something's buried here.",
+            unlockedMessage: 'You use the shovel to dig up a tarnished old key.'
+          });
+          Object.assign(markers[2], {
+            name: 'Chest',
+            id: 2,
+            unlock: 'Key',
+            lockedMessage: "You found a chest! But its locked and you can't open it.",
+            unlockedMessage: 'You found a chest! Maybe the key will open it.'
+          });
+
+          let bomb = [
+            {
+              name: 'Bomb',
+              latitude: Math.random() * (0.0002) -
+                0.0002 + position.coords.latitude,
+              longitude:
+                Math.random() * (0.0002) -
+                0.0002 +
+                position.coords.longitude,
+              id: 4,
+              unlockedMessage: 'You found the bomb! Do you remember the code to disarm it??'
+            }
+          ];
+
+          this.setState({
+            markers,
+            bomb
+          })
+
+        },
+      )
+    }
+
     if (this.props.timeRemaining === 0 && this.props.id !== 0) {
       if (this.state.BackPackVisible) {
         this.setState({
@@ -258,21 +320,21 @@ class Map extends React.Component {
       await this.props.resetTimer();
       this.props.navigation.navigate('Lose');
 
-    //updates the game state to closed. User is a loser.
-    const finalTime = this.props.timeRemaining
-    db.collection('games')
-      .where('users', 'array-contains', this.state.user.uid)
-      .where('open', '==', true)
-      .get()
-      .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-          db.collection('games').doc(doc.id).update({
-            open: false,
-            time: finalTime,
-            win: false
+      //updates the game state to closed. User is a loser.
+      const finalTime = this.props.timeRemaining
+      db.collection('games')
+        .where('users', 'array-contains', this.state.user.uid)
+        .where('open', '==', true)
+        .get()
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            db.collection('games').doc(doc.id).update({
+              open: false,
+              time: finalTime,
+              win: false
+            })
           })
         })
-      })
     }
 
     //Bomb renders because user has accessed all three clues

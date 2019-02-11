@@ -68,7 +68,7 @@ class StoryConcept extends React.Component {
           id: 2,
           unlock: 'Key',
           lockedMessage: "You found a chest! But its locked and you can't open it.",
-          unlockedMessage: 'You open the chest! Inside is a crumpled up note with a message scribbled on it. Looks like a code.'
+          unlockedMessage: 'You found a chest! Maybe the key will open it.'
         });
 
         //   },
@@ -114,7 +114,7 @@ class StoryConcept extends React.Component {
               0.0002 +
               position.coords.longitude,
             id: 4,
-            unlockedMessage: 'You found the bomb!'
+            unlockedMessage: 'You found the bomb! Do you remember the code to disarm it??'
           }
         ];
 

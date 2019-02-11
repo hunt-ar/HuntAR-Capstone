@@ -86,7 +86,7 @@ class ARClue3 extends React.Component {
               width={200}
               textSize={20}
             >
-              Pick up note
+              Open chest
             </AwesomeButton>
           </View>
         </View>
