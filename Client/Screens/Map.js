@@ -25,7 +25,7 @@ import { db } from '../store';
 import { Audio } from 'expo'
 
 //get within range of marker to be able to render AR
-const inRange = 15;
+const inRange = 100;
 const startTime = 250;
 const loadImage = require('../../assets/loading.gif');
 const bufferDistance = 18;
@@ -246,6 +246,7 @@ class Map extends React.Component {
 
   }
 
+  // eslint-disable-next-line complexity
   async componentDidUpdate(id) {
     //Time has gone to zero. User loses and is directed to the lose screen.
     if (this.state.markers.length === 0 && this.props.inventory.length === 0) {
@@ -307,6 +308,12 @@ class Map extends React.Component {
 
         },
       )
+    }
+
+    if (this.state.markers.length === 0 && this.props.inventory.length === 3 && this.state.markers.length === 0) {
+      this.setState({
+        markers: this.state.bomb
+      })
     }
 
     if (this.props.timeRemaining === 0 && this.props.id !== 0) {
